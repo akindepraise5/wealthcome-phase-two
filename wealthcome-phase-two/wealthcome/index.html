@@ -1,0 +1,2418 @@
+<!--
+TO CONFIRM BEFORE SENDING
+- Section 4 (logo marquee under the hero): confirm authorization to display each supplied logo and whether the brands are current Wealthcome clients. The marquee does not claim a client relationship.
+- Section 8 (demo dialog): confirm the statement that an expert will contact the visitor within 24 hours.
+- Section 9 (testimonials): confirm the supplied quotes and attributions are authentic, approved for publication, and accurate in both language versions.
+-->
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f4f5f7">
+<meta name="description" content="">
+<meta property="og:type" content="website">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="./wealthcome-social-preview.png">
+<meta property="og:image:alt" content="">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="./wealthcome-social-preview.png">
+<title></title>
+<style>
+:root {
+  color-scheme: light;
+  --ink: #11202c;
+  --muted: #667381;
+  --blue: #1761f3;
+  --line: #e3e6eb;
+  --paper: #fff;
+  --canvas: #f4f5f7;
+  --ease: cubic-bezier(.22,.75,.25,1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, a { font: inherit; -webkit-tap-highlight-color: transparent; }
+button { color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible, input:focus-visible {
+  outline: 3px solid #1761f3;
+  outline-offset: 4px;
+}
+::selection { background: #d5e4ff; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-weight: 500; }
+p { line-height: 1.6; }
+svg { display: block; }
+[hidden] { display: none !important; }
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  inset-inline-start: 12px;
+  padding: 12px 16px;
+  transform: translateY(-160%);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.skip-link:focus { transform: translateY(0); }
+.concept-banner {
+  padding: 8px 16px;
+  background: #10243b;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin-block-start: 0;
+  border-bottom: 1px solid #e9edf2;
+  background: rgb(255 255 255 / 96%);
+  backdrop-filter: blur(12px);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: min(100%, 1440px);
+  min-height: 76px;
+  margin: 0 auto;
+  padding: 10px clamp(18px, 4vw, 52px);
+}
+.brand {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0;
+}
+.brand img { display: block; width: 112px; height: auto; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2.2vw, 30px);
+  margin-inline: auto;
+  color: #46515c;
+  font-size: 13px;
+}
+.nav-links a { padding: 10px 0; }
+.nav-links a:hover { color: var(--blue); }
+.language-switch { display: inline-flex; gap: 2px; }
+.language-switch button {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.language-switch button[aria-pressed="true"] {
+  background: #edf3ff;
+  color: #174fad;
+}
+.demo-button, .primary-button, .secondary-button, .menu-button, .dialog-close, .back-button, .next-button, .close-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+.demo-button, .primary-button, .next-button {
+  padding: 0 17px;
+  background: #18232f;
+  color: white;
+}
+.demo-button:hover, .primary-button:hover, .next-button:hover { background: #2c3d4c; }
+.demo-button { border-color: #4b4cff; background: #4b4cff; }
+.demo-button:hover { border-color: #3839e8; background: #3839e8; }
+.demo-button:active, .primary-button:active, .secondary-button:active, .next-button:active { transform: scale(.96); }
+.demo-button svg, .primary-button svg, .tile-destination svg, .detail-link svg {
+  width: 15px;
+  height: 15px;
+}
+.text-link svg, .next-button svg, .back-button svg { width: 15px; height: 15px; }
+.mobile-demo-label { display: none; }
+.menu-button {
+  display: none;
+  width: 44px;
+  padding: 0;
+  border-color: var(--line);
+  background: white;
+}
+.menu-button svg { width: 19px; height: 19px; }
+.page-shell { width: min(100%, 1536px); margin: 0 auto; padding: 0 14px; }
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-block-end: 12px;
+  padding: 0 0 46px;
+  border-radius: 0 0 28px 28px;
+  background: #2879ed;
+  color: #fff;
+}
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 88% 100%, #d5eeff 0%, transparent 42%),
+    radial-gradient(ellipse at 5% 85%, #97c8ff 0%, transparent 45%),
+    linear-gradient(125deg, #347ef6, #1667e9 55%, #58a0fc);
+  content: "";
+}
+.hero-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  align-items: end;
+  gap: clamp(35px, 8vw, 110px);
+  width: min(100%, 1232px);
+  margin: 0 auto;
+  padding: 67px 48px 40px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-block-end: 18px;
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+.eyebrow::before {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+.hero h1 {
+  max-width: 720px;
+  font-size: clamp(46px, 5.8vw, 76px);
+  line-height: 1.03;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+.hero h1 span { color: #d4e7ff; }
+.hero-copy { max-width: 410px; padding-block-end: 4px; }
+.hero-copy p { margin-block-end: 22px; color: #f0f5ff; font-size: 16px; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.hero-actions .primary-button { background: #fff; color: #123e7c; }
+.hero-actions .primary-button:hover { background: #eef5ff; }
+.text-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 2px;
+  color: white;
+  font-size: 13px;
+}
+.text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.dashboard-wrap {
+  width: min(100%, 1110px);
+  margin: 0 auto;
+  padding: 0 22px;
+  perspective: 1400px;
+}
+.dashboard {
+  overflow: hidden;
+  padding: 9px;
+  border: 1px solid rgb(255 255 255 / 72%);
+  border-radius: 19px;
+  background: rgb(255 255 255 / 24%);
+  box-shadow: 0 24px 70px rgb(7 52 105 / 22%), 0 0 0 6px rgb(255 255 255 / 10%);
+  color: #21344b;
+  transform: rotateX(2deg) rotateY(-2deg);
+}
+.dashboard-top {
+  display: flex;
+  min-height: 33px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 9px 7px;
+  color: #194277;
+  font-size: 10px;
+}
+.dashboard-dots { display: flex; gap: 5px; }
+.dashboard-dots i { width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+.dashboard-screen {
+  display: grid;
+  grid-template-columns: 155px minmax(0, 1fr);
+  min-height: 362px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 11px;
+  background: white;
+}
+.dashboard-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 20px 12px;
+  border-inline-end: 1px solid #e8edf5;
+  background: #f8fafd;
+  color: #77869a;
+  font-size: 11px;
+}
+.dashboard-logo { margin: 1px 8px 16px; color: #203750; font-size: 16px; font-weight: 650; }
+.dashboard-nav-item { padding: 9px 10px; border-radius: 6px; }
+.dashboard-nav-item:first-of-type { background: #eaf0fe; color: #2969db; }
+.dashboard-body { min-width: 0; padding: 0 20px 19px; }
+.dashboard-head {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: 15px;
+  border-block-end: 1px solid #edf0f5;
+  color: #7b899c;
+  font-size: 10px;
+}
+.dashboard-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-block-end: 16px;
+}
+.dashboard-heading h2 { margin-block-end: 4px; font-size: 20px; letter-spacing: -.03em; }
+.dashboard-heading p { color: #8894a4; font-size: 10px; }
+.fiction-tag {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  border: 1px solid #dce6f1;
+  border-radius: 5px;
+  color: #53677d;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+}
+.dashboard-metrics { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 10px; }
+.dashboard-metric { min-width: 0; padding: 12px; border: 1px solid #e8edf5; border-radius: 8px; }
+.dashboard-metric:first-child { background: #f3f7ff; border-color: #e4edff; }
+.dashboard-metric span { display: block; margin-block-end: 7px; color: #758397; font-size: 10px; }
+.dashboard-metric strong { display: block; font-size: clamp(16px, 2vw, 24px); font-weight: 600; letter-spacing: -.04em; }
+.dashboard-metric small { display: block; margin-block-start: 5px; color: #91a0b0; font-size: 9px; }
+.dashboard-chart {
+  position: relative;
+  height: 137px;
+  margin-block-start: 13px;
+  padding: 12px 13px 8px;
+  border: 1px solid #e8edf5;
+  border-radius: 8px;
+}
+.dashboard-chart-title { margin-block-end: 7px; color: #617189; font-size: 10px; }
+.chart-lines {
+  position: absolute;
+  inset: 37px 13px 19px;
+  background: repeating-linear-gradient(to bottom, transparent 0 24px, #edf1f7 25px 26px);
+}
+.chart-lines svg { width: 100%; height: 100%; overflow: visible; }
+.dashboard-axis { display: flex; justify-content: space-between; margin-block-start: 88px; color: #8997a8; font-size: 9px; }
+.hero-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: min(100%, 1050px);
+  margin: 28px auto 0;
+  padding: 0 22px;
+}
+.hero-note {
+  display: flex;
+  gap: 12px;
+  color: #edf4ff;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.hero-note span { flex: 0 0 auto; color: #c4ddff; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.logo-marquee {
+  position: relative;
+  overflow: hidden;
+  margin-block-end: 12px;
+  padding-block: 23px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+}
+.logo-marquee:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.logo-marquee-track { display: flex; width: max-content; animation: logo-marquee-right 46s linear infinite; }
+.logo-marquee:hover .logo-marquee-track, .logo-marquee:focus-within .logo-marquee-track { animation-play-state: paused; }
+.logo-marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(44px, 6vw, 86px);
+  padding-inline: clamp(24px, 4vw, 54px);
+}
+.logo-marquee-group img {
+  display: block;
+  width: auto;
+  height: 30px;
+  max-width: 172px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: .68;
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+.logo-marquee:hover .logo-marquee-group img, .logo-marquee:focus-within .logo-marquee-group img { filter: grayscale(0); opacity: 1; }
+@keyframes logo-marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.section-panel {
+  margin-block-end: 12px;
+  padding: clamp(48px, 7vw, 88px) 0;
+  border-radius: 28px;
+  background: var(--paper);
+}
+.section-inner { width: min(100%, 1232px); margin: 0 auto; padding: 0 48px; }
+.section-heading { max-width: 760px; margin-block-end: 34px; }
+.section-kicker {
+  margin-block-end: 14px;
+  color: #586778;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: .05em;
+}
+.section-heading h2 {
+  font-size: clamp(35px, 4.6vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -.05em;
+  text-wrap: balance;
+}
+.section-heading p { max-width: 620px; margin-block-start: 16px; color: var(--muted); font-size: 16px; }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(210px, auto);
+  gap: 14px;
+}
+.product-tile {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  padding: clamp(22px, 2.5vw, 34px);
+  border: 1px solid #e0e5eb;
+  border-radius: 18px;
+  background: #fff;
+  cursor: pointer;
+  isolation: isolate;
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+.product-tile::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: radial-gradient(340px circle at var(--spot-x) var(--spot-y), rgb(35 105 230 / 10%), transparent 68%);
+  content: "";
+  opacity: 0;
+  transition: opacity 150ms ease;
+  pointer-events: none;
+}
+.product-tile:hover, .product-tile:focus-visible {
+  border-color: #b8cbe5;
+  box-shadow: 0 12px 28px rgb(18 43 74 / 7%);
+}
+.product-tile:hover::before, .product-tile:focus-visible::before { opacity: 1; }
+.product-tile > * { position: relative; z-index: 1; }
+.product-tile--wealthpro { grid-column: span 7; grid-row: span 2; background: linear-gradient(180deg, #f8fbff, #fff 72%); }
+.product-tile--binom { grid-column: span 5; }
+.product-tile--connect { grid-column: span 5; }
+.product-tile--lab, .product-tile--treet { grid-column: span 4; }
+.product-tile--one { grid-column: span 4; background: #f7f9fc; }
+.tile-meta { display: flex; min-height: 34px; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.tile-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #dfe8f6;
+  border-radius: 9px;
+  background: #f1f6ff;
+  color: var(--blue);
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.tile-icon svg { width: 17px; height: 17px; }
+.product-tile:hover .tile-icon, .product-tile:focus-visible .tile-icon { border-color: var(--blue); background: var(--blue); color: #fff; }
+.group-label {
+  color: #667381;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+.status-tag {
+  margin-inline-start: auto;
+  padding: 5px 8px;
+  border: 1px solid #dce5ef;
+  border-radius: 5px;
+  color: #53677d;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.product-tile h3 { margin-block: 22px 8px; font-size: clamp(23px, 2.5vw, 34px); letter-spacing: -.045em; }
+.product-tile--wealthpro h3 { font-size: clamp(33px, 4vw, 52px); }
+.tile-copy { max-width: 48ch; color: #647180; font-size: 14px; line-height: 1.55; text-wrap: pretty; }
+.tile-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-block-start: 20px;
+  padding-block-start: 16px;
+  border-block-start: 1px solid #edf1f5;
+}
+.tile-hint { color: #727f8d; font-size: 12px; }
+.tile-destination {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #dce2e9;
+  border-radius: 50%;
+  background: #fff;
+  color: #26384a;
+}
+.tile-destination:hover, .product-tile:hover .tile-destination { border-color: #9fb9dc; color: var(--blue); }
+.tile-destination svg { width: 16px; height: 16px; transition: transform 150ms ease; }
+.product-tile:hover .tile-destination svg { transform: translate(2px, -2px); }
+.tile-visual {
+  position: relative;
+  display: flex;
+  min-height: 136px;
+  flex: 1 1 auto;
+  align-items: end;
+  gap: 10px;
+  overflow: hidden;
+  margin-block-start: 22px;
+  padding: 19px;
+  border: 1px solid #e1eaf5;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #f4f8ff, #fff);
+}
+.tile-visual--wealthpro { min-height: 230px; flex-direction: column; align-items: stretch; gap: 14px; }
+.tile-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.tile-pills span { padding: 5px 10px; border: 1px solid #dce7f7; border-radius: 999px; background: #fff; color: #33507a; font-size: 11px; white-space: nowrap; }
+.tile-stats { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; }
+.tile-stats div { min-width: 0; padding: 11px 12px; border: 1px solid #e4edf9; border-radius: 9px; background: #fff; }
+.tile-stats div:first-child { border-color: #dbe7fb; background: #f3f7ff; }
+.tile-stats span { display: block; margin-block-end: 5px; color: #758397; font-size: 10px; line-height: 1.35; overflow-wrap: anywhere; }
+.tile-stats strong { display: block; color: #21344b; font-size: clamp(16px, 1.7vw, 21px); font-weight: 600; letter-spacing: -.04em; white-space: nowrap; }
+.tile-chart-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #617189; font-size: 11px; }
+.tile-chart-head span:last-child { color: #8391a3; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; }
+.tile-bars {
+  display: flex;
+  min-height: 110px;
+  flex: 1 1 auto;
+  align-items: end;
+  gap: clamp(5px, 1vw, 10px);
+  background: repeating-linear-gradient(to top, #edf1f7 0 1px, transparent 1px 28px);
+}
+.tile-bars span { max-width: 34px; height: var(--h); flex: 1; margin-inline: auto; border-radius: 5px 5px 2px 2px; background: #b8d1f6; }
+.tile-axis { display: flex; justify-content: space-between; margin-block-start: -6px; color: #8997a8; font-size: 10px; }
+.tile-bars span:nth-child(3n + 2) { background: #a6c5f4; }
+.tile-bars span:nth-child(3n) { background: #83b0f3; }
+.tile-bars span:last-child { background: #4a88e8; }
+.tile-visual--binom { align-items: center; justify-content: center; gap: 10px; }
+.tile-note, .tile-file {
+  display: grid;
+  max-width: 150px;
+  flex: 1 1 0;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #e1eaf5;
+  border-radius: 9px;
+  background: #fff;
+}
+.tile-note span { height: 6px; border-radius: 4px; background: #dce7f5; }
+.tile-note span:nth-child(2) { width: 82%; }
+.tile-note span:nth-child(4) { width: 58%; }
+.tile-file span { display: flex; align-items: center; gap: 7px; }
+.tile-file span::after { height: 6px; flex: 1; border-radius: 4px; background: #c6d8f0; content: ""; }
+.tile-file i { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: #4a88e8; }
+.tile-file span:nth-child(3) i { background: #c6d8f0; }
+.tile-flow { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #eaf2ff; color: #4a88e8; }
+.tile-flow svg { width: 14px; height: 14px; }
+.tile-visual--connect { justify-content: center; padding-block-end: 0; }
+.tile-phone {
+  display: grid;
+  width: 104px;
+  height: 112px;
+  flex: 0 0 auto;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  padding: 14px 12px 0;
+  border: 1px solid #cddbef;
+  border-block-end: 0;
+  border-radius: 18px 18px 0 0;
+  background: #fff;
+}
+.tile-ring {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: conic-gradient(#4a88e8 0 46%, #83b0f3 0 74%, #b8d1f6 0 90%, #dce7f5 0);
+  -webkit-mask: radial-gradient(circle, transparent 13px, #000 14px);
+  mask: radial-gradient(circle, transparent 13px, #000 14px);
+}
+.tile-phone > span:not(.tile-ring) { width: 100%; height: 6px; border-radius: 4px; background: #dce7f5; }
+.tile-phone > span:last-child { width: 68%; }
+.tile-bubble {
+  position: absolute;
+  inset-block-start: 22px;
+  inset-inline-start: calc(50% + 38px);
+  display: grid;
+  width: 72px;
+  gap: 5px;
+  padding: 8px;
+  border: 1px solid #dfe8f6;
+  border-radius: 10px 10px 10px 3px;
+  background: #f1f6ff;
+}
+.tile-bubble span { height: 5px; border-radius: 3px; background: #b8d1f6; }
+.tile-bubble span:last-child { width: 60%; }
+.tile-visual--lab { flex-direction: column; justify-content: center; align-items: stretch; gap: 22px; padding-inline: 24px; }
+.tile-slider { position: relative; height: 6px; border-radius: 4px; background: #e3ecf8; }
+.tile-slider::before { position: absolute; inset: 0 auto 0 0; width: var(--v); border-radius: inherit; background: #83b0f3; content: ""; }
+.tile-slider::after {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--v);
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #4a88e8;
+  box-shadow: 0 1px 4px rgb(18 43 74 / 25%);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+.tile-visual--treet { align-items: center; gap: 20px; }
+.tile-donut {
+  width: 84px;
+  height: 84px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: conic-gradient(#4a88e8 0 38%, #83b0f3 0 64%, #b8d1f6 0 84%, #dce7f5 0);
+  -webkit-mask: radial-gradient(circle, transparent 24px, #000 25px);
+  mask: radial-gradient(circle, transparent 24px, #000 25px);
+}
+.tile-legend { display: grid; min-width: 0; flex: 1; gap: 12px; }
+.tile-legend span { display: flex; align-items: center; gap: 8px; }
+.tile-legend span::before { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 2px; background: #4a88e8; content: ""; }
+.tile-legend span::after { height: 6px; flex: 1; border-radius: 4px; background: #dce7f5; content: ""; }
+.tile-legend span:nth-child(2) { width: 82%; }
+.tile-legend span:nth-child(2)::before { background: #83b0f3; }
+.tile-legend span:nth-child(3) { width: 64%; }
+.tile-legend span:nth-child(3)::before { background: #b8d1f6; }
+.tile-visual--one { align-items: center; justify-content: center; gap: 0; background: linear-gradient(145deg, #eef4ff, #fff); }
+.tile-node {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #dfe8f6;
+  border-radius: 12px;
+  background: #fff;
+  color: #4a88e8;
+}
+.tile-node svg { width: 18px; height: 18px; }
+.tile-node--hub { width: 56px; height: 56px; border-color: #4a88e8; background: #4a88e8; color: #fff; box-shadow: 0 0 0 6px #e3edff; }
+.tile-node--hub svg { width: 22px; height: 22px; }
+.tile-link { max-width: 56px; min-width: 14px; height: 0; flex: 1; border-block-start: 2px dashed #b8d1f6; }
+.detail-link, .primary-button, .secondary-button, .back-button, .next-button, .close-button { text-underline-offset: 4px; }
+.detail-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: #174fad;
+  font-size: 13px;
+  font-weight: 600;
+}
+.detail-link:hover { text-decoration: underline; }
+.binom-panel { background: #f8fafc; }
+.binom-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(280px, 1.1fr);
+  align-items: center;
+  gap: clamp(35px, 8vw, 110px);
+}
+.binom-copy h2 { margin-block-end: 14px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1.08; letter-spacing: -.05em; }
+.binom-copy p { max-width: 56ch; color: #637180; font-size: 15px; }
+.binom-copy .section-kicker { color: #586778; }
+.binom-card {
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px;
+  border: 1px solid #e1e6ed;
+  border-radius: 16px;
+  background: white;
+}
+.binom-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.binom-name { font-size: 18px; font-weight: 650; letter-spacing: -.03em; }
+.binom-card p { max-width: 35ch; color: #667381; font-size: 15px; }
+.binom-pill { padding: 6px 9px; border-radius: 5px; background: #eef4ff; color: #355e99; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; }
+.connect-panel { color: white; background: #183c67; }
+.connect-panel .section-kicker { color: #cadcf3; }
+.connect-panel h2 { max-width: 750px; }
+.connect-panel .section-heading p { color: #d8e4f2; }
+.connect-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-block: 32px; }
+.connect-item { padding: 20px 0 0; border-block-start: 1px solid rgb(255 255 255 / 28%); }
+.connect-item h3 { margin-block-end: 8px; color: #fff; font-size: 15px; }
+.connect-item p { color: #d8e4f2; font-size: 13px; }
+.connect-panel .primary-button { background: white; color: #173d6d; }
+.faq-layout { display: grid; grid-template-columns: minmax(240px, .75fr) minmax(0, 1.25fr); gap: clamp(40px, 8vw, 112px); }
+.faq-layout h2 { font-size: clamp(34px, 4.3vw, 50px); line-height: 1.08; letter-spacing: -.05em; text-wrap: balance; }
+.faq-list { border-block-start: 1px solid var(--line); }
+.faq-item { padding: 18px 0; border-block-end: 1px solid var(--line); }
+.faq-item h3 { margin-block-end: 7px; font-size: 16px; font-weight: 600; }
+.faq-item p { color: #667381; font-size: 14px; }
+.testimonials {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin-block-end: 12px;
+  padding: clamp(56px, 8vw, 104px) 0;
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(255 255 255 / 16%), transparent 55%),
+    radial-gradient(ellipse at 5% 90%, rgb(151 200 255 / 45%), transparent 45%),
+    linear-gradient(125deg, #347ef6, #1667e9 55%, #3f8ffb);
+  color: #fff;
+}
+.testimonials::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image: linear-gradient(rgb(255 255 255 / 6%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 6%) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 45%, #000, transparent 78%);
+  mask-image: radial-gradient(ellipse 60% 70% at 50% 45%, #000, transparent 78%);
+  content: "";
+}
+.testimonials .section-inner { max-width: 1232px; }
+.testimonials-heading { max-width: 760px; margin: 0 auto clamp(40px, 5vw, 58px); text-align: center; }
+.testimonials .section-kicker { color: #d4e7ff; }
+.testimonials-heading h2 { font-size: clamp(32px, 4.4vw, 54px); line-height: 1.06; letter-spacing: -.05em; text-wrap: balance; }
+.testimonials-intro { margin-block-start: 14px; color: #e6f0ff; font-size: 15px; }
+.testimonial-deck {
+  --deck-x: 30px;
+  --deck-y: 14px;
+  --pad-x: clamp(24px, 4.4vw, 52px);
+  --pad-y: clamp(26px, 4vw, 44px);
+  position: relative;
+  display: grid;
+  width: min(100%, 780px);
+  margin: 0 auto;
+}
+@media (hover: hover) {
+  .testimonial-deck:hover { --deck-x: 38px; --deck-y: 18px; }
+}
+.testimonial-card {
+  --deck-t: none;
+  display: flex;
+  grid-area: 1 / 1;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--pad-y) var(--pad-x);
+  border-radius: 18px;
+  background: #fff;
+  color: var(--ink);
+  transform: var(--deck-t);
+  transform-origin: 50% 100%;
+  transition: transform 700ms cubic-bezier(.2, .8, .2, 1), background-color 400ms ease, box-shadow 400ms ease;
+  user-select: none;
+  will-change: transform;
+}
+.testimonial-card[data-pos="0"] { z-index: 4; background: #fff; box-shadow: 0 30px 70px rgb(7 40 100 / 30%); touch-action: pan-y; }
+.testimonial-card[data-pos="1"] { --deck-t: translate3d(var(--deck-x), var(--deck-y), 0) rotate(2deg) scale(.95); z-index: 3; background: #f1f6ff; box-shadow: 0 18px 40px rgb(7 40 100 / 18%); cursor: pointer; }
+.testimonial-card[data-pos="2"] { --deck-t: translate3d(calc(var(--deck-x) * 1.9), calc(var(--deck-y) * 1.9), 0) rotate(3.6deg) scale(.9); z-index: 2; background: #e2ecfd; box-shadow: 0 14px 30px rgb(7 40 100 / 14%); }
+.testimonial-card[data-pos="3"] { --deck-t: translate3d(calc(var(--deck-x) * -1), var(--deck-y), 0) rotate(-2.4deg) scale(.95); z-index: 1; background: #eaf1fe; box-shadow: 0 18px 40px rgb(7 40 100 / 16%); cursor: pointer; }
+.testimonial-card.is-dragging { transition: none; cursor: grabbing; }
+.testimonial-card.is-flinging-out { animation: testimonial-fling-out 760ms cubic-bezier(.3, .7, .2, 1); }
+.testimonial-card.is-flinging-in { animation: testimonial-fling-in 760ms cubic-bezier(.3, .7, .2, 1); }
+@keyframes testimonial-fling-out {
+  0% { z-index: 6; transform: none; }
+  42% { z-index: 6; transform: translate3d(-62%, 3%, 0) rotate(-10deg) scale(.98); }
+  43% { z-index: 0; }
+  100% { z-index: 0; transform: var(--deck-t); }
+}
+@keyframes testimonial-fling-in {
+  0% { z-index: 0; transform: translate3d(calc(var(--deck-x) * -1), var(--deck-y), 0) rotate(-2.4deg) scale(.95); }
+  50% { z-index: 0; transform: translate3d(-62%, 3%, 0) rotate(-10deg) scale(.98); }
+  51% { z-index: 6; }
+  100% { z-index: 6; transform: none; }
+}
+.testimonial-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 220ms ease, visibility 0s linear 220ms;
+  visibility: hidden;
+}
+.testimonial-card[data-pos="0"] .testimonial-card-body { opacity: 1; transition: opacity 380ms ease 160ms, visibility 0s; visibility: visible; }
+.testimonial-quote-mark { display: block; margin-block-end: 16px; color: var(--blue); font-family: Georgia, serif; font-size: 60px; line-height: .62; }
+.testimonial-card blockquote {
+  flex: 1;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(18px, 1.9vw, 22px);
+  line-height: 1.6;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+.testimonial-attribution {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 13px;
+  margin-block-start: 30px;
+  padding-block-start: 22px;
+  padding-inline-end: 170px;
+  border-block-start: 1px solid #edf1f5;
+  box-sizing: content-box;
+}
+.testimonial-avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 18%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: .02em;
+  transition: background 200ms ease;
+}
+.testimonial-attribution .testimonial-avatar { width: 48px; height: 48px; background: linear-gradient(145deg, #5b8cff, var(--blue)); font-size: 14px; }
+.testimonial-attribution-text { display: grid; min-width: 0; gap: 2px; }
+.testimonial-attribution cite { color: var(--ink); font-size: 15px; font-style: normal; font-weight: 650; }
+.testimonial-attribution-text span { color: #667381; font-size: 13px; }
+.testimonial-nav {
+  position: absolute;
+  z-index: 7;
+  inset-block-end: var(--pad-y);
+  inset-inline-end: var(--pad-x);
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 14px;
+}
+.testimonial-counter { color: #8391a3; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; letter-spacing: .06em; }
+.testimonial-counter strong { color: var(--ink); font-weight: 600; }
+.testimonial-arrows { display: flex; gap: 8px; }
+.testimonial-arrow {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid #dce2e9;
+  border-radius: 50%;
+  background: #fff;
+  color: #26384a;
+  transition: border-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+.testimonial-arrow:hover { border-color: #9fb9dc; color: var(--blue); }
+.testimonial-arrow:active { transform: scale(.92); }
+.testimonial-arrow svg { width: 16px; height: 16px; }
+.testimonial-people {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-block-start: clamp(40px, 5vw, 56px);
+}
+.testimonial-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.testimonial-tab {
+  position: relative;
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  padding: 4px 18px 4px 4px;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 10%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 150ms ease;
+}
+.testimonial-tab:hover { background: rgb(255 255 255 / 20%); }
+.testimonial-tab:active { transform: scale(.96); }
+.testimonial-tab:focus-visible, .testimonial-toggle:focus-visible, .testimonial-arrow:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.testimonial-arrow:focus-visible { outline-color: var(--blue); }
+.testimonial-tab[aria-selected="true"] { border-color: #fff; background: #fff; color: #123e7c; box-shadow: 0 12px 28px rgb(7 40 100 / 22%); }
+.testimonial-tab[aria-selected="true"] .testimonial-avatar { background: linear-gradient(145deg, #5b8cff, var(--blue)); }
+.testimonial-tab-name { white-space: nowrap; }
+.testimonial-progress {
+  position: absolute;
+  inset: auto 18px 5px 52px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(23 97 243 / 12%);
+  overflow: hidden;
+  opacity: 0;
+}
+.testimonial-tab[aria-selected="true"] .testimonial-progress { opacity: 1; }
+.testimonial-progress::after {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--blue);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.testimonial-tab[aria-selected="true"] .testimonial-progress::after { animation: testimonial-progress 9s linear forwards; }
+.testimonial-carousel.is-paused .testimonial-progress::after,
+.testimonial-carousel.is-hovered .testimonial-progress::after,
+.testimonial-carousel.is-dragging .testimonial-progress::after,
+.testimonial-carousel.is-page-hidden .testimonial-progress::after,
+.testimonial-carousel:has(:focus-visible) .testimonial-progress::after { animation-play-state: paused; }
+@keyframes testimonial-progress { to { transform: scaleX(1); } }
+.testimonial-toggle {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 10%);
+  color: #fff;
+  transition: background-color 150ms ease;
+}
+.testimonial-toggle:hover { background: rgb(255 255 255 / 20%); }
+.testimonial-toggle svg { width: 16px; height: 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-progress, .testimonial-toggle { display: none; }
+  .testimonial-card.is-flinging-out, .testimonial-card.is-flinging-in { animation: none; }
+}
+.footer-cta {
+  margin-block-end: 12px;
+  padding: 64px 24px 66px;
+  border-radius: 28px;
+  background: white;
+  text-align: center;
+}
+.footer-cta .section-kicker { margin-block-end: 13px; font-family: Georgia, serif; font-size: 13px; font-style: italic; }
+.footer-cta h2 { margin: 0 auto 20px; font-size: clamp(33px, 4.1vw, 50px); line-height: 1.08; letter-spacing: -.05em; text-wrap: balance; }
+.footer-cta p { margin-block-end: 19px; color: #667381; font-size: 14px; }
+.footer-cta-button { background: #4b4cff; border-color: #4b4cff; }
+.footer-cta-button:hover { background: #3839e8; }
+.footer-wrap {
+  overflow: hidden;
+  padding: 0 clamp(16px, 4vw, 48px);
+  border-radius: 28px 28px 0 0;
+  background: white;
+}
+.footer-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: .75fr 1.6fr;
+  gap: 12px;
+  width: min(100%, 1136px);
+  margin: 0 auto;
+}
+.footer-brand {
+  display: flex;
+  min-height: 259px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 25px;
+  border-radius: 19px;
+  background: radial-gradient(ellipse at 3% 100%, #50beff, transparent 75%), linear-gradient(130deg, #043473, #1e78e6);
+  color: white;
+}
+.footer-brand .brand-real { display: inline-flex; align-items: center; }
+.footer-brand .brand-real img { display: block; width: 112px; height: auto; }
+.footer-brand .footer-tagline { margin-block-start: auto; font-size: 15px; letter-spacing: -.02em; line-height: 1.4; }
+.footer-brand .footer-tagline span { color: #bad6f8; }
+.footer-brand .handwritten { margin-block: 22px 0; color: #d1e7ff; font-family: Georgia, serif; font-size: 12px; font-style: italic; }
+.footer-links {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 28px 34px;
+  border-radius: 19px;
+  background: #f3f4f6;
+}
+.footer-link-group { position: relative; z-index: 1; }
+.footer-links .handwritten { margin-block-end: 15px; color: #667381; font-family: Georgia, serif; font-size: 12px; font-style: italic; }
+.footer-links a { display: block; width: fit-content; margin-block-end: 11px; color: #525f70; font-size: 11px; }
+.footer-links a:hover { color: #1761f3; text-decoration: underline; text-underline-offset: 3px; }
+.footer-caption { grid-column: 1 / -1; align-self: end; max-width: 420px; margin-block-start: 17px; color: #8793a2; font-size: 9px; line-height: 1.7; }
+.footer-icon { position: absolute; inset-block-start: -24px; inset-inline-end: 15px; width: 95px; height: 95px; transform: rotate(14deg); filter: drop-shadow(5px 10px 7px #12478a25); pointer-events: none; }
+.footer-word { overflow: hidden; margin: 9px 0 -24px; color: #f0f1f3; font-size: clamp(60px, 14.9vw, 211px); font-weight: 600; letter-spacing: -.08em; line-height: 1.1; text-align: center; white-space: nowrap; user-select: none; }
+.footer-legal {
+  display: flex;
+  max-width: 1136px;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 15px auto 0;
+  padding: 20px 0 30px;
+  border-block-start: 1px solid #f2f3f6;
+  color: #788493;
+  font-size: 9px;
+}
+.footer-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.dialog {
+  width: min(600px, calc(100% - 28px));
+  max-width: 600px;
+  max-height: min(90dvh, 820px);
+  overflow: auto;
+  padding: 0;
+  border: 1px solid #dfe5ed;
+  border-radius: 18px;
+  background: white;
+  color: var(--ink);
+  box-shadow: 0 25px 80px rgb(9 25 44 / 25%);
+  overscroll-behavior: contain;
+}
+.dialog::backdrop { background: rgb(11 24 39 / 58%); backdrop-filter: blur(4px); }
+.dialog-inner { padding: clamp(22px, 5vw, 35px); }
+.dialog-header { display: flex; align-items: start; justify-content: space-between; gap: 14px; margin-block-end: 25px; }
+.dialog-header h2 { font-size: 27px; line-height: 1.15; letter-spacing: -.04em; }
+.dialog-close, .close-button {
+  width: 44px;
+  flex: 0 0 auto;
+  padding: 0;
+  border-color: var(--line);
+  background: white;
+  color: #334353;
+}
+.dialog-close svg { width: 18px; height: 18px; }
+.step-indicator { margin-block-end: 10px; color: #637180; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+.dialog-question { margin-block-end: 17px; font-size: 17px; font-weight: 600; }
+.choice-list { display: grid; gap: 9px; margin-block-end: 15px; }
+.choice-label { position: relative; display: block; cursor: pointer; }
+.choice-label input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.choice-text {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  padding: 11px 14px;
+  border: 1px solid #dfe5ed;
+  border-radius: 9px;
+  background: white;
+  color: #253646;
+  font-size: 14px;
+}
+.choice-label input:checked + .choice-text { border-color: #7ca8e7; background: #f1f6ff; }
+.choice-label input:focus-visible + .choice-text { outline: 3px solid #1761f3; outline-offset: 3px; }
+.dialog-error { min-height: 22px; margin-block-end: 12px; color: #a32323; font-size: 13px; }
+.dialog-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-block-start: 20px; }
+.back-button, .secondary-button { padding: 0 14px; border-color: #dfe5ed; background: white; color: #344658; }
+.back-button:hover, .secondary-button:hover, .close-button:hover { background: #f4f7fa; }
+.slot-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.slot-button {
+  min-width: 0;
+  min-height: 58px;
+  padding: 8px;
+  border: 1px solid #dfe5ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #243546;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.slot-button:hover, .slot-button:focus-visible { border-color: #7ca8e7; background: #f1f6ff; }
+.confirmation { padding: 20px; border: 1px solid #dce8dd; border-radius: 12px; background: #f6fbf6; }
+.confirmation h3 { margin-block-end: 8px; font-size: 20px; letter-spacing: -.03em; }
+.confirmation p { color: #354a3b; font-size: 14px; }
+.selected-slot { margin-block-start: 12px; color: #52665a; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; }
+.product-dialog-copy { color: #5f6e7c; font-size: 15px; }
+.product-dialog-status { margin-block-start: 15px; }
+.dialog .detail-link { margin-block-start: 16px; }
+@media (max-width: 1050px) {
+  .nav { gap: 15px; }
+  .nav-links { gap: 15px; font-size: 12px; }
+  .hero-content { grid-template-columns: 1.05fr .95fr; gap: 38px; padding-inline: 36px; }
+  .section-inner { padding-inline: 36px; }
+  .product-grid { grid-auto-rows: minmax(205px, auto); gap: 12px; }
+}
+@media (max-width: 900px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 24px 18px;
+    border-block-end: 1px solid var(--line);
+    background: white;
+  }
+  .nav-links.is-open { display: flex; }
+  .nav-links a { min-height: 44px; padding: 12px 4px; }
+  .menu-button { display: inline-flex; margin-inline-start: auto; }
+  .nav .demo-button { margin-inline-start: 0; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
+  .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet { grid-column: span 1; }
+  .product-tile--wealthpro, .product-tile--one {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "meta visual" "title visual" "copy visual" "bottom visual";
+    column-gap: clamp(24px, 4vw, 44px);
+  }
+  .product-tile--wealthpro > .tile-meta, .product-tile--one > .tile-meta { grid-area: meta; }
+  .product-tile--wealthpro > h3, .product-tile--one > h3 { grid-area: title; }
+  .product-tile--wealthpro > .tile-copy, .product-tile--one > .tile-copy { grid-area: copy; }
+  .product-tile--wealthpro > .tile-visual, .product-tile--one > .tile-visual { grid-area: visual; margin-block-start: 0; }
+  .product-tile--wealthpro > .tile-bottom, .product-tile--one > .tile-bottom { grid-area: bottom; align-self: end; }
+}
+@media (max-width: 767px) {
+  html { scroll-padding-top: 76px; }
+  .page-shell { padding: 0 7px; }
+  .nav { min-height: 66px; gap: 10px; padding-inline: 16px; }
+  .brand { padding: 0; }
+  .brand img { width: 104px; }
+  .nav .demo-button { min-width: 62px; min-height: 44px; padding-inline: 11px; font-size: 12px; }
+  .desktop-demo-label { display: none; }
+  .mobile-demo-label { display: inline; }
+  .demo-button svg { display: none; }
+  .language-switch { margin-inline-start: auto; }
+  .menu-button { margin-inline-start: 0; }
+  .hero { margin-block-end: 8px; padding-block-end: 28px; border-radius: 0 0 22px 22px; }
+  .logo-marquee { margin-block-end: 8px; padding-block: 20px; }
+  .logo-marquee-group { gap: 38px; padding-inline: 22px; }
+  .logo-marquee-group img { height: 26px; }
+  .hero-content { display: block; padding: 39px 23px 25px; }
+  .eyebrow { margin-block-end: 16px; font-size: 10px; }
+  .hero h1 { max-width: 580px; font-size: clamp(43px, 11.4vw, 62px); letter-spacing: -.055em; }
+  .hero-copy { max-width: 420px; padding-block-start: 20px; }
+  .hero-copy p { margin-block-end: 16px; font-size: 14px; }
+  .hero-actions { gap: 10px; }
+  .hero-actions .primary-button { min-height: 44px; }
+  .text-link { font-size: 12px; }
+  .dashboard-wrap { padding-inline: 12px; }
+  .dashboard { padding: 5px; border-radius: 13px; transform: none; }
+  .dashboard-top { min-height: 27px; padding: 0 6px 5px; font-size: 8px; }
+  .dashboard-dots { gap: 3px; }
+  .dashboard-dots i { width: 5px; height: 5px; }
+  .dashboard-screen { grid-template-columns: 1fr; min-height: 0; }
+  .dashboard-sidebar { display: none; }
+  .dashboard-body { padding: 0 12px 13px; }
+  .dashboard-head { min-height: 38px; margin-block-end: 12px; font-size: 9px; }
+  .dashboard-heading { align-items: start; gap: 8px; margin-block-end: 12px; }
+  .dashboard-heading h2 { font-size: 17px; }
+  .dashboard-heading p { font-size: 9px; }
+  .fiction-tag { padding: 5px 6px; font-size: 9px; }
+  .dashboard-metrics { grid-template-columns: 1.1fr 1fr; gap: 7px; }
+  .dashboard-metric { padding: 9px; }
+  .dashboard-metric:first-child { grid-column: 1 / -1; }
+  .dashboard-metric span { font-size: 9px; }
+  .dashboard-metric strong { font-size: 20px; }
+  .dashboard-metric:first-child strong { font-size: 27px; }
+  .dashboard-metric small { font-size: 8px; }
+  .dashboard-chart { height: 113px; margin-block-start: 9px; padding: 10px; }
+  .chart-lines { inset: 31px 10px 17px; }
+  .dashboard-axis { margin-block-start: 70px; font-size: 8px; }
+  .hero-notes { grid-template-columns: 1fr; gap: 9px; margin-block-start: 17px; padding-inline: 16px; }
+  .hero-note { gap: 10px; font-size: 11px; }
+  .section-panel { margin-block-end: 8px; padding-block: 49px; border-radius: 22px; }
+  .section-inner { padding-inline: 22px; }
+  .section-heading { margin-block-end: 25px; }
+  .section-heading h2 { font-size: clamp(34px, 9vw, 43px); }
+  .section-heading p { font-size: 14px; }
+  .product-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: 10px; }
+  .product-tile, .product-tile--wealthpro, .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet, .product-tile--one {
+    grid-column: 1;
+    grid-row: auto;
+    min-height: 205px;
+    padding: 22px;
+    border-radius: 15px;
+  }
+  .product-tile--wealthpro { min-height: 300px; }
+  .product-tile h3 { margin-block: 20px 7px; font-size: 28px; }
+  .product-tile--wealthpro h3 { font-size: 37px; }
+  .tile-copy { font-size: 14px; }
+  .tile-visual { min-height: 120px; margin-block-start: 18px; padding: 15px; }
+  .tile-visual--wealthpro { min-height: 200px; }
+  .tile-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile-stats div:first-child { grid-column: 1 / -1; }
+  .tile-visual--connect { padding-block-end: 0; }
+  .tile-bottom { margin-block-start: 15px; padding-block-start: 13px; }
+  .binom-layout { grid-template-columns: 1fr; gap: 25px; }
+  .binom-copy h2 { font-size: 37px; }
+  .binom-card { min-height: 220px; padding: 21px; }
+  .connect-list { grid-template-columns: 1fr; gap: 18px; margin-block: 25px; }
+  .connect-item { padding-block-start: 14px; }
+  .faq-layout { grid-template-columns: 1fr; gap: 24px; }
+  .faq-layout h2 { max-width: 500px; font-size: 37px; }
+  .faq-item { padding-block: 16px; }
+  .testimonials { margin-block-end: 8px; padding-block: 52px; border-radius: 22px; }
+  .testimonials-heading { margin-block-end: 32px; }
+  .testimonial-deck, .testimonial-deck:hover { --deck-x: 12px; --deck-y: 9px; --pad-x: 22px; --pad-y: 24px; }
+  .testimonial-card { border-radius: 16px; }
+  .testimonial-quote-mark { margin-block-end: 12px; font-size: 48px; }
+  .testimonial-card blockquote { font-size: 17px; }
+  .testimonial-attribution { margin-block-start: 22px; padding-block-start: 18px; }
+  .testimonial-people { margin-block-start: 34px; }
+  .footer-cta { margin-block-end: 8px; padding: 48px 22px; border-radius: 22px; }
+  .footer-cta h2 { font-size: 36px; }
+  .footer-wrap { padding-inline: 16px; border-radius: 22px 22px 0 0; }
+  .footer-grid { grid-template-columns: 1fr; gap: 9px; }
+  .footer-brand { min-height: 210px; padding: 24px; }
+  .footer-brand .footer-tagline { margin-block-start: 42px; font-size: 17px; }
+  .footer-brand .handwritten { margin-block-start: 20px; }
+  .footer-links { gap: 20px; padding: 27px 25px; }
+  .footer-links a { font-size: 12px; }
+  .footer-caption { max-width: none; padding-inline-end: 0; font-size: 10px; }
+  .footer-icon { inset-block-start: -27px; inset-inline-end: 17px; width: 75px; height: 75px; }
+  .footer-word { margin-block: 19px 0; font-size: 14.4vw; }
+  .footer-legal { flex-direction: column; gap: 12px; margin-block-start: 4px; padding-block: 17px 22px; font-size: 10px; }
+}
+@media (max-width: 380px) {
+  .nav { gap: 4px; padding-inline: 8px; }
+  .brand { padding: 0; }
+  .brand img { width: 96px; }
+  .language-switch button { min-width: 30px; padding-inline: 4px; }
+  .nav .demo-button { min-width: 50px; padding-inline: 7px; }
+  .menu-button { width: 42px; }
+  .dashboard-heading { flex-direction: column; }
+  .fiction-tag { align-self: start; }
+  .product-tile, .product-tile--wealthpro, .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet, .product-tile--one { padding: 18px; }
+  .tile-visual { padding: 13px; }
+  .tile-visual--treet { gap: 14px; }
+  .tile-donut { width: 72px; height: 72px; }
+  .tile-bubble { inset-inline-start: calc(50% + 30px); width: 62px; }
+  .tile-stats { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .tile-stats div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 9px 11px; }
+  .tile-stats span { margin-block-end: 0; }
+  .tile-stats strong { font-size: 16px; }
+  .slot-grid { gap: 6px; }
+  .slot-button { padding-inline: 4px; font-size: 11px; }
+}
+@media (max-width: 600px) {
+  .testimonial-card { padding-block-end: calc(var(--pad-y) + 64px); }
+  .testimonial-attribution { padding-inline-end: 0; }
+  .testimonial-nav { inset-inline-start: var(--pad-x); justify-content: space-between; }
+  .testimonial-tab[aria-selected="false"] { padding-inline-end: 4px; }
+  .testimonial-tab[aria-selected="false"] .testimonial-tab-name { display: none; }
+}
+@media (max-width: 420px) {
+  .testimonial-card blockquote { font-size: 16px; }
+  .testimonial-tabs, .testimonial-people { gap: 8px; }
+  .testimonial-tab, .testimonial-tab[aria-selected="false"] { min-height: 44px; padding: 3px; }
+  .testimonial-tab .testimonial-tab-name { display: none; }
+  .testimonial-tab .testimonial-avatar { width: 36px; height: 36px; }
+  .testimonial-progress { inset: auto 10px 3px; }
+  .testimonial-toggle { width: 44px; height: 44px; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .product-tile:hover { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  .product-tile::before { display: none; }
+  .product-tile:hover { transform: none !important; }
+  .logo-marquee { overflow-x: auto; scrollbar-width: thin; }
+  .logo-marquee-track { animation: none; }
+}
+@media (forced-colors: active) {
+  .product-tile:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid Highlight; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="skipLink"></a>
+<div class="concept-banner" data-i18n="conceptBanner"></div>
+<header class="header">
+  <div class="nav">
+    <a class="brand" href="#main" data-i18n-aria="brandAria"><img src="./Dark%20background%20version.svg" alt="Wealthcome"></a>
+    <nav class="nav-links" id="navigation" data-i18n-aria="navAria">
+      <a href="#produits" data-i18n="navProducts"></a>
+      <a href="#binom" data-i18n="navBinom"></a>
+      <a href="#questions" data-i18n="navFaq"></a>
+      <a href="https://pro.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="navLogin"></a>
+    </nav>
+    <div class="language-switch" role="group" data-i18n-aria="languageGroup">
+      <button type="button" data-language="fr" lang="fr" aria-pressed="true" data-i18n="languageFr"></button>
+      <button type="button" data-language="en" lang="en" aria-pressed="false" data-i18n="languageEn"></button>
+    </div>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="navigation" data-i18n-aria="menuOpenAria">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <button class="demo-button" type="button" data-demo>
+      <span class="desktop-demo-label" data-i18n="requestDemo"></span>
+      <span class="mobile-demo-label" data-i18n="demoShort"></span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</header>
+<main class="page-shell" id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <div>
+        <p class="eyebrow" data-i18n="heroEyebrow"></p>
+        <h1 id="hero-title"><span data-i18n="heroTitleFirst"></span><br><span data-i18n="heroTitleSecond"></span></h1>
+      </div>
+      <div class="hero-copy">
+        <p data-i18n="heroCopy"></p>
+        <div class="hero-actions">
+          <button class="primary-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <a class="text-link" href="#produits"><span data-i18n="explorePlatform"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M12 4v15m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-wrap">
+      <div class="dashboard" role="img" data-i18n-aria="dashboardAria">
+        <div class="dashboard-top"><span class="dashboard-dots" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="dashboardTop"></span><span data-i18n="dashboardTag"></span></div>
+        <div class="dashboard-screen">
+          <aside class="dashboard-sidebar" aria-hidden="true">
+            <div class="dashboard-logo" data-i18n="wealthpro"></div>
+            <span class="dashboard-nav-item" data-i18n="overview"></span>
+            <span class="dashboard-nav-item" data-i18n="clients"></span>
+            <span class="dashboard-nav-item" data-i18n="wealth"></span>
+            <span class="dashboard-nav-item" data-i18n="compliance"></span>
+            <span class="dashboard-nav-item" data-i18n="binom"></span>
+          </aside>
+          <div class="dashboard-body" aria-hidden="true">
+            <div class="dashboard-head"><span data-i18n="dashboardLocation"></span><span data-i18n="dashboardProfile"></span></div>
+            <div class="dashboard-heading">
+              <div><h2 data-i18n="dashboardHeading"></h2><p data-i18n="dashboardSubheading"></p></div>
+              <span class="fiction-tag" data-i18n="fictionTag"></span>
+            </div>
+            <div class="dashboard-metrics">
+              <div class="dashboard-metric"><span data-i18n="grossWealth"></span><strong data-i18n="grossWealthValue"></strong><small data-i18n="grossWealthNote"></small></div>
+              <div class="dashboard-metric"><span data-i18n="contracts"></span><strong data-i18n="contractsValue"></strong><small data-i18n="contractsNote"></small></div>
+              <div class="dashboard-metric"><span data-i18n="institutions"></span><strong data-i18n="institutionsValue"></strong><small data-i18n="institutionsNote"></small></div>
+            </div>
+            <div class="dashboard-chart">
+              <div class="dashboard-chart-title" data-i18n="chartTitle"></div>
+              <div class="chart-lines" aria-hidden="true">
+                <svg viewBox="0 0 410 90" preserveAspectRatio="none"><path d="M0 76C24 74 30 54 54 60S86 43 107 51 142 26 165 37 204 30 224 34 260 15 282 23 313 14 335 20 374 5 410 10" fill="none" stroke="#367bea" stroke-width="3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="dashboard-axis"><span data-i18n="monthJan"></span><span data-i18n="monthMar"></span><span data-i18n="monthMay"></span><span data-i18n="monthJul"></span><span data-i18n="monthSep"></span><span data-i18n="monthDec"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-notes">
+      <p class="hero-note"><span data-i18n="heroStepOne"></span><span data-i18n="heroNoteOne"></span></p>
+      <p class="hero-note"><span data-i18n="heroStepTwo"></span><span data-i18n="heroNoteTwo"></span></p>
+      <p class="hero-note"><span data-i18n="heroStepThree"></span><span data-i18n="heroNoteThree"></span></p>
+    </div>
+  </section>
+
+  <section class="logo-marquee" tabindex="0" data-i18n-aria="logoMarqueeAria">
+    <div class="logo-marquee-track" aria-hidden="true">
+      <div class="logo-marquee-group">
+        <img src="./Logos/Container.svg" alt="" decoding="async">
+        <img src="./Logos/Container-1.svg" alt="" decoding="async">
+        <img src="./Logos/Container-2.svg" alt="" decoding="async">
+        <img src="./Logos/Container-3.svg" alt="" decoding="async">
+        <img src="./Logos/Container-4.svg" alt="" decoding="async">
+        <img src="./Logos/Container-5.svg" alt="" decoding="async">
+        <img src="./Logos/Container-6.svg" alt="" decoding="async">
+        <img src="./Logos/Container-7.svg" alt="" decoding="async">
+        <img src="./Logos/Container-8.svg" alt="" decoding="async">
+        <img src="./Logos/Container-9.svg" alt="" decoding="async">
+        <img src="./Logos/Container-10.svg" alt="" decoding="async">
+        <img src="./Logos/Container-11.svg" alt="" decoding="async">
+        <img src="./Logos/Container-12.svg" alt="" decoding="async">
+        <img src="./Logos/Container-13.svg" alt="" decoding="async">
+        <img src="./Logos/Container-14.svg" alt="" decoding="async">
+        <img src="./Logos/Container-15.svg" alt="" decoding="async">
+        <img src="./Logos/Container-16.svg" alt="" decoding="async">
+        <img src="./Logos/Container-17.svg" alt="" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section class="section-panel" id="produits" aria-labelledby="products-title">
+    <div class="section-inner">
+      <div class="section-heading">
+        <p class="section-kicker" data-i18n="productsKicker"></p>
+        <h2 id="products-title" data-i18n="productsTitle"></h2>
+      </div>
+      <div class="product-grid" id="product-grid" data-i18n-aria="productsGridAria">
+        <article class="product-tile product-tile--wealthpro" data-product="wealthpro" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M9 4v16M9 10h11.5"/></svg></span><span class="group-label" data-i18n="groupPlatform"></span></div>
+          <h3 data-i18n="wealthpro"></h3>
+          <p class="tile-copy" data-i18n="wealthproCopy"></p>
+          <div class="tile-visual tile-visual--wealthpro" aria-hidden="true">
+            <div class="tile-pills"><span data-i18n="needAggregation"></span><span data-i18n="compliance"></span><span data-i18n="needRelationship"></span></div>
+            <div class="tile-stats">
+              <div><span data-i18n="grossWealth"></span><strong data-i18n="grossWealthValue"></strong></div>
+              <div><span data-i18n="contracts"></span><strong data-i18n="contractsValue"></strong></div>
+              <div><span data-i18n="institutions"></span><strong data-i18n="institutionsValue"></strong></div>
+            </div>
+            <div class="tile-chart-head"><span data-i18n="chartTitle"></span><span data-i18n="fictionTag"></span></div>
+            <div class="tile-bars"><span style="--h:34%"></span><span style="--h:40%"></span><span style="--h:37%"></span><span style="--h:48%"></span><span style="--h:52%"></span><span style="--h:47%"></span><span style="--h:60%"></span><span style="--h:66%"></span><span style="--h:62%"></span><span style="--h:74%"></span><span style="--h:81%"></span><span style="--h:92%"></span></div>
+            <div class="tile-axis"><span data-i18n="monthJan"></span><span data-i18n="monthMar"></span><span data-i18n="monthMay"></span><span data-i18n="monthJul"></span><span data-i18n="monthSep"></span><span data-i18n="monthDec"></span></div>
+          </div>
+          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthpro" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </article>
+        <article class="product-tile product-tile--binom" data-product="binom" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.9 5.1 5.1 1.9-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5v5M16 18h5"/></svg></span><span class="group-label" data-i18n="groupPlatform"></span><span class="status-tag" data-i18n="binomStatus"></span></div>
+          <h3 data-i18n="binom"></h3>
+          <p class="tile-copy" data-i18n="binomCopy"></p>
+          <div class="tile-visual tile-visual--binom" aria-hidden="true">
+            <div class="tile-note"><span></span><span></span><span></span><span></span></div>
+            <span class="tile-flow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="tile-file"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+          </div>
+          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="binom" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </article>
+        <article class="product-tile product-tile--connect" data-product="wealthconnect" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="group-label" data-i18n="groupModules"></span><span class="status-tag" data-i18n="connectStatus"></span></div>
+          <h3 data-i18n="wealthconnect"></h3>
+          <p class="tile-copy" data-i18n="wealthconnectCopy"></p>
+          <div class="tile-visual tile-visual--connect" aria-hidden="true">
+            <div class="tile-phone"><span class="tile-ring"></span><span></span><span></span></div>
+            <div class="tile-bubble"><span></span><span></span></div>
+          </div>
+          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthconnect" href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </article>
+        <article class="product-tile product-tile--lab" data-product="wealthlab" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><span class="group-label" data-i18n="groupModules"></span></div>
+          <h3 data-i18n="wealthlab"></h3>
+          <p class="tile-copy" data-i18n="wealthlabCopy"></p>
+          <div class="tile-visual tile-visual--lab" aria-hidden="true"><span class="tile-slider" style="--v:68%"></span><span class="tile-slider" style="--v:40%"></span><span class="tile-slider" style="--v:84%"></span></div>
+          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthlab" href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </article>
+        <article class="product-tile product-tile--treet" data-product="wealthtreet" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.5a8 8 0 1 0 8.5 8.5H11z"/><path d="M14.5 3.6A8 8 0 0 1 20.4 9.5h-5.9z"/></svg></span><span class="group-label" data-i18n="groupModules"></span></div>
+          <h3 data-i18n="wealthtreet"></h3>
+          <p class="tile-copy" data-i18n="wealthtreetCopy"></p>
+          <div class="tile-visual tile-visual--treet" aria-hidden="true"><span class="tile-donut"></span><div class="tile-legend"><span></span><span></span><span></span></div></div>
+          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthtreet" href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </article>
+        <article class="product-tile product-tile--one" data-product="wealthone" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><span class="group-label" data-i18n="groupEnterprise"></span></div>
+          <h3 data-i18n="wealthone"></h3>
+          <p class="tile-copy" data-i18n="wealthoneCopy"></p>
+          <div class="tile-visual tile-visual--one" aria-hidden="true">
+            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h6.5L18 8v12.5H7z"/><path d="M13 3.5V8h5"/></svg></span>
+            <span class="tile-link"></span>
+            <span class="tile-node tile-node--hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span>
+            <span class="tile-link"></span>
+            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 6.5a3 3 0 0 1 0 5.5M17.5 14.5a5 5 0 0 1 3 4.5"/></svg></span>
+          </div>
+          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthone" href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-panel binom-panel" id="binom" aria-labelledby="binom-title">
+    <div class="section-inner binom-layout">
+      <div class="binom-copy">
+        <p class="section-kicker" data-i18n="binomKicker"></p>
+        <h2 id="binom-title" data-i18n="binomHeading"></h2>
+        <p data-i18n="binomDescription"></p>
+      </div>
+      <div class="binom-card">
+        <div class="binom-card-top"><span class="binom-name" data-i18n="binom"></span><span class="binom-pill" data-i18n="binomStatus"></span></div>
+        <p data-i18n="binomSummary"></p>
+        <a class="detail-link" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer" data-i18n="binomOfficialLink"></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-panel connect-panel" aria-labelledby="connect-title">
+    <div class="section-inner">
+      <div class="section-heading">
+        <p class="section-kicker" data-i18n="connectKicker"></p>
+        <h2 id="connect-title" data-i18n="connectHeading"></h2>
+        <p data-i18n="connectIntro"></p>
+      </div>
+      <div class="connect-list">
+        <article class="connect-item"><h3 data-i18n="questionDataTitle"></h3><p data-i18n="questionData"></p></article>
+        <article class="connect-item"><h3 data-i18n="questionTeamTitle"></h3><p data-i18n="questionTeam"></p></article>
+        <article class="connect-item"><h3 data-i18n="questionOfferTitle"></h3><p data-i18n="questionOffer"></p></article>
+      </div>
+      <button class="primary-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </section>
+
+  <section class="section-panel" id="questions" aria-labelledby="faq-title">
+    <div class="section-inner faq-layout">
+      <div><p class="section-kicker" data-i18n="faqKicker"></p><h2 id="faq-title" data-i18n="faqTitle"></h2></div>
+      <div class="faq-list">
+        <article class="faq-item"><h3 data-i18n="faqAudienceQuestion"></h3><p data-i18n="faqAudienceAnswer"></p></article>
+        <article class="faq-item"><h3 data-i18n="faqChoiceQuestion"></h3><p data-i18n="faqChoiceAnswer"></p></article>
+        <article class="faq-item"><h3 data-i18n="faqConceptQuestion"></h3><p data-i18n="faqConceptAnswer"></p></article>
+      </div>
+    </div>
+  </section>
+  <section class="testimonials" aria-labelledby="testimonials-title">
+    <div class="section-inner testimonial-carousel" id="testimonial-carousel">
+      <div class="testimonials-heading">
+        <p class="section-kicker" data-i18n="testimonialsKicker"></p>
+        <h2 id="testimonials-title" data-i18n="testimonialsTitle"></h2>
+        <p class="testimonials-intro" data-i18n="testimonialsIntro"></p>
+      </div>
+      <div class="testimonial-deck" id="testimonial-panels">
+        <figure class="testimonial-card" data-pos="0" role="tabpanel" id="testimonial-panel-1" aria-labelledby="testimonial-tab-1">
+          <div class="testimonial-card-body">
+            <span class="testimonial-quote-mark" aria-hidden="true">“</span>
+            <blockquote data-i18n="testimonialJulien"></blockquote>
+            <figcaption class="testimonial-attribution"><span class="testimonial-avatar" aria-hidden="true">JB</span><span class="testimonial-attribution-text"><cite data-i18n="testimonialJulienName"></cite><span data-i18n="testimonialJulienFirm"></span></span></figcaption>
+          </div>
+        </figure>
+        <figure class="testimonial-card" data-pos="1" role="tabpanel" id="testimonial-panel-2" aria-labelledby="testimonial-tab-2">
+          <div class="testimonial-card-body">
+            <span class="testimonial-quote-mark" aria-hidden="true">“</span>
+            <blockquote data-i18n="testimonialPierre"></blockquote>
+            <figcaption class="testimonial-attribution"><span class="testimonial-avatar" aria-hidden="true">PL</span><span class="testimonial-attribution-text"><cite data-i18n="testimonialPierreName"></cite></span></figcaption>
+          </div>
+        </figure>
+        <figure class="testimonial-card" data-pos="2" role="tabpanel" id="testimonial-panel-3" aria-labelledby="testimonial-tab-3">
+          <div class="testimonial-card-body">
+            <span class="testimonial-quote-mark" aria-hidden="true">“</span>
+            <blockquote data-i18n="testimonialChristian"></blockquote>
+            <figcaption class="testimonial-attribution"><span class="testimonial-avatar" aria-hidden="true">C</span><span class="testimonial-attribution-text"><cite data-i18n="testimonialChristianName"></cite><span data-i18n="testimonialAnonymous"></span></span></figcaption>
+          </div>
+        </figure>
+        <figure class="testimonial-card" data-pos="3" role="tabpanel" id="testimonial-panel-4" aria-labelledby="testimonial-tab-4">
+          <div class="testimonial-card-body">
+            <span class="testimonial-quote-mark" aria-hidden="true">“</span>
+            <blockquote data-i18n="testimonialNicolas"></blockquote>
+            <figcaption class="testimonial-attribution"><span class="testimonial-avatar" aria-hidden="true">N</span><span class="testimonial-attribution-text"><cite data-i18n="testimonialNicolasName"></cite><span data-i18n="testimonialAnonymous"></span></span></figcaption>
+          </div>
+        </figure>
+        <div class="testimonial-nav">
+          <p class="testimonial-counter" aria-hidden="true"><strong id="testimonial-current">01</strong> / 04</p>
+          <div class="testimonial-arrows">
+            <button class="testimonial-arrow" type="button" data-testimonial-step="-1" aria-controls="testimonial-panels" data-i18n-aria="testimonialPrevious"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H6m5 5-5-5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="testimonial-arrow" type="button" data-testimonial-step="1" aria-controls="testimonial-panels" data-i18n-aria="testimonialNext"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-people">
+        <div class="testimonial-tabs" role="tablist" data-i18n-aria="testimonialTrackAria">
+          <button class="testimonial-tab" type="button" role="tab" id="testimonial-tab-1" aria-controls="testimonial-panel-1" aria-selected="true" data-i18n-aria="testimonialJulienName">
+            <span class="testimonial-avatar" aria-hidden="true">JB</span>
+            <span class="testimonial-tab-name" data-i18n="testimonialJulienName"></span>
+            <span class="testimonial-progress" aria-hidden="true"></span>
+          </button>
+          <button class="testimonial-tab" type="button" role="tab" id="testimonial-tab-2" aria-controls="testimonial-panel-2" aria-selected="false" tabindex="-1" data-i18n-aria="testimonialPierreName">
+            <span class="testimonial-avatar" aria-hidden="true">PL</span>
+            <span class="testimonial-tab-name" data-i18n="testimonialPierreName"></span>
+            <span class="testimonial-progress" aria-hidden="true"></span>
+          </button>
+          <button class="testimonial-tab" type="button" role="tab" id="testimonial-tab-3" aria-controls="testimonial-panel-3" aria-selected="false" tabindex="-1" data-i18n-aria="testimonialChristianName">
+            <span class="testimonial-avatar" aria-hidden="true">C</span>
+            <span class="testimonial-tab-name" data-i18n="testimonialChristianName"></span>
+            <span class="testimonial-progress" aria-hidden="true"></span>
+          </button>
+          <button class="testimonial-tab" type="button" role="tab" id="testimonial-tab-4" aria-controls="testimonial-panel-4" aria-selected="false" tabindex="-1" data-i18n-aria="testimonialNicolasName">
+            <span class="testimonial-avatar" aria-hidden="true">N</span>
+            <span class="testimonial-tab-name" data-i18n="testimonialNicolasName"></span>
+            <span class="testimonial-progress" aria-hidden="true"></span>
+          </button>
+        </div>
+        <button class="testimonial-toggle" type="button" id="testimonial-toggle" aria-controls="testimonial-panels">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path id="testimonial-toggle-icon" d="M9 5v14m6-14v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="footer-cta" aria-labelledby="footer-cta-title">
+    <p class="section-kicker" data-i18n="nextStep"></p>
+    <h2 id="footer-cta-title"><span data-i18n="footerCtaTitleFirst"></span><br><span data-i18n="footerCtaTitleSecond"></span></h2>
+    <p data-i18n="footerCtaCopy"></p>
+    <button class="primary-button footer-cta-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </section>
+</main>
+<footer class="footer-wrap">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="brand-real" href="#main" data-i18n-aria="brandAria"><img src="./Wealthcome%20logo.svg" alt="Wealthcome"></a>
+      <p class="footer-tagline"><span data-i18n="footerTaglineFirst"></span><br><span data-i18n="footerTaglineSecond"></span></p>
+      <p class="handwritten" data-i18n="footerSlogan"></p>
+    </div>
+    <div class="footer-links" data-i18n-aria="footerLinksAria">
+      <svg aria-hidden="true" class="footer-icon" viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="footer-gem-edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e4f9ff"/><stop offset=".45" stop-color="#70c8ff"/><stop offset="1" stop-color="#024fba"/></linearGradient>
+          <linearGradient id="footer-gem-face" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5edff"/><stop offset=".42" stop-color="#69bbff"/><stop offset="1" stop-color="#0768d9"/></linearGradient>
+          <linearGradient id="footer-gem-top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdff" stop-opacity=".95"/><stop offset="1" stop-color="#70bbff" stop-opacity=".2"/></linearGradient>
+        </defs>
+        <path d="M38 18h121q20 0 20 20v121q0 21-20 21H38q-20 0-20-21V38q0-20 20-20Z" fill="#004ea7"/>
+        <rect x="12" y="10" width="164" height="164" rx="30" fill="url(#footer-gem-edge)" stroke="#c0ebff" stroke-width="2"/>
+        <rect x="20" y="18" width="148" height="148" rx="24" fill="url(#footer-gem-face)" stroke="#bbe8ff" stroke-opacity=".65"/>
+        <path d="M44 23h97q19 0 19 19v20L25 117V43q0-20 19-20Z" fill="url(#footer-gem-top)"/>
+        <path d="M47 63h19l14 46 12-31-5-15h19l15 46 13-46h12l-24 66h-23L89 103l-11 26H59Z" fill="#044b9b" opacity=".25" transform="translate(2 4)"/>
+        <path d="M47 59h19l14 46 12-31-5-15h19l15 46 13-46h12l-24 66h-23L89 99l-11 26H59Z" fill="#f7fcff"/>
+        <path d="M24 56V41q0-20 20-20h62" fill="none" stroke="white" stroke-opacity=".8" stroke-width="2"/>
+      </svg>
+      <div class="footer-link-group">
+        <p class="handwritten" data-i18n="footerExplore"></p>
+        <a href="#produits" data-i18n="footerPlatform"></a>
+        <a href="#binom" data-i18n="footerBinom"></a>
+        <a href="#produits" data-i18n="footerSolutions"></a>
+        <a href="#questions" data-i18n="footerFaq"></a>
+      </div>
+      <div class="footer-link-group">
+        <p class="handwritten" data-i18n="footerMore"></p>
+        <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="footerOfficial"></a>
+        <a href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer" data-i18n="footerOffers"></a>
+        <a href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer" data-i18n="footerConnect"></a>
+      </div>
+      <p class="footer-caption" data-i18n="footerCaption"></p>
+    </div>
+  </div>
+  <div class="footer-word" aria-hidden="true">wealthcome.</div>
+  <div class="footer-legal">
+    <span data-i18n="footerCopyright"></span>
+    <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="footerSource"></a>
+  </div>
+</footer>
+
+<dialog class="dialog" id="demo-dialog" aria-labelledby="demo-title">
+  <div class="dialog-inner">
+    <div class="dialog-header"><div><p class="step-indicator" id="demo-step-indicator" aria-live="polite"></p><h2 id="demo-title" tabindex="-1" data-i18n="demoTitle"></h2></div><button class="dialog-close" type="button" data-close-dialog data-i18n-aria="closeAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div id="demo-step-one">
+      <p class="dialog-question" data-i18n="profileQuestion"></p>
+      <div class="choice-list" role="radiogroup" data-i18n-aria="profileQuestion">
+        <label class="choice-label"><input type="radio" name="profile" value="advisor"><span class="choice-text" data-i18n="profileAdvisor"></span></label>
+        <label class="choice-label"><input type="radio" name="profile" value="broker"><span class="choice-text" data-i18n="profileBroker"></span></label>
+        <label class="choice-label"><input type="radio" name="profile" value="familyOffice"><span class="choice-text" data-i18n="profileFamilyOffice"></span></label>
+      </div>
+      <p class="dialog-error" id="profile-error" role="alert" hidden></p>
+      <div class="dialog-actions"><span></span><button class="next-button" type="button" data-next="2"><span data-i18n="continue"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    </div>
+    <div id="demo-step-two" hidden>
+      <p class="dialog-question" data-i18n="needQuestion"></p>
+      <div class="choice-list" role="radiogroup" data-i18n-aria="needQuestion">
+        <label class="choice-label"><input type="radio" name="need" value="aggregation"><span class="choice-text" data-i18n="needAggregation"></span></label>
+        <label class="choice-label"><input type="radio" name="need" value="documents"><span class="choice-text" data-i18n="needDocuments"></span></label>
+        <label class="choice-label"><input type="radio" name="need" value="relationship"><span class="choice-text" data-i18n="needRelationship"></span></label>
+        <label class="choice-label"><input type="radio" name="need" value="unsure"><span class="choice-text" data-i18n="needUnsure"></span></label>
+      </div>
+      <p class="dialog-error" id="need-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button class="back-button" type="button" data-previous="1"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H6m5 5-5-5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="back"></span></button><button class="next-button" type="button" data-next="3"><span data-i18n="continue"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+    </div>
+    <div id="demo-step-three" hidden>
+      <p class="dialog-question" data-i18n="slotQuestion"></p>
+      <div class="slot-grid" id="slot-grid"></div>
+      <div class="dialog-actions"><button class="back-button" type="button" data-previous="2"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H6m5 5-5-5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="back"></span></button></div>
+    </div>
+    <div class="confirmation" id="demo-confirmation" hidden aria-live="polite">
+      <h3 data-i18n="confirmationTitle"></h3>
+      <p data-i18n="confirmationCopy"></p>
+      <p class="selected-slot" id="selected-slot"></p>
+      <div class="dialog-actions"><button class="close-button" type="button" data-close-dialog data-i18n="close"></button></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="dialog" id="product-dialog" aria-labelledby="product-dialog-title">
+  <div class="dialog-inner">
+    <div class="dialog-header"><div><p class="step-indicator" id="product-dialog-group"></p><h2 id="product-dialog-title" tabindex="-1"></h2></div><button class="dialog-close" type="button" data-close-dialog data-i18n-aria="closeAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <p class="product-dialog-copy" id="product-dialog-copy"></p>
+    <p class="product-dialog-status" id="product-dialog-status"></p>
+    <a class="detail-link" id="product-dialog-link" href="" target="_blank" rel="noopener noreferrer"><span id="product-dialog-link-label"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</dialog>
+
+<script>
+const translations = {
+  fr: {
+    pageTitle: "Wealthcome — Une vue claire pour mieux accompagner vos clients.",
+    description: "Une présentation des produits Wealthcome pour les professionnels du conseil patrimonial.",
+    ogDescription: "Découvrez les produits Wealthcome pour les professionnels du conseil patrimonial.",
+    imageAlt: "Aperçu du concept de présentation Wealthcome.",
+    skipLink: "Aller au contenu",
+    conceptBanner: "Concept indépendant, sans affiliation ni approbation de Wealthcome.",
+    brand: "wealthcome",
+    brandAria: "Wealthcome, accueil",
+    logoMarqueeAria: "Bandeau des logos fournis",
+    navAria: "Navigation principale",
+    navProducts: "Les produits",
+    navBinom: "Binom",
+    navFaq: "Questions fréquentes",
+    navLogin: "Connexion ↗",
+    languageGroup: "Langue",
+    languageFr: "FR",
+    languageEn: "EN",
+    menuOpenAria: "Ouvrir le menu",
+    menuCloseAria: "Fermer le menu",
+    requestDemo: "Demander une démo",
+    demoShort: "Démo",
+    heroEyebrow: "Une nouvelle perspective sur le conseil patrimonial",
+    heroTitleFirst: "Une vue claire.",
+    heroTitleSecond: "Pour mieux accompagner vos clients.",
+    heroCopy: "Avec WealthPro, rassemblez les données patrimoniales, suivez les documents réglementaires et retrouvez le contexte de chaque client. Préparez vos échanges avec une vision d’ensemble.",
+    explorePlatform: "Explorer les produits",
+    dashboardAria: "Aperçu WealthPro avec des données de démonstration sur le patrimoine, les contrats, les établissements et l’évolution du patrimoine.",
+    dashboardTop: "WealthPro · Dossier client",
+    dashboardTag: "Aperçu",
+    wealthpro: "WealthPro",
+    overview: "Vue d’ensemble",
+    clients: "Clients",
+    wealth: "Patrimoine",
+    compliance: "Conformité",
+    binom: "Binom",
+    dashboardLocation: "Votre espace · Dossier client",
+    dashboardProfile: "Profil client",
+    dashboardHeading: "La synthèse du dossier client.",
+    dashboardSubheading: "Actifs, contrats et établissements réunis dans un même aperçu.",
+    fictionTag: "Données fictives",
+    grossWealth: "Patrimoine brut",
+    grossWealthValue: "2 450 000 €",
+    grossWealthNote: "Ensemble des actifs présentés",
+    contracts: "Contrats suivis",
+    contractsValue: "12",
+    contractsNote: "Vue consolidée",
+    institutions: "Établissements",
+    institutionsValue: "4",
+    institutionsNote: "Informations réunies",
+    chartTitle: "Évolution du patrimoine",
+    monthJan: "Jan.",
+    monthMar: "Mars",
+    monthMay: "Mai",
+    monthJul: "Juil.",
+    monthSep: "Sept.",
+    monthDec: "Déc.",
+    heroStepOne: "01",
+    heroStepTwo: "02",
+    heroStepThree: "03",
+    heroNoteOne: "Rassembler les données patrimoniales.",
+    heroNoteTwo: "Comprendre la répartition des actifs.",
+    heroNoteThree: "Préparer l’échange avec le client.",
+    productsKicker: "L’écosystème Wealthcome",
+    productsTitle: "Une plateforme. Des modules selon vos besoins.",
+    productsGridAria: "Produits Wealthcome",
+    groupPlatform: "La plateforme",
+    groupModules: "Modules",
+    groupEnterprise: "Entreprise",
+    wealthproCopy: "Agrégation du patrimoine, suivi réglementaire et gestion de la relation client.",
+    binomStatus: "Bêta",
+    binomCopy: "Collecter et retranscrire les informations du dossier.",
+    connectStatus: "Application côté client",
+    wealthconnect: "WealthConnect",
+    wealthconnectCopy: "Consulter son patrimoine et retrouver les conseils du professionnel.",
+    wealthlab: "WealthLab",
+    wealthlabCopy: "Explorer les simulations fiscales, successorales, de retraite et immobilières.",
+    wealthtreet: "WealthTreet",
+    wealthtreetCopy: "Construire et suivre des portefeuilles depuis WealthPro.",
+    wealthone: "WealthOne",
+    wealthoneCopy: "Adapter la solution aux processus et connecter les outils par interface de programmation.",
+    openDetailsHint: "Ouvrir les détails",
+    openOfficial: "Voir la page officielle de {name}",
+    detailGroupPlatform: "La plateforme",
+    detailGroupModules: "Modules",
+    detailGroupEnterprise: "Entreprise",
+    binomKicker: "Assistant intégré à WealthPro",
+    binomHeading: "De la prise de notes à la préparation du dossier.",
+    binomDescription: "Présenté en bêta, Binom accompagne la collecte et la retranscription des informations dans WealthPro.",
+    binomSummary: "Collecter et retranscrire les informations du dossier dans WealthPro.",
+    binomOfficialLink: "Voir WealthPro sur le site officiel ↗",
+    connectKicker: "Avant de choisir",
+    connectHeading: "Évaluez la solution sur vos usages réels.",
+    connectIntro: "Préparez vos questions sur les données, l’équipe et l’offre.",
+    questionDataTitle: "Vos données",
+    questionData: "Quels actifs et établissements sont couverts ? Comment reprendre vos dossiers ?",
+    questionTeamTitle: "Votre équipe",
+    questionTeam: "Quels accès, quel accompagnement et quelles conditions d’hébergement ?",
+    questionOfferTitle: "Votre offre",
+    questionOffer: "Quels utilisateurs, options et engagements sont inclus dans le tarif ?",
+    faqKicker: "Pour préparer votre choix",
+    faqTitle: "Vos questions, avant la démo.",
+    faqAudienceQuestion: "À qui s’adresse Wealthcome ?",
+    faqAudienceAnswer: "Aux professionnels du conseil patrimonial, notamment les conseillers en gestion de patrimoine, les courtiers et les bureaux familiaux.",
+    faqChoiceQuestion: "Je ne sais pas quelle solution choisir.",
+    faqChoiceAnswer: "Vous n’avez pas besoin de connaître les produits pour commencer. Choisissez une priorité dans le parcours de démonstration, ou sélectionnez « Je ne sais pas encore ».",
+    faqConceptQuestion: "Est-ce une page officielle de Wealthcome ?",
+    faqConceptAnswer: "Non. Il s’agit d’un concept indépendant de Praise Akinde, sans affiliation ni approbation de Wealthcome.",
+    testimonialsKicker: "Témoignages",
+    testimonialsTitle: "Ils ont choisi Wealthcome. Et ils en parlent mieux que nous.",
+    testimonialsIntro: "Retours d’entreprises qui utilisent Wealthcome au quotidien.",
+    testimonialTrackAria: "Témoignages clients",
+    testimonialPause: "Mettre en pause les témoignages",
+    testimonialResume: "Reprendre les témoignages",
+    testimonialPrevious: "Témoignage précédent",
+    testimonialNext: "Témoignage suivant",
+    testimonialJulien: "Wealthcome est un sérieux challenger face aux géants du secteur. La solution se distingue par sa fiabilité et sa simplicité d’utilisation, tout en proposant des fonctionnalités différenciantes, comme l’agrégation des données financières des clients. De plus, toute l’équipe fait preuve d’une grande réactivité en cas de problème, avec des réponses rapides et claires.",
+    testimonialJulienName: "Julien Baumgarten",
+    testimonialJulienFirm: "JB Heritage Solutions",
+    testimonialPierre: "La gamme de solutions proposées par Wealthcome a véritablement simplifié notre organisation. Nous avons une vision plus claire du suivi client, et les rapports sont à la fois faciles à lire et hautement personnalisables. Wealthcome est un véritable partenaire dans nos opérations quotidiennes.",
+    testimonialPierreName: "Pierre-Laurent M.",
+    testimonialChristian: "Nous apprécions la qualité de nos échanges, ainsi que votre disponibilité et votre expertise chez Wealthcome. Nous avons hâte de poursuivre cette collaboration dans le même esprit de confiance et de transparence.",
+    testimonialChristianName: "Christian",
+    testimonialNicolas: "Après quatre mois d’utilisation de l’outil, comme prévu, il est intuitif. Les tutoriels sont disponibles et répondent bien à certaines questions. L’accompagnement de Lilou puis de Nawel est réactif et les réponses sont satisfaisantes.",
+    testimonialNicolasName: "Nicolas",
+    testimonialAnonymous: "Anonyme",
+    nextStep: "Votre prochaine étape",
+    footerCtaTitleFirst: "Identifiez les outils",
+    footerCtaTitleSecond: "adaptés à votre cabinet.",
+    footerCtaCopy: "Commencez par votre activité et votre priorité.",
+    footerTaglineFirst: "Le patrimoine en perspective.",
+    footerTaglineSecond: "Le conseil au premier plan.",
+    footerSlogan: "Pensé pour voir plus clair.",
+    footerExplore: "Explorer",
+    footerMore: "Pour aller plus loin",
+    footerPlatform: "La plateforme",
+    footerBinom: "Binom IA",
+    footerSolutions: "Nos solutions",
+    footerFaq: "Questions fréquentes",
+    footerOfficial: "Site officiel ↗",
+    footerOffers: "Offres WealthPro ↗",
+    footerConnect: "WealthConnect ↗",
+    footerCaption: "Concept indépendant par Praise Akinde. Non affilié à Wealthcome. Les interfaces et les données sont fictives. Aucun renseignement n’est collecté.",
+    footerCopyright: "© 2026 · Concept de refonte par Praise Akinde",
+    footerSource: "Descriptions : site officiel, consulté le 13 octobre 2026 ↗",
+    footerLinksAria: "Liens officiels",
+    legalNotice: "Mentions légales",
+    privacy: "Confidentialité",
+    terms: "Conditions générales d’utilisation",
+    closeAria: "Fermer la fenêtre",
+    demoTitle: "Préparons votre demande",
+    step: "Étape {current} sur {total}",
+    profileQuestion: "Quelle est votre activité ?",
+    profileAdvisor: "Conseiller en gestion de patrimoine",
+    profileBroker: "Courtier",
+    profileFamilyOffice: "Bureau familial",
+    needQuestion: "Quel est votre besoin prioritaire ?",
+    needAggregation: "Agrégation du patrimoine",
+    needDocuments: "Suivi documentaire et réglementaire",
+    needRelationship: "Relation client",
+    needUnsure: "Je ne sais pas encore",
+    continue: "Continuer",
+    back: "Retour",
+    requiredProfile: "Choisissez votre activité pour continuer.",
+    requiredNeed: "Choisissez une priorité pour continuer.",
+    slotQuestion: "Choisissez un créneau.",
+    slotAria: "{date} à {time}",
+    slotSelected: "Créneau sélectionné : {date} à {time}",
+    confirmationTitle: "Demande reçue.",
+    confirmationCopy: "Un expert vous contacte sous 24 h pour confirmer votre créneau.",
+    close: "Fermer",
+    timeMorning: "09:00",
+    timeMidday: "11:00",
+    timeAfternoon: "14:00",
+    slotVisible: "{date} · {time}",
+    dateLocale: "fr-FR"
+  },
+  en: {
+    pageTitle: "Wealthcome — A clear view to better support your clients.",
+    description: "An overview of Wealthcome products for wealth management professionals.",
+    ogDescription: "Explore Wealthcome products for wealth management professionals.",
+    imageAlt: "Preview of the Wealthcome presentation concept.",
+    skipLink: "Skip to content",
+    conceptBanner: "Independent concept, not affiliated with or approved by Wealthcome.",
+    brand: "wealthcome",
+    brandAria: "Wealthcome, home",
+    logoMarqueeAria: "Banner of supplied logos",
+    navAria: "Main navigation",
+    navProducts: "Products",
+    navBinom: "Binom",
+    navFaq: "Frequently asked questions",
+    navLogin: "Sign in ↗",
+    languageGroup: "Language",
+    languageFr: "FR",
+    languageEn: "EN",
+    menuOpenAria: "Open menu",
+    menuCloseAria: "Close menu",
+    requestDemo: "Request a demo",
+    demoShort: "Demo",
+    heroEyebrow: "A new perspective on wealth advice",
+    heroTitleFirst: "A clear view.",
+    heroTitleSecond: "To better support your clients.",
+    heroCopy: "With WealthPro, bring wealth data together, track regulatory documents and find each client’s context. Prepare for conversations with an overview.",
+    explorePlatform: "Explore the products",
+    dashboardAria: "WealthPro overview with demo data for wealth, contracts, institutions and wealth trends.",
+    dashboardTop: "WealthPro · Client file",
+    dashboardTag: "Overview",
+    wealthpro: "WealthPro",
+    overview: "Overview",
+    clients: "Clients",
+    wealth: "Wealth",
+    compliance: "Compliance",
+    binom: "Binom",
+    dashboardLocation: "Your workspace · Client file",
+    dashboardProfile: "Client profile",
+    dashboardHeading: "Client file summary.",
+    dashboardSubheading: "Assets, contracts and institutions in one view.",
+    fictionTag: "Fictional data",
+    grossWealth: "Gross wealth",
+    grossWealthValue: "€2,450,000",
+    grossWealthNote: "Assets shown together",
+    contracts: "Contracts tracked",
+    contractsValue: "12",
+    contractsNote: "Consolidated view",
+    institutions: "Institutions",
+    institutionsValue: "4",
+    institutionsNote: "Information brought together",
+    chartTitle: "Wealth over time",
+    monthJan: "Jan",
+    monthMar: "Mar",
+    monthMay: "May",
+    monthJul: "Jul",
+    monthSep: "Sep",
+    monthDec: "Dec",
+    heroStepOne: "01",
+    heroStepTwo: "02",
+    heroStepThree: "03",
+    heroNoteOne: "Bring wealth data together.",
+    heroNoteTwo: "Understand the asset allocation.",
+    heroNoteThree: "Prepare for the client conversation.",
+    productsKicker: "The Wealthcome ecosystem",
+    productsTitle: "One platform. Modules that fit your needs.",
+    productsGridAria: "Wealthcome products",
+    groupPlatform: "The platform",
+    groupModules: "Modules",
+    groupEnterprise: "Enterprise",
+    wealthproCopy: "Wealth aggregation, regulatory tracking and client relationship management.",
+    binomStatus: "Beta",
+    binomCopy: "Collect and transcribe information from the client file.",
+    connectStatus: "Client-facing app",
+    wealthconnect: "WealthConnect",
+    wealthconnectCopy: "View wealth information and find the professional’s advice.",
+    wealthlab: "WealthLab",
+    wealthlabCopy: "Explore tax, estate, retirement and property simulations.",
+    wealthtreet: "WealthTreet",
+    wealthtreetCopy: "Build and monitor portfolios from WealthPro.",
+    wealthone: "WealthOne",
+    wealthoneCopy: "Adapt the solution to workflows and connect tools by API.",
+    openDetailsHint: "Open details",
+    openOfficial: "View the official {name} page",
+    detailGroupPlatform: "The platform",
+    detailGroupModules: "Modules",
+    detailGroupEnterprise: "Enterprise",
+    binomKicker: "Assistant built into WealthPro",
+    binomHeading: "From note-taking to preparing the client file.",
+    binomDescription: "Presented in beta, Binom supports the collection and transcription of information in WealthPro.",
+    binomSummary: "Collect and transcribe information from the client file in WealthPro.",
+    binomOfficialLink: "View WealthPro on the official website ↗",
+    connectKicker: "Before you choose",
+    connectHeading: "Assess the solution against your needs.",
+    connectIntro: "Prepare questions about data, your team and the offering.",
+    questionDataTitle: "Your data",
+    questionData: "Which assets and institutions are covered? How can your files be transferred?",
+    questionTeamTitle: "Your team",
+    questionTeam: "What access, support and hosting terms are available?",
+    questionOfferTitle: "Your offering",
+    questionOffer: "Which users, options and commitments are included in the price?",
+    faqKicker: "Before you choose",
+    faqTitle: "Questions to consider before a demo.",
+    faqAudienceQuestion: "Who is Wealthcome for?",
+    faqAudienceAnswer: "Wealth management professionals, including wealth advisers, brokers and family offices.",
+    faqChoiceQuestion: "I’m not sure which solution to choose.",
+    faqChoiceAnswer: "You do not need to know the products to get started. Choose a priority in the demo flow, or select “I’m not sure yet”.",
+    faqConceptQuestion: "Is this an official Wealthcome page?",
+    faqConceptAnswer: "No. This is an independent concept by Praise Akinde, not affiliated with or approved by Wealthcome.",
+    testimonialsKicker: "Testimonials",
+    testimonialsTitle: "They chose Wealthcome. And they can talk about it better than we can.",
+    testimonialsIntro: "Feedback from firms that use Wealthcome on a daily basis.",
+    testimonialTrackAria: "Customer testimonials",
+    testimonialPause: "Pause testimonials",
+    testimonialResume: "Resume testimonials",
+    testimonialPrevious: "Previous testimonial",
+    testimonialNext: "Next testimonial",
+    testimonialJulien: "Wealthcome is a serious challenger to the industry giants. The solution is characterized by its reliability and user-friendliness, while also offering disruptive features such as the aggregation of clients' financial data. Furthermore, the entire team demonstrates exceptional responsiveness in case of any issues, providing quick and clear answers.",
+    testimonialJulienName: "Julien Baumgarten",
+    testimonialJulienFirm: "JB Heritage Solutions",
+    testimonialPierre: "The range of solutions offered by Wealthcome has truly simplified our organization. We have a clearer understanding of customer tracking, and the reports are both easy to read and highly customizable. They are a true partner in our daily operations.",
+    testimonialPierreName: "Pierre-Laurent M.",
+    testimonialChristian: "We appreciate the quality of our exchanges, as well as the availability and expertise you demonstrate at Wealthcome. We look forward to continuing this collaboration in the same spirit of trust and open communication.",
+    testimonialChristianName: "Christian",
+    testimonialNicolas: "After four months of using the tool, as expected, it's intuitive to use; the tutorials are available and answer some questions well. Lilou's and then Nawel's support is responsive and the answers are satisfactory.",
+    testimonialNicolasName: "Nicolas",
+    testimonialAnonymous: "Anonymous",
+    nextStep: "Your next step",
+    footerCtaTitleFirst: "Find the tools",
+    footerCtaTitleSecond: "that fit your practice.",
+    footerCtaCopy: "Start with your role and priorities.",
+    footerTaglineFirst: "Wealth in perspective.",
+    footerTaglineSecond: "Advice at the centre.",
+    footerSlogan: "Designed for a clearer view.",
+    footerExplore: "Explore",
+    footerMore: "Find out more",
+    footerPlatform: "Platform",
+    footerBinom: "Binom AI",
+    footerSolutions: "Solutions",
+    footerFaq: "FAQs",
+    footerOfficial: "Official website ↗",
+    footerOffers: "WealthPro offers ↗",
+    footerConnect: "WealthConnect ↗",
+    footerCaption: "Independent concept by Praise Akinde. Not affiliated with Wealthcome. Interfaces and data are fictional. No information is collected.",
+    footerCopyright: "© 2026 · Redesign concept by Praise Akinde",
+    footerSource: "Descriptions: official website, accessed 13 October 2026 ↗",
+    footerLinksAria: "Official links",
+    legalNotice: "Legal notice",
+    privacy: "Privacy",
+    terms: "Terms of use",
+    closeAria: "Close dialog",
+    demoTitle: "Plan your demo",
+    step: "Step {current} of {total}",
+    profileQuestion: "What best describes your work?",
+    profileAdvisor: "Wealth adviser",
+    profileBroker: "Broker",
+    profileFamilyOffice: "Family office",
+    needQuestion: "What is your main priority?",
+    needAggregation: "Wealth data aggregation",
+    needDocuments: "Document and compliance tracking",
+    needRelationship: "Client relationships",
+    needUnsure: "I’m not sure yet",
+    continue: "Continue",
+    back: "Back",
+    requiredProfile: "Choose your work profile to continue.",
+    requiredNeed: "Choose a priority to continue.",
+    slotQuestion: "Choose a time slot.",
+    slotAria: "{date} at {time}",
+    slotSelected: "Selected time slot: {date} at {time}",
+    confirmationTitle: "Request received.",
+    confirmationCopy: "An expert will contact you within 24 hours to confirm your time slot.",
+    close: "Close",
+    timeMorning: "09:00",
+    timeMidday: "11:00",
+    timeAfternoon: "14:00",
+    slotVisible: "{date} · {time}",
+    dateLocale: "en-GB"
+  }
+};
+
+const products = {
+  wealthpro: { title: "wealthpro", copy: "wealthproCopy", group: "detailGroupPlatform", href: "https://www.wealthcome.fr/wealth-pro" },
+  binom: { title: "binom", copy: "binomCopy", group: "detailGroupPlatform", status: "binomStatus", href: "https://www.wealthcome.fr/wealth-pro" },
+  wealthconnect: { title: "wealthconnect", copy: "wealthconnectCopy", group: "detailGroupModules", status: "connectStatus", href: "https://www.wealthcome.fr/wealth-connect" },
+  wealthlab: { title: "wealthlab", copy: "wealthlabCopy", group: "detailGroupModules", href: "https://www.wealthcome.fr" },
+  wealthtreet: { title: "wealthtreet", copy: "wealthtreetCopy", group: "detailGroupModules", href: "https://www.wealthcome.fr" },
+  wealthone: { title: "wealthone", copy: "wealthoneCopy", group: "detailGroupEnterprise", href: "https://www.wealthcome.fr" }
+};
+let language = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "fr";
+let demoStep = 1;
+let selectedSlot = null;
+const demoDialog = document.getElementById("demo-dialog");
+const productDialog = document.getElementById("product-dialog");
+const menuButton = document.querySelector(".menu-button");
+const navigation = document.getElementById("navigation");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const logoTrack = document.querySelector(".logo-marquee-track");
+logoTrack.append(logoTrack.querySelector(".logo-marquee-group").cloneNode(true));
+const testimonialCarousel = document.getElementById("testimonial-carousel");
+const testimonialDeck = document.getElementById("testimonial-panels");
+const testimonialToggle = document.getElementById("testimonial-toggle");
+const testimonialTabs = [...testimonialCarousel.querySelectorAll('[role="tab"]')];
+const testimonialCards = [...testimonialDeck.querySelectorAll(".testimonial-card")];
+let testimonialIndex = 0;
+let testimonialDrag = null;
+let testimonialSuppressClick = false;
+
+function t(key, values = {}) {
+  const dictionary = translations[language];
+  if (!Object.prototype.hasOwnProperty.call(dictionary, key)) throw new Error(`Missing ${language} translation: ${key}`);
+  return Object.entries(values).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, String(value)), dictionary[key]);
+}
+
+function updateTestimonialToggle() {
+  const paused = testimonialCarousel.classList.contains("is-paused");
+  const label = t(paused ? "testimonialResume" : "testimonialPause");
+  testimonialToggle.setAttribute("aria-label", label);
+  testimonialToggle.title = label;
+  document.getElementById("testimonial-toggle-icon").setAttribute("d", paused ? "M8 5.5v13l10.5-6.5z" : "M9 5v14m6-14v14");
+}
+
+function showTestimonial(index, { focusTab = false, direction = 0, fling = true } = {}) {
+  const count = testimonialCards.length;
+  const next = (index + count) % count;
+  const previous = testimonialIndex;
+  if (next !== previous) {
+    const forward = direction ? direction > 0 : (next - previous + count) % count <= count / 2;
+    testimonialCards.forEach((card) => card.classList.remove("is-flinging-out", "is-flinging-in"));
+    if (fling && !reducedMotion.matches) {
+      void testimonialDeck.offsetWidth;
+      if (forward) testimonialCards[previous].classList.add("is-flinging-out");
+      else if (testimonialCards[next].dataset.pos === "3") testimonialCards[next].classList.add("is-flinging-in");
+    }
+    testimonialIndex = next;
+    testimonialCards.forEach((card, cardIndex) => { card.dataset.pos = String((cardIndex - next + count) % count); });
+  }
+  testimonialTabs.forEach((tab, tabIndex) => {
+    const active = tabIndex === testimonialIndex;
+    tab.setAttribute("aria-selected", String(active));
+    tab.tabIndex = active ? 0 : -1;
+  });
+  document.getElementById("testimonial-current").textContent = String(testimonialIndex + 1).padStart(2, "0");
+  if (focusTab) testimonialTabs[testimonialIndex].focus();
+}
+
+testimonialTabs.forEach((tab, tabIndex) => {
+  tab.addEventListener("click", () => showTestimonial(tabIndex));
+  tab.addEventListener("keydown", (event) => {
+    const steps = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (event.key in steps) {
+      event.preventDefault();
+      showTestimonial(tabIndex + steps[event.key], { focusTab: true, direction: steps[event.key] });
+    }
+    if (event.key === "Home" || event.key === "End") {
+      event.preventDefault();
+      showTestimonial(event.key === "Home" ? 0 : testimonialTabs.length - 1, { focusTab: true });
+    }
+  });
+});
+testimonialCarousel.querySelectorAll("[data-testimonial-step]").forEach((button) => {
+  const step = Number(button.dataset.testimonialStep);
+  button.addEventListener("click", () => showTestimonial(testimonialIndex + step, { direction: step }));
+});
+testimonialCards.forEach((card, cardIndex) => {
+  card.addEventListener("click", () => {
+    if (testimonialSuppressClick || card.dataset.pos === "0") return;
+    showTestimonial(cardIndex);
+  });
+});
+testimonialDeck.addEventListener("animationend", (event) => {
+  if (event.animationName.startsWith("testimonial-fling")) event.target.classList.remove("is-flinging-out", "is-flinging-in");
+});
+
+testimonialDeck.addEventListener("pointerdown", (event) => {
+  const card = event.target.closest(".testimonial-card");
+  if (!card || card.dataset.pos !== "0" || event.button !== 0) return;
+  testimonialDrag = { card, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, dx: 0, active: false };
+});
+testimonialDeck.addEventListener("pointermove", (event) => {
+  const drag = testimonialDrag;
+  if (!drag || event.pointerId !== drag.pointerId) return;
+  const dx = event.clientX - drag.startX;
+  const dy = event.clientY - drag.startY;
+  if (!drag.active) {
+    if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) testimonialDrag = null;
+    if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+    drag.active = true;
+    drag.card.setPointerCapture(drag.pointerId);
+    drag.card.classList.remove("is-flinging-out", "is-flinging-in");
+    drag.card.classList.add("is-dragging");
+    testimonialCarousel.classList.add("is-dragging");
+  }
+  drag.dx = dx;
+  drag.card.style.transform = `translate3d(${dx}px, ${Math.abs(dx) * 0.04}px, 0) rotate(${dx / 28}deg)`;
+});
+function endTestimonialDrag(event) {
+  const drag = testimonialDrag;
+  if (!drag || event.pointerId !== drag.pointerId) return;
+  testimonialDrag = null;
+  if (!drag.active) return;
+  drag.card.classList.remove("is-dragging");
+  drag.card.style.transform = "";
+  testimonialCarousel.classList.remove("is-dragging");
+  testimonialSuppressClick = true;
+  setTimeout(() => { testimonialSuppressClick = false; }, 0);
+  const threshold = Math.min(110, drag.card.offsetWidth * 0.18);
+  if (drag.dx < -threshold) showTestimonial(testimonialIndex + 1, { direction: 1, fling: false });
+  else if (drag.dx > threshold) showTestimonial(testimonialIndex - 1, { direction: -1, fling: false });
+}
+testimonialDeck.addEventListener("pointerup", endTestimonialDrag);
+testimonialDeck.addEventListener("pointercancel", endTestimonialDrag);
+
+testimonialCarousel.addEventListener("animationend", (event) => {
+  if (event.animationName !== "testimonial-progress" || reducedMotion.matches) return;
+  showTestimonial(testimonialIndex + 1, { direction: 1 });
+});
+testimonialCarousel.addEventListener("pointerenter", (event) => {
+  if (event.pointerType === "mouse") testimonialCarousel.classList.add("is-hovered");
+});
+testimonialCarousel.addEventListener("pointerleave", () => testimonialCarousel.classList.remove("is-hovered"));
+testimonialToggle.addEventListener("click", () => {
+  testimonialCarousel.classList.toggle("is-paused");
+  updateTestimonialToggle();
+});
+document.addEventListener("visibilitychange", () => {
+  testimonialCarousel.classList.toggle("is-page-hidden", document.hidden);
+});
+testimonialCarousel.classList.toggle("is-page-hidden", document.hidden);
+
+function translatePage() {
+  document.documentElement.lang = language;
+  document.title = t("pageTitle");
+  document.querySelector('meta[name="description"]').content = t("description");
+  document.querySelector('meta[property="og:title"]').content = t("pageTitle");
+  document.querySelector('meta[property="og:description"]').content = t("ogDescription");
+  document.querySelector('meta[property="og:image:alt"]').content = t("imageAlt");
+  document.querySelector('meta[property="og:locale"]').content = language === "fr" ? "fr_FR" : "en_GB";
+  document.querySelector('meta[name="twitter:title"]').content = t("pageTitle");
+  document.querySelector('meta[name="twitter:description"]').content = t("ogDescription");
+  document.querySelectorAll("[data-i18n]").forEach((element) => { element.textContent = t(element.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-aria]").forEach((element) => { element.setAttribute("aria-label", t(element.dataset.i18nAria)); });
+  document.querySelectorAll("[data-language]").forEach((button) => { button.setAttribute("aria-pressed", String(button.dataset.language === language)); });
+  document.querySelectorAll("[data-product-link]").forEach((link) => {
+    const product = products[link.dataset.productLink];
+    link.setAttribute("aria-label", t("openOfficial", { name: t(product.title) }));
+  });
+  document.querySelectorAll(".product-tile").forEach((tile) => {
+    tile.setAttribute("aria-label", t("openOfficial", { name: t(products[tile.dataset.product].title) }));
+  });
+  if (selectedSlot) renderSelectedSlot();
+  if (!document.getElementById("profile-error").hidden) document.getElementById("profile-error").textContent = t("requiredProfile");
+  if (!document.getElementById("need-error").hidden) document.getElementById("need-error").textContent = t("requiredNeed");
+  menuButton.setAttribute("aria-label", t(navigation.classList.contains("is-open") ? "menuCloseAria" : "menuOpenAria"));
+  updateTestimonialToggle();
+  renderDemoStep();
+  if (productDialog.dataset.product) renderProductDialog(productDialog.dataset.product);
+}
+
+function setLanguage(nextLanguage) {
+  if (!Object.prototype.hasOwnProperty.call(translations, nextLanguage)) throw new Error(`Unsupported language: ${nextLanguage}`);
+  language = nextLanguage;
+  translatePage();
+}
+
+document.querySelectorAll("[data-language]").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.language));
+});
+
+function closeMenu() {
+  navigation.classList.remove("is-open");
+  menuButton.setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-label", t("menuOpenAria"));
+}
+
+menuButton.addEventListener("click", () => {
+  const open = menuButton.getAttribute("aria-expanded") !== "true";
+  navigation.classList.toggle("is-open", open);
+  menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-label", t(open ? "menuCloseAria" : "menuOpenAria"));
+});
+navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navigation.classList.contains("is-open")) {
+    closeMenu();
+    menuButton.focus();
+  }
+});
+
+document.querySelectorAll("[data-demo]").forEach((button) => {
+  button.addEventListener("click", () => {
+    closeMenu();
+    demoStep = 1;
+    selectedSlot = null;
+    demoDialog.querySelectorAll('input[name="profile"], input[name="need"]').forEach((input) => { input.checked = false; });
+    demoDialog.querySelectorAll(".dialog-error").forEach((error) => { error.hidden = true; error.textContent = ""; });
+    document.getElementById("demo-confirmation").hidden = true;
+    document.getElementById("selected-slot").textContent = "";
+    demoDialog.showModal();
+    renderDemoStep();
+    demoDialog.querySelector('input[name="profile"]').focus();
+  });
+});
+
+document.querySelectorAll("[data-close-dialog]").forEach((button) => {
+  button.addEventListener("click", () => button.closest("dialog").close());
+});
+
+document.querySelectorAll("[data-next]").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (demoStep === 1 && !demoDialog.querySelector('input[name="profile"]:checked')) {
+      const error = document.getElementById("profile-error");
+      error.textContent = t("requiredProfile");
+      error.hidden = false;
+      demoDialog.querySelector('input[name="profile"]').focus();
+      return;
+    }
+    if (demoStep === 2 && !demoDialog.querySelector('input[name="need"]:checked')) {
+      const error = document.getElementById("need-error");
+      error.textContent = t("requiredNeed");
+      error.hidden = false;
+      demoDialog.querySelector('input[name="need"]').focus();
+      return;
+    }
+    demoStep = Number(button.dataset.next);
+    renderDemoStep();
+    if (demoStep === 2) demoDialog.querySelector('input[name="need"]').focus();
+    if (demoStep === 3) document.querySelector("#slot-grid button")?.focus();
+  });
+});
+
+document.querySelectorAll("[data-previous]").forEach((button) => {
+  button.addEventListener("click", () => {
+    demoStep = Number(button.dataset.previous);
+    renderDemoStep();
+    demoDialog.querySelector(demoStep === 1 ? 'input[name="profile"]' : 'input[name="need"]').focus();
+  });
+});
+
+function upcomingWorkingDays() {
+  const days = [];
+  const day = new Date();
+  day.setHours(12, 0, 0, 0);
+  day.setDate(day.getDate() + 1);
+  while (days.length < 3) {
+    if (day.getDay() !== 0 && day.getDay() !== 6) days.push(new Date(day));
+    day.setDate(day.getDate() + 1);
+  }
+  return days;
+}
+
+function formatSlotDate(day) {
+  return new Intl.DateTimeFormat(translations[language].dateLocale, { weekday: "short", day: "numeric", month: "short" }).format(day);
+}
+
+function renderSelectedSlot() {
+  const date = formatSlotDate(selectedSlot.day);
+  document.getElementById("selected-slot").textContent = t("slotSelected", { date, time: selectedSlot.time });
+}
+
+function renderSlots() {
+  const grid = document.getElementById("slot-grid");
+  grid.replaceChildren();
+  const times = [t("timeMorning"), t("timeMidday"), t("timeAfternoon")];
+  upcomingWorkingDays().forEach((day) => {
+    const date = formatSlotDate(day);
+    times.forEach((time) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "slot-button";
+      button.textContent = t("slotVisible", { date, time });
+      button.setAttribute("aria-label", t("slotAria", { date, time }));
+      button.addEventListener("click", () => {
+        selectedSlot = { day: new Date(day), time };
+        renderSelectedSlot();
+        demoStep = 3;
+        document.getElementById("demo-step-one").hidden = true;
+        document.getElementById("demo-step-two").hidden = true;
+        document.getElementById("demo-step-three").hidden = true;
+        document.getElementById("demo-confirmation").hidden = false;
+        document.getElementById("demo-step-indicator").textContent = t("step", { current: 3, total: 3 });
+        document.querySelector("#demo-confirmation [data-close-dialog]").focus();
+      });
+      grid.append(button);
+    });
+  });
+}
+
+function renderDemoStep() {
+  const finished = !document.getElementById("demo-confirmation").hidden;
+  document.getElementById("demo-step-indicator").textContent = t("step", { current: demoStep, total: 3 });
+  document.getElementById("demo-step-one").hidden = demoStep !== 1 || finished;
+  document.getElementById("demo-step-two").hidden = demoStep !== 2 || finished;
+  document.getElementById("demo-step-three").hidden = demoStep !== 3 || finished;
+  if (demoStep === 3 && !finished) renderSlots();
+}
+
+function renderProductDialog(productId) {
+  const product = products[productId];
+  if (!product) throw new Error(`Unknown product: ${productId}`);
+  productDialog.dataset.product = productId;
+  document.getElementById("product-dialog-group").textContent = t(product.group);
+  document.getElementById("product-dialog-title").textContent = t(product.title);
+  document.getElementById("product-dialog-copy").textContent = t(product.copy);
+  const status = document.getElementById("product-dialog-status");
+  status.textContent = product.status ? t(product.status) : "";
+  status.hidden = !product.status;
+  const link = document.getElementById("product-dialog-link");
+  link.href = product.href;
+  document.getElementById("product-dialog-link-label").textContent = t("openOfficial", { name: t(product.title) });
+}
+
+function openProductDialog(article) {
+  closeMenu();
+  renderProductDialog(article.dataset.product);
+  productDialog.showModal();
+  document.getElementById("product-dialog-title").focus();
+}
+
+const productTiles = [...document.querySelectorAll(".product-tile")];
+productTiles.forEach((tile) => {
+  tile.setAttribute("aria-label", t("openOfficial", { name: t(products[tile.dataset.product].title) }));
+  tile.addEventListener("click", (event) => {
+    if (event.target.closest("a")) return;
+    openProductDialog(tile);
+  });
+  tile.addEventListener("keydown", (event) => {
+    if (event.target === tile && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      openProductDialog(tile);
+    }
+    if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+      event.preventDefault();
+      moveTileFocus(tile, event.key);
+    }
+  });
+  tile.addEventListener("pointermove", (event) => {
+    if (reducedMotion.matches || event.pointerType !== "mouse") return;
+    const rect = tile.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    tile.style.setProperty("--spot-x", `${x * 100}%`);
+    tile.style.setProperty("--spot-y", `${y * 100}%`);
+    tile.style.setProperty("--tilt-x", `${(0.5 - y) * 5}deg`);
+    tile.style.setProperty("--tilt-y", `${(x - 0.5) * 5}deg`);
+  });
+  tile.addEventListener("pointerleave", () => {
+    tile.style.setProperty("--tilt-x", "0deg");
+    tile.style.setProperty("--tilt-y", "0deg");
+  });
+});
+
+function moveTileFocus(current, direction) {
+  const rect = current.getBoundingClientRect();
+  const horizontal = direction === "ArrowLeft" || direction === "ArrowRight";
+  const sign = direction === "ArrowRight" || direction === "ArrowDown" ? 1 : -1;
+  const candidates = productTiles.filter((tile) => tile !== current).map((tile) => {
+    const other = tile.getBoundingClientRect();
+    const dx = other.left + other.width / 2 - (rect.left + rect.width / 2);
+    const dy = other.top + other.height / 2 - (rect.top + rect.height / 2);
+    const forward = sign * (horizontal ? dx : dy) > 0;
+    const primary = Math.abs(horizontal ? dx : dy);
+    const secondary = Math.abs(horizontal ? dy : dx);
+    return { tile, forward, score: primary + secondary * 1.8 };
+  });
+  const directional = candidates.filter((candidate) => candidate.forward).sort((a, b) => a.score - b.score)[0];
+  const fallback = (sign > 0 ? candidates : [...candidates].reverse())[0];
+  (directional || fallback)?.tile.focus();
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navigation.classList.contains("is-open")) closeMenu();
+});
+
+translatePage();
+</script>
+</body>
+</html>
