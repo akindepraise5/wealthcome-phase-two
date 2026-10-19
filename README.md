@@ -25,7 +25,10 @@ Sections: concept banner, header, hero with a fictional WealthPro dashboard, log
 - French/English switching for page content, product examples, form options, dialog results, accessible labels and document metadata.
 - Responsive navigation, narrow-screen dashboard layout, text wrapping, touch targets and footer spacing.
 - Visible keyboard focus, native dialog focus management and reduced-motion support.
-- Section headings stand alone, with no eyebrow or kicker labels above them. Each product tile has an "Open details" button that opens a product dialog, plus a separate link to the product's official page (WealthPro, WealthConnect, WealthLab, WealthTreet, WealthOne, and the Binom announcement article).
+- Section headings stand alone, with no eyebrow or kicker labels above them. Each product card has an expand button that opens a product dialog; the dialog links to the product's official page (WealthPro, WealthConnect, WealthLab, WealthTreet, WealthOne, and the Binom announcement article).
+- Product cards show working previews built around one fictional client file (Famille Martin): WealthPro tabs (aggregation, compliance, relationship) that cycle on a progress bar until the visitor picks one; a Binom meeting capture; a WealthConnect phone where the visitor can scrub twelve months of the client's wealth (pointer or arrow keys) and open the meeting summary the adviser shared, which arrives through the phone's island; a WealthLab retirement simulator with real sliders (3 % fictional return); a WealthTreet current/target allocation donut; and a WealthOne integration network over a pointer-reactive dot field.
+- The Binom section is a three-step example (collection, transcription, client file) that plays once when it scrolls into view and can be replayed or scrubbed. Each client file field links back to the note it came from on hover or focus.
+- Preview motion runs only while the card is on screen and the tab is visible; reduced motion shows every preview in its finished state.
 - Logo marquee and testimonial carousel (tabs, arrows, swipe, auto-advance with pause; auto-advance is disabled with reduced motion).
 - Footer links to Wealthcome's legal notice, privacy policy and terms of use.
 - Interface icons replaced with Heroicons.
@@ -35,7 +38,7 @@ Sections: concept banner, header, hero with a fictional WealthPro dashboard, log
 
 The demo dialog has three steps: profile, priority, then a choice of time slot (the next three working days at 09:00, 11:00 and 14:00, generated in the browser). Choosing a slot shows a confirmation that says an expert will be in touch within 24 hours.
 
-Nothing is sent or booked: there is no form submission, booking integration or data collection, as the footer states. The 24-hour statement is listed in the comment at the top of `index.html` as needing confirmation from Wealthcome before the page is shared. Binom's example is static illustrative content, not connected AI. External links open in a new tab, indicated by an arrow.
+Nothing is sent or booked: there is no form submission, booking integration or data collection, as the footer states. The 24-hour statement is listed in the comment at the top of `index.html` as needing confirmation from Wealthcome before the page is shared. Binom's example, the WealthPro client file and the WealthLab simulation are illustrative content with fictional data, not connected to any product or AI. External links open in a new tab, indicated by an arrow.
 
 ## To confirm with Wealthcome
 

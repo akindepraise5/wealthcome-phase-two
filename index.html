@@ -154,11 +154,13 @@ svg { display: block; }
 .demo-button { border-color: #4b4cff; background: #4b4cff; }
 .demo-button:hover { border-color: #3839e8; background: #3839e8; }
 .demo-button:active, .primary-button:active, .secondary-button:active, .next-button:active { transform: scale(.96); }
-.demo-button svg, .primary-button svg, .tile-destination svg, .detail-link svg {
+.demo-button svg, .primary-button svg, .detail-link svg {
   width: 15px;
   height: 15px;
 }
 .text-link svg, .next-button svg, .back-button svg { width: 15px; height: 15px; }
+.external-icon { display: inline-block; width: 1em; height: 1em; margin-inline-start: .3em; vertical-align: -.125em; }
+.detail-link .external-icon { flex-shrink: 0; margin-inline-start: 0; }
 .mobile-demo-label { display: none; }
 .menu-button {
   display: none;
@@ -389,256 +391,393 @@ svg { display: block; }
 }
 .section-heading p { max-width: 620px; margin-block-start: 16px; color: var(--muted); font-size: 16px; }
 .product-grid {
+  --c1: #1761f3;
+  --c2: #5b93f5;
+  --c3: #9dbff8;
+  --c4: #d3e2fb;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-rows: minmax(210px, auto);
   gap: 14px;
 }
 .product-tile {
+  --pad: clamp(22px, 2.3vw, 30px);
   --spot-x: 50%;
   --spot-y: 50%;
   position: relative;
   display: flex;
   min-width: 0;
   flex-direction: column;
-  align-items: stretch;
   overflow: hidden;
-  padding: clamp(22px, 2.5vw, 34px);
-  border: 1px solid #e0e5eb;
-  border-radius: 18px;
-  background: #fff;
+  padding: var(--pad) var(--pad) 0;
+  border: 1px solid #e3e8ef;
+  border-radius: 20px;
+  background: #f6f8fb;
   cursor: pointer;
   isolation: isolate;
-  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  container-type: inline-size;
+  transition: border-color 200ms ease, box-shadow 200ms ease, opacity 700ms var(--ease), transform 700ms var(--ease);
+  transition-delay: 0s, 0s, var(--reveal-delay, 0s), var(--reveal-delay, 0s);
 }
+.product-grid.will-reveal .product-tile:not(.is-revealed) { opacity: 0; transform: translateY(18px); }
 .product-tile::before {
   position: absolute;
   z-index: 0;
   inset: 0;
-  background: radial-gradient(340px circle at var(--spot-x) var(--spot-y), rgb(35 105 230 / 10%), transparent 68%);
+  background: radial-gradient(380px circle at var(--spot-x) var(--spot-y), rgb(23 97 243 / 7%), transparent 70%);
   content: "";
   opacity: 0;
-  transition: opacity 150ms ease;
+  transition: opacity 200ms ease;
   pointer-events: none;
 }
-.product-tile:hover, .product-tile:has(:focus-visible) {
-  border-color: #b8cbe5;
-  box-shadow: 0 12px 28px rgb(18 43 74 / 7%);
+.product-tile:hover, .product-tile:has(.tile-expand:focus-visible) {
+  border-color: #c9d8ec;
 }
-.product-tile:hover::before, .product-tile:has(:focus-visible)::before { opacity: 1; }
+.product-tile:hover::before { opacity: 1; }
 .product-tile > * { position: relative; z-index: 1; }
-.product-tile--wealthpro { grid-column: span 7; grid-row: span 2; background: linear-gradient(180deg, #f8fbff, #fff 72%); }
-.product-tile--binom { grid-column: span 5; }
-.product-tile--connect { grid-column: span 5; }
-.product-tile--lab, .product-tile--treet { grid-column: span 4; }
-.product-tile--one { grid-column: span 4; background: #f7f9fc; }
-.tile-meta { display: flex; min-height: 34px; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
-.tile-icon {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid #dfe8f6;
-  border-radius: 9px;
-  background: #f1f6ff;
-  color: var(--blue);
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
-}
-.tile-icon svg { width: 17px; height: 17px; }
-.product-tile:hover .tile-icon, .product-tile:has(:focus-visible) .tile-icon { border-color: var(--blue); background: var(--blue); color: #fff; }
+.product-tile--wealthpro { grid-column: span 7; grid-row: span 2; }
+.product-tile--binom, .product-tile--connect { grid-column: span 5; }
+.product-tile--lab, .product-tile--treet, .product-tile--one { grid-column: span 4; }
+.tile-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.tile-title { min-width: 0; max-width: 34ch; font-size: clamp(18px, 1.55vw, 21px); line-height: 1.3; letter-spacing: -.025em; }
+.tile-title h3 { font-size: inherit; font-weight: 500; letter-spacing: inherit; }
+.tile-title p { color: #7a8796; font-size: inherit; line-height: inherit; text-wrap: pretty; }
+.tile-name { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.product-tile--wealthpro .tile-title { max-width: 25ch; font-size: clamp(25px, 2.4vw, 32px); line-height: 1.16; letter-spacing: -.04em; }
 .status-tag {
-  margin-inline-start: auto;
-  padding: 5px 8px;
+  padding: 4px 7px;
   border: 1px solid #dce5ef;
   border-radius: 5px;
+  background: #fff;
   color: #53677d;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 10px;
+  letter-spacing: 0;
+  line-height: 1.2;
   white-space: nowrap;
 }
-.product-tile h3 { margin-block: 22px 8px; font-size: clamp(23px, 2.5vw, 34px); letter-spacing: -.045em; }
-.product-tile--wealthpro h3 { font-size: clamp(33px, 4vw, 52px); }
-.tile-copy { max-width: 48ch; color: #647180; font-size: 14px; line-height: 1.55; text-wrap: pretty; }
-.tile-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-block-start: 20px;
-  padding-block-start: 16px;
-  border-block-start: 1px solid #edf1f5;
-}
-.tile-hint {
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #727f8d;
-  font-size: 12px;
-  text-align: start;
-}
-.tile-hint:hover, .product-tile:hover .tile-hint { color: #174fad; }
-.tile-destination {
+.tile-expand {
   display: grid;
   width: 44px;
   height: 44px;
   flex: 0 0 auto;
   place-items: center;
-  border: 1px solid #dce2e9;
-  border-radius: 50%;
+  padding: 0;
+  border: 1px solid #e1e7ef;
+  border-radius: 12px;
   background: #fff;
-  color: #26384a;
+  color: #33465a;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease;
 }
-.tile-destination:hover, .product-tile:hover .tile-destination { border-color: #9fb9dc; color: var(--blue); }
-.tile-destination svg { width: 16px; height: 16px; transition: transform 150ms ease; }
-.product-tile:hover .tile-destination svg { transform: translate(2px, -2px); }
-.tile-visual {
+.tile-expand .hi { width: 17px; height: 17px; transition: transform 300ms var(--ease); }
+.product-tile:hover .tile-expand, .tile-expand:focus-visible { border-color: var(--blue); background: var(--blue); color: #fff; }
+.product-tile:hover .tile-expand .hi { transform: scale(1.12); }
+.hi { display: inline-grid; flex: 0 0 auto; place-items: center; }
+.hi svg { width: 100%; height: 100%; }
+
+.tile-stage {
   position: relative;
   display: flex;
-  min-height: 136px;
+  min-height: 230px;
   flex: 1 1 auto;
-  align-items: end;
-  gap: 10px;
+  margin: 24px calc(var(--pad) * -1) 0;
   overflow: hidden;
-  margin-block-start: 22px;
-  padding: 19px;
-  border: 1px solid #e1eaf5;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #f4f8ff, #fff);
+  isolation: isolate;
 }
-.tile-visual--wealthpro { min-height: 230px; flex-direction: column; align-items: stretch; gap: 14px; }
-.tile-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.tile-pills span { padding: 5px 10px; border: 1px solid #dce7f7; border-radius: 999px; background: #fff; color: #33507a; font-size: 11px; white-space: nowrap; }
-.tile-stats { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; }
-.tile-stats div { min-width: 0; padding: 11px 12px; border: 1px solid #e4edf9; border-radius: 9px; background: #fff; }
-.tile-stats div:first-child { border-color: #dbe7fb; background: #f3f7ff; }
-.tile-stats span { display: block; margin-block-end: 5px; color: #758397; font-size: 10px; line-height: 1.35; overflow-wrap: anywhere; }
-.tile-stats strong { display: block; color: #21344b; font-size: clamp(16px, 1.7vw, 21px); font-weight: 600; letter-spacing: -.04em; white-space: nowrap; }
-.tile-chart-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #617189; font-size: 11px; }
-.tile-chart-head span:last-child { color: #8391a3; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; }
-.tile-bars {
-  display: flex;
-  min-height: 110px;
-  flex: 1 1 auto;
-  align-items: end;
-  gap: clamp(5px, 1vw, 10px);
-  background: repeating-linear-gradient(to top, #edf1f7 0 1px, transparent 1px 28px);
-}
-.tile-bars span { max-width: 34px; height: var(--h); flex: 1; margin-inline: auto; border-radius: 5px 5px 2px 2px; background: #b8d1f6; }
-.tile-axis { display: flex; justify-content: space-between; margin-block-start: -6px; color: #8997a8; font-size: 10px; }
-.tile-bars span:nth-child(3n + 2) { background: #a6c5f4; }
-.tile-bars span:nth-child(3n) { background: #83b0f3; }
-.tile-bars span:last-child { background: #4a88e8; }
-.tile-visual--binom { align-items: center; justify-content: center; gap: 10px; }
-.tile-note, .tile-file {
-  display: grid;
-  max-width: 150px;
-  flex: 1 1 0;
-  gap: 8px;
-  padding: 12px;
-  border: 1px solid #e1eaf5;
-  border-radius: 9px;
-  background: #fff;
-}
-.tile-note span { height: 6px; border-radius: 4px; background: #dce7f5; }
-.tile-note span:nth-child(2) { width: 82%; }
-.tile-note span:nth-child(4) { width: 58%; }
-.tile-file span { display: flex; align-items: center; gap: 7px; }
-.tile-file span::after { height: 6px; flex: 1; border-radius: 4px; background: #c6d8f0; content: ""; }
-.tile-file i { width: 10px; height: 10px; flex: 0 0 auto; border-radius: 50%; background: #4a88e8; }
-.tile-file span:nth-child(3) i { background: #c6d8f0; }
-.tile-flow { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #eaf2ff; color: #4a88e8; }
-.tile-flow svg { width: 14px; height: 14px; }
-.tile-visual--connect { justify-content: center; padding-block-end: 0; }
-.tile-phone {
-  display: grid;
-  width: 104px;
-  height: 112px;
-  flex: 0 0 auto;
-  align-content: start;
-  justify-items: center;
-  gap: 8px;
-  padding: 14px 12px 0;
-  border: 1px solid #cddbef;
-  border-block-end: 0;
-  border-radius: 18px 18px 0 0;
-  background: #fff;
-}
-.tile-ring {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: conic-gradient(#4a88e8 0 46%, #83b0f3 0 74%, #b8d1f6 0 90%, #dce7f5 0);
-  -webkit-mask: radial-gradient(circle, transparent 13px, #000 14px);
-  mask: radial-gradient(circle, transparent 13px, #000 14px);
-}
-.tile-phone > span:not(.tile-ring) { width: 100%; height: 6px; border-radius: 4px; background: #dce7f5; }
-.tile-phone > span:last-child { width: 68%; }
-.tile-bubble {
+.tile-stage::before, .binom-demo::before {
   position: absolute;
-  inset-block-start: 22px;
-  inset-inline-start: calc(50% + 38px);
-  display: grid;
-  width: 72px;
-  gap: 5px;
-  padding: 8px;
-  border: 1px solid #dfe8f6;
-  border-radius: 10px 10px 10px 3px;
-  background: #f1f6ff;
-}
-.tile-bubble span { height: 5px; border-radius: 3px; background: #b8d1f6; }
-.tile-bubble span:last-child { width: 60%; }
-.tile-visual--lab { flex-direction: column; justify-content: center; align-items: stretch; gap: 22px; padding-inline: 24px; }
-.tile-slider { position: relative; height: 6px; border-radius: 4px; background: #e3ecf8; }
-.tile-slider::before { position: absolute; inset: 0 auto 0 0; width: var(--v); border-radius: inherit; background: #83b0f3; content: ""; }
-.tile-slider::after {
-  position: absolute;
-  inset-block-start: 50%;
-  inset-inline-start: var(--v);
-  width: 16px;
-  height: 16px;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  background: #4a88e8;
-  box-shadow: 0 1px 4px rgb(18 43 74 / 25%);
+  z-index: -1;
+  inset: 0;
+  background-image: radial-gradient(circle, #c6d5ec 1px, transparent 1.4px);
+  background-size: 14px 14px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 65%, #000 15%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 65%, #000 15%, transparent 78%);
   content: "";
-  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
-.tile-visual--treet { align-items: center; gap: 20px; }
-.tile-donut {
-  width: 84px;
-  height: 84px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: conic-gradient(#4a88e8 0 38%, #83b0f3 0 64%, #b8d1f6 0 84%, #dce7f5 0);
-  -webkit-mask: radial-gradient(circle, transparent 24px, #000 25px);
-  mask: radial-gradient(circle, transparent 24px, #000 25px);
-}
-.tile-legend { display: grid; min-width: 0; flex: 1; gap: 12px; }
-.tile-legend span { display: flex; align-items: center; gap: 8px; }
-.tile-legend span::before { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 2px; background: #4a88e8; content: ""; }
-.tile-legend span::after { height: 6px; flex: 1; border-radius: 4px; background: #dce7f5; content: ""; }
-.tile-legend span:nth-child(2) { width: 82%; }
-.tile-legend span:nth-child(2)::before { background: #83b0f3; }
-.tile-legend span:nth-child(3) { width: 64%; }
-.tile-legend span:nth-child(3)::before { background: #b8d1f6; }
-.tile-visual--one { align-items: center; justify-content: center; gap: 0; background: linear-gradient(145deg, #eef4ff, #fff); }
-.tile-node {
-  display: grid;
-  width: 44px;
-  height: 44px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid #dfe8f6;
+.tile-stage[data-interactive] { cursor: default; }
+/* Off-screen previews hold still, so entrances and timed cycles start when the visitor arrives. */
+[data-live]:not(.is-live) *, [data-live]:not(.is-live) *::before, [data-live]:not(.is-live) *::after { animation-play-state: paused !important; }
+.ui-window {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #dde5f0;
   border-radius: 12px;
   background: #fff;
-  color: #4a88e8;
+  box-shadow: 0 1px 2px rgb(17 32 44 / 4%);
+  color: #21344b;
+  font-size: 12px;
+  letter-spacing: 0;
 }
-.tile-node svg { width: 18px; height: 18px; }
-.tile-node--hub { width: 56px; height: 56px; border-color: #4a88e8; background: #4a88e8; color: #fff; box-shadow: 0 0 0 6px #e3edff; }
-.tile-node--hub svg { width: 22px; height: 22px; }
-.tile-link { max-width: 56px; min-width: 14px; height: 0; flex: 1; border-block-start: 2px dashed #b8d1f6; }
+.ui-bar { display: flex; min-height: 36px; align-items: center; gap: 10px; padding: 0 14px; border-block-end: 1px solid #edf1f6; color: #66768a; font-size: 11px; }
+.ui-dots { display: flex; flex: 0 0 auto; gap: 5px; }
+.ui-dots i { width: 7px; height: 7px; border-radius: 50%; background: #e1e7ef; }
+.ui-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ui-tag { flex: 0 0 auto; margin-inline-start: auto; padding: 3px 7px; border: 1px solid #e1e8f2; border-radius: 5px; color: #7b8a9d; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 9.5px; white-space: nowrap; }
+.ui-label { display: block; color: #7c8a9b; font-size: 11px; line-height: 1.4; }
+@keyframes grow-x { from { transform: scaleX(0); } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* WealthPro: client file with aggregation, compliance and relationship views */
+.tile-stage--wealthpro { min-height: 440px; padding-inline-start: var(--pad); }
+.wp-window { display: flex; flex: 1; flex-direction: column; border-inline-end: 0; border-block-end: 0; border-radius: 12px 0 0; }
+.wp-tabs { display: flex; gap: 2px; padding: 4px 10px 0; overflow-x: auto; border-block-end: 1px solid #edf1f6; scrollbar-width: none; }
+.wp-tab { position: relative; min-height: 42px; padding: 0 10px; border: 0; background: none; color: #6f7f92; font-size: 12px; white-space: nowrap; transition: color 200ms ease; }
+.wp-tab:hover { color: #11202c; }
+.wp-tab[aria-selected="true"] { color: #11202c; font-weight: 600; }
+.wp-tab:focus-visible { outline-offset: -3px; }
+.wp-tab-progress { position: absolute; inset: auto 8px -1px; height: 2px; overflow: hidden; border-radius: 2px; background: #dbe6f7; opacity: 0; }
+.wp-tab-progress::after { position: absolute; inset: 0; background: var(--blue); content: ""; transform-origin: left; }
+.wp-tab[aria-selected="true"] .wp-tab-progress { opacity: 1; }
+.wp-window.is-cycling .wp-tab[aria-selected="true"] .wp-tab-progress::after { animation: wp-progress 6.5s linear forwards; }
+.product-tile--wealthpro:hover .wp-tab-progress::after, .product-tile--wealthpro:focus-within .wp-tab-progress::after { animation-play-state: paused !important; }
+@keyframes wp-progress { from { transform: scaleX(0); } }
+.wp-panels { display: grid; flex: 1; padding: 18px 20px 22px; }
+.wp-panel { grid-area: 1 / 1; min-width: 0; visibility: hidden; opacity: 0; transform: translateY(6px); transition: opacity 300ms ease, transform 450ms var(--ease), visibility 0s 450ms; }
+.wp-panel.is-active { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+.wp-total { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.wp-total-value { display: block; margin-block-start: 4px; font-size: clamp(27px, 3vw, 36px); font-weight: 500; letter-spacing: -.045em; font-variant-numeric: tabular-nums; line-height: 1.1; white-space: nowrap; }
+.wp-delta { padding: 4px 8px; border-radius: 999px; background: #e9f6ef; color: #17784c; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.alloc-bar { display: flex; gap: 3px; height: 10px; margin-block: 18px 10px; }
+.alloc-bar i { flex: var(--w) 1 0; border-radius: 3px; background: var(--c1); transform-origin: left; }
+.alloc-bar i:nth-child(2), .alloc-legend li:nth-child(2) i { background: var(--c2); }
+.alloc-bar i:nth-child(3), .alloc-legend li:nth-child(3) i { background: var(--c3); }
+.alloc-bar i:nth-child(4), .alloc-legend li:nth-child(4) i { background: var(--c4); }
+.wp-panel.is-active .alloc-bar i { animation: grow-x 900ms var(--ease) both; animation-delay: calc(var(--n) * 90ms); }
+.alloc-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 14px; padding: 0; color: #5d6d80; font-size: 11px; list-style: none; }
+.alloc-legend li { display: flex; align-items: center; gap: 6px; }
+.alloc-legend i { width: 8px; height: 8px; border-radius: 2px; background: var(--c1); }
+.alloc-legend b { color: #21344b; font-weight: 600; font-variant-numeric: tabular-nums; }
+.wp-rows, .comp-list { margin: 0; padding: 0; list-style: none; }
+.wp-rows { border-block-start: 1px solid #eef2f7; }
+.wp-row { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto auto; align-items: center; gap: 12px; min-height: 50px; border-block-end: 1px solid #eef2f7; }
+.wp-row > .hi, .comp-row > .hi { width: 30px; height: 30px; padding: 7px; border-radius: 8px; background: #f1f5fc; color: #3a6fd0; }
+.wp-row-name { min-width: 0; overflow: hidden; color: #33465a; text-overflow: ellipsis; white-space: nowrap; }
+.wp-row-amount { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; transition: color 300ms ease; }
+.wp-sync { display: inline-flex; min-width: 104px; align-items: center; justify-content: flex-end; gap: 5px; color: #17784c; font-size: 11px; white-space: nowrap; }
+.wp-sync .hi { width: 13px; height: 13px; }
+.wp-row[data-state="syncing"] .wp-sync { color: #7c8a9b; }
+.wp-row[data-state="syncing"] .wp-row-amount { color: #b4c0ce; }
+.wp-row[data-state="syncing"] [data-icon="check"], .wp-row[data-state="syncing"] .is-synced,
+.wp-row[data-state="synced"] [data-icon="sync"], .wp-row[data-state="synced"] .is-syncing { display: none; }
+.wp-row[data-state="syncing"] [data-icon="sync"] { animation: spin 1s linear infinite; }
+.wp-row[data-state="synced"] [data-icon="check"] { animation: pop 380ms var(--ease) both; }
+@keyframes pop { from { opacity: 0; transform: scale(.4); } }
+.wp-chart { margin-block-start: 20px; }
+.wp-bars { display: flex; height: 96px; align-items: flex-end; gap: clamp(4px, 1cqi, 8px); margin-block-start: 10px; background: repeating-linear-gradient(to top, #eef2f7 0 1px, transparent 1px 24px); }
+.wp-bars i { height: calc(var(--h) * 1%); flex: 1; border-radius: 4px 4px 1px 1px; background: var(--c3); transform-origin: bottom; transition: background-color 150ms ease; }
+.wp-bars i:nth-child(3n) { background: var(--c2); }
+.wp-bars i:last-child, .wp-bars i:hover { background: var(--c1); }
+.wp-panel.is-active .wp-bars i { animation: grow-y 700ms var(--ease) both; animation-delay: calc(var(--n) * 40ms + 250ms); }
+@keyframes grow-y { from { transform: scaleY(0); } }
+.wp-axis { display: flex; justify-content: space-between; margin-block-start: 6px; color: #8997a8; font-size: 10px; }
+.comp-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.comp-count { color: #21344b; font-size: 12px; font-weight: 600; }
+.comp-progress { height: 6px; margin-block: 12px 10px; overflow: hidden; border-radius: 6px; background: #edf2f8; }
+.comp-progress i { display: block; width: calc(var(--w) * 1%); height: 100%; border-radius: inherit; background: var(--blue); transform-origin: left; }
+.wp-panel.is-active .comp-progress i { animation: grow-x 1s var(--ease) both 150ms; }
+.comp-row { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 48px; border-block-end: 1px solid #eef2f7; color: #33465a; }
+.comp-row > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.comp-status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px 3px 6px; border-radius: 999px; background: #e9f6ef; color: #17784c; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.comp-status .hi { width: 12px; height: 12px; }
+.comp-status.is-warn { background: #fff3df; color: #8f5300; }
+.wp-panel.is-active .comp-row, .wp-panel.is-active .rel-item { animation: rise-in 500ms var(--ease) both; animation-delay: calc(var(--n) * 80ms + 120ms); }
+.rel-list { position: relative; margin: 8px 0 0; padding: 0; list-style: none; }
+.rel-list::before { position: absolute; inset: 18px auto 18px 14px; width: 1px; background: #e3eaf3; content: ""; }
+.rel-item { position: relative; display: grid; grid-template-columns: 29px minmax(0, 1fr) auto; align-items: start; gap: 12px; padding-block: 10px; }
+.rel-icon { display: grid; width: 29px; height: 29px; place-items: center; border: 1px solid #e1e8f2; border-radius: 50%; background: #fff; color: #3a6fd0; }
+.rel-icon .hi { width: 14px; height: 14px; }
+.rel-item strong { display: block; color: #21344b; font-size: 12.5px; font-weight: 600; }
+.rel-item div span { display: block; margin-block-start: 2px; color: #7c8a9b; font-size: 11px; }
+.rel-date { padding-block-start: 2px; color: #7c8a9b; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10.5px; white-space: nowrap; }
+.rel-item.is-next .rel-icon { border-color: var(--blue); background: var(--blue); color: #fff; animation: ring 2.4s ease-out infinite; }
+.rel-item.is-next .rel-date { color: var(--blue); }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgb(23 97 243 / 35%); } 70%, 100% { box-shadow: 0 0 0 8px rgb(23 97 243 / 0%); } }
+
+/* Binom tile: live meeting capture */
+.tile-stage--binom { align-items: flex-end; justify-content: center; padding-inline: var(--pad); }
+.binom-mini { width: 100%; max-width: 440px; padding: 16px 16px 20px; border-block-end: 0; border-radius: 12px 12px 0 0; }
+.binom-rec { display: flex; align-items: center; gap: 8px; color: #33465a; font-size: 12px; font-weight: 600; }
+.rec-dot { width: 8px; height: 8px; flex: 0 0 auto; border-radius: 50%; background: #e5484d; animation: rec 1.6s ease-out infinite; }
+@keyframes rec { 0% { box-shadow: 0 0 0 0 rgb(229 72 77 / 45%); } 70%, 100% { box-shadow: 0 0 0 7px rgb(229 72 77 / 0%); } }
+.rec-time { margin-inline-start: auto; color: #7c8a9b; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.wave { display: flex; height: 36px; align-items: center; justify-content: center; gap: 3px; margin-block: 14px 16px; overflow: hidden; }
+.wave i { height: 100%; flex: 0 0 3px; border-radius: 3px; background: var(--c3); transform: scaleY(var(--s)); animation: wave 1.1s ease-in-out infinite alternate; animation-delay: var(--d); }
+.wave i:nth-child(3n) { background: var(--c2); }
+@keyframes wave { to { transform: scaleY(calc(var(--s) * .3)); } }
+.binom-mini-label { margin-block-end: 8px; color: #7c8a9b; font-size: 11px; }
+.binom-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.binom-chips li { display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px 5px 7px; border: 1px solid #dbe6f7; border-radius: 999px; background: #f3f7ff; color: #2c4f86; font-size: 11px; transition: opacity 300ms ease, transform 450ms var(--ease); }
+.binom-chips li.is-pending { opacity: 0; transform: translateY(5px) scale(.94); }
+.binom-chips .hi { width: 12px; height: 12px; color: var(--blue); }
+
+/* WealthConnect: adviser shares, client receives */
+.tile-stage--connect { justify-content: center; min-height: 340px; padding-block-start: 12px; }
+.phone { --phone-ease: cubic-bezier(.32, .72, 0, 1); position: relative; width: 240px; height: 440px; flex: 0 0 auto; margin-block-end: -100px; padding: 6px; border: 1px solid #d9e0ea; border-radius: 40px; background: linear-gradient(#fff, #fbfcfe); box-shadow: inset 0 0 0 1px #fff; transition: transform 600ms var(--ease); }
+.product-tile--connect:hover .phone { transform: translateY(-4px); }
+.phone-button { position: absolute; inset-inline-start: -3px; width: 3px; border: 1px solid #d9e0ea; border-inline-end: 0; border-radius: 2px 0 0 2px; background: #f4f6f9; }
+.phone-button--action { inset-block-start: 86px; height: 22px; }
+.phone-button--volume { inset-block-start: 124px; height: 44px; }
+.phone-button--power { inset-block-start: 118px; inset-inline: auto -3px; height: 62px; border-inline: 0 1px solid #d9e0ea; border-radius: 0 2px 2px 0; }
+.phone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 34px; background: #fff; box-shadow: inset 0 0 0 1px #edf1f6; color: #11202c; }
+.phone-status { display: flex; align-items: center; justify-content: space-between; height: 38px; padding: 4px 22px 0 26px; font-size: 10.5px; font-weight: 600; letter-spacing: -.01em; }
+.phone-status-icons { display: flex; align-items: center; gap: 4px; }
+.phone-signal { display: flex; height: 8px; align-items: flex-end; gap: 1.5px; }
+.phone-signal b { width: 2.5px; border-radius: 1px; background: #11202c; }
+.phone-signal b:nth-child(1) { height: 3px; } .phone-signal b:nth-child(2) { height: 4.5px; } .phone-signal b:nth-child(3) { height: 6px; } .phone-signal b:nth-child(4) { height: 8px; }
+.phone-status .hi { width: 12px; height: 12px; }
+.phone-battery { position: relative; width: 19px; height: 9px; margin-inline-start: 1px; border: 1px solid #9aa7b6; border-radius: 3px; }
+.phone-battery::before { position: absolute; inset: 2.5px -3px 2.5px auto; width: 1.5px; border-radius: 0 1px 1px 0; background: #9aa7b6; content: ""; }
+.phone-battery::after { position: absolute; inset: 1px 5px 1px 1px; border-radius: 1px; background: #11202c; content: ""; }
+.phone-island { position: absolute; z-index: 3; inset-block-start: 10px; inset-inline-start: 50%; display: flex; width: 70px; height: 21px; align-items: center; gap: 9px; padding-inline: 7px; overflow: hidden; border-radius: 13px; background: #0b131c; color: #fff; cursor: pointer; transform: translateX(-50%); animation: island 7s var(--phone-ease) infinite; }
+@keyframes island { 0%, 22% { width: 70px; height: 21px; border-radius: 13px; } 30%, 72% { width: calc(100% - 18px); height: 48px; border-radius: 24px; } 82%, 100% { width: 70px; height: 21px; border-radius: 13px; } }
+.phone-island > * { opacity: 0; animation: island-content 7s ease infinite; }
+@keyframes island-content { 0%, 28% { opacity: 0; } 34%, 68% { opacity: 1; } 74%, 100% { opacity: 0; } }
+.phone-island .hi { width: 30px; height: 30px; padding: 7px; border-radius: 10px; background: var(--blue); }
+.phone-island-text { min-width: 0; overflow: hidden; color: #9fb0c4; font-size: 9.5px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.phone-island-text strong { display: block; color: #fff; font-size: 10.5px; font-weight: 600; }
+.phone.has-read .phone-island, .phone.has-read .phone-island > * { animation: none; }
+.phone.has-read .phone-island { cursor: default; }
+.phone-views { position: relative; height: calc(100% - 38px); }
+.phone-view { position: absolute; inset: 0; padding: 4px 16px 16px; background: #fff; transition: transform 520ms var(--phone-ease), opacity 520ms var(--phone-ease); }
+.phone-view--doc { box-shadow: -1px 0 0 #edf1f6; transform: translateX(100%); }
+.phone.is-reading .phone-view--home { opacity: .4; transform: translateX(-30%); }
+.phone.is-reading .phone-view--doc { transform: none; }
+.phone-head { display: flex; align-items: center; justify-content: space-between; margin-block: 6px 16px; color: #5d6d80; font-size: 11px; }
+.phone-avatar { display: grid; width: 26px; height: 26px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #eef3fb; color: #1f4fa5; font-size: 9px; font-weight: 600; letter-spacing: .02em; }
+.phone-label { display: block; color: #7c8a9b; font-size: 10px; }
+.phone-value { display: block; margin-block: 3px 3px; font-size: 25px; font-weight: 500; letter-spacing: -.045em; font-variant-numeric: tabular-nums; line-height: 1.1; white-space: nowrap; }
+.phone-delta { display: block; min-height: 1.4em; color: #17784c; font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.phone-chart { position: relative; height: 62px; margin: 12px -16px 4px; cursor: crosshair; touch-action: pan-y; }
+.phone-chart svg { width: 100%; height: 100%; overflow: visible; }
+.phone-chart-area { fill: url(#phone-chart-fill); transition: opacity 200ms ease; }
+.phone-chart-line { fill: none; stroke: var(--blue); stroke-dasharray: 1; stroke-dashoffset: 1; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.75; vector-effect: non-scaling-stroke; }
+.product-tile--connect.is-revealed .phone-chart-line { animation: draw 1.6s var(--ease) 300ms forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.phone-scrub { position: absolute; inset-block: -6px 0; inset-inline-start: var(--scrub-x, 100%); width: 1px; background: #c9d6ea; opacity: 0; transition: opacity 150ms ease; pointer-events: none; }
+.phone-scrub-label { position: absolute; inset-block-start: -10px; inset-inline-start: 50%; color: #7c8a9b; font-size: 8.5px; font-weight: 600; white-space: nowrap; transform: translateX(-50%); }
+.phone-scrub-dot { position: absolute; inset-block-start: var(--scrub-y, 0); inset-inline-start: var(--scrub-x, 100%); width: 9px; height: 9px; border: 2px solid #fff; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 1px rgb(23 97 243 / 25%); opacity: 0; transform: translate(-50%, -50%); transition: opacity 150ms ease; pointer-events: none; }
+.phone-chart.is-scrubbing .phone-scrub, .phone-chart.is-scrubbing .phone-scrub-dot { opacity: 1; }
+.phone-chart.is-scrubbing .phone-chart-area { opacity: .55; }
+.phone-section { display: block; margin-block: 12px 2px; color: #7c8a9b; font-size: 10px; }
+.phone-row { display: flex; width: 100%; align-items: center; gap: 10px; padding-block: 9px; border: 0; border-block-end: 1px solid #f0f3f7; background: none; color: inherit; text-align: start; }
+button.phone-row { margin-inline: -8px; width: calc(100% + 16px); padding-inline: 8px; border-radius: 10px; transition: background-color 150ms ease; }
+button.phone-row:hover { background: #f5f8fc; }
+.phone-row-icon { display: grid; width: 28px; height: 28px; flex: 0 0 auto; place-items: center; border-radius: 8px; background: #f2f6fc; color: var(--blue); }
+.phone-row-icon .hi { width: 14px; height: 14px; }
+.phone-row-text { min-width: 0; color: #7c8a9b; font-size: 9.5px; line-height: 1.35; }
+.phone-row-text strong { display: block; overflow: hidden; color: #21344b; font-size: 11px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.phone-row-chevron { width: 12px; height: 12px; color: #a8b4c3; }
+.phone-new { width: 7px; height: 7px; flex: 0 0 auto; margin-inline-start: auto; border-radius: 50%; background: var(--blue); animation: new-dot 7s var(--ease) infinite; }
+.phone.has-read .phone-new { display: none; }
+.phone.has-read .phone-row--advice .phone-row-chevron { margin-inline-start: auto; }
+.phone-back { display: inline-flex; min-height: 30px; align-items: center; gap: 2px; margin: 0 0 8px -6px; padding: 0 8px 0 2px; border: 0; border-radius: 8px; background: none; color: var(--blue); font-size: 11px; }
+.phone-back .hi { width: 15px; height: 15px; }
+.phone-back:hover { background: #f2f6fc; }
+.phone-back:focus-visible, .phone-chart:focus-visible, button.phone-row:focus-visible { outline-width: 2px; outline-offset: 1px; }
+.phone-doc-title { display: block; font-size: 18px; font-weight: 600; letter-spacing: -.03em; line-height: 1.2; }
+.phone-doc-meta { display: block; margin-block: 3px 14px; color: #7c8a9b; font-size: 10px; }
+.phone-doc-from { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border: 1px solid #edf1f6; border-radius: 12px; color: #7c8a9b; font-size: 9.5px; line-height: 1.35; }
+.phone-doc-from strong { display: block; color: #21344b; font-size: 11px; font-weight: 600; }
+.phone-avatar--adviser { background: #11202c; color: #fff; }
+.phone-doc-points { display: grid; gap: 2px; margin: 4px 0 0; padding: 0; list-style: none; }
+.phone-doc-points li { display: flex; align-items: flex-start; gap: 8px; padding-block: 7px; border-block-end: 1px solid #f0f3f7; color: #33465a; font-size: 10.5px; line-height: 1.4; }
+.phone-doc-points .hi { width: 16px; height: 16px; margin-block-start: -1px; padding: 3px; border-radius: 50%; background: #eaf1ff; color: var(--blue); }
+.phone.is-reading .phone-doc-points li { animation: rise-in 450ms var(--ease) both; animation-delay: calc(var(--n) * 70ms + 220ms); }
+@keyframes new-dot { 0%, 30% { transform: scale(0); } 36%, 100% { transform: scale(1); } }
+
+/* WealthLab: working simulation */
+.tile-stage--lab, .tile-stage--treet { align-items: flex-end; padding-inline: var(--pad); }
+.lab-window, .treet-window { width: 100%; border-block-end: 0; border-radius: 12px 12px 0 0; }
+.lab-body { padding: 14px 16px 18px; }
+.lab-total { display: block; margin-block: 2px 6px; font-size: 26px; font-weight: 500; letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.lab-split { display: flex; flex-wrap: wrap; gap: 4px 14px; color: #7c8a9b; font-size: 11px; }
+.lab-split b { color: #21344b; font-weight: 600; font-variant-numeric: tabular-nums; }
+.lab-key { display: inline-block; width: 8px; height: 8px; margin-inline-end: 5px; border-radius: 2px; }
+.lab-key--contrib { background: var(--c4); }
+.lab-key--growth { background: var(--c2); }
+.lab-chart { display: block; width: 100%; height: 66px; margin-block: 12px 4px; overflow: visible; }
+.lab-chart path { transition: d 450ms var(--ease); }
+.lab-area-total { fill: var(--c2); }
+.lab-area-contrib { fill: var(--c4); }
+.lab-line { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.lab-control { display: block; margin-block-start: 10px; color: #5d6d80; font-size: 11px; cursor: pointer; }
+.lab-control > span { display: flex; justify-content: space-between; gap: 10px; }
+.lab-control b { color: #21344b; font-weight: 600; font-variant-numeric: tabular-nums; }
+.lab-control input { --fill: 50%; display: block; width: 100%; height: 26px; margin: 0; background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; }
+.lab-control input::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--blue) var(--fill), #e3ebf7 var(--fill)); }
+.lab-control input::-webkit-slider-thumb { width: 20px; height: 20px; margin-block-start: -7px; border: 3px solid #fff; border-radius: 50%; background: var(--blue); box-shadow: 0 1px 5px rgb(18 43 74 / 32%); -webkit-appearance: none; appearance: none; transition: transform 150ms ease; }
+.lab-control input:active::-webkit-slider-thumb { transform: scale(1.15); }
+.lab-control input::-moz-range-track { height: 6px; border-radius: 6px; background: #e3ebf7; }
+.lab-control input::-moz-range-progress { height: 6px; border-radius: 6px; background: var(--blue); }
+.lab-control input::-moz-range-thumb { width: 14px; height: 14px; border: 3px solid #fff; border-radius: 50%; background: var(--blue); box-shadow: 0 1px 5px rgb(18 43 74 / 32%); }
+.lab-control input:focus-visible { outline-offset: 2px; }
+.lab-note { margin-block-start: 8px; color: #8a97a7; font-size: 10.5px; line-height: 1.4; }
+
+/* WealthTreet: current versus target allocation */
+.treet-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 10px 14px; border-block-end: 1px solid #edf1f6; }
+.seg { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 10px; background: #eef2f8; }
+.seg button { position: relative; z-index: 1; min-height: 32px; padding: 0 12px; border: 0; border-radius: 7px; background: none; color: #5d6d80; font-size: 11px; font-weight: 600; transition: color 200ms ease; }
+.seg button[aria-pressed="true"] { color: #11202c; }
+.seg button:focus-visible { outline-offset: 1px; }
+.seg-thumb { position: absolute; inset: 3px auto 3px 3px; width: calc(50% - 3px); border-radius: 7px; background: #fff; box-shadow: 0 1px 3px rgb(17 32 44 / 14%); transition: transform 380ms var(--ease); }
+.seg[data-value="target"] .seg-thumb { transform: translateX(100%); }
+.treet-body { display: flex; align-items: center; gap: 18px; padding: 18px 16px 24px; }
+.donut-wrap { position: relative; width: 116px; flex: 0 0 auto; aspect-ratio: 1; }
+.donut { width: 100%; height: 100%; overflow: visible; transform: rotate(-90deg); }
+.donut circle { fill: none; stroke-width: 5.2; }
+.donut-track { stroke: #eef2f8; }
+.donut-seg { stroke: var(--c1); transition: stroke-dasharray 850ms var(--ease), stroke-dashoffset 850ms var(--ease), opacity 200ms ease, stroke-width 250ms var(--ease); }
+.donut-seg:nth-of-type(3), .treet-legend li:nth-child(2) i { stroke: var(--c2); background: var(--c2); }
+.donut-seg:nth-of-type(4), .treet-legend li:nth-child(3) i { stroke: var(--c3); background: var(--c3); }
+.donut-seg:nth-of-type(5), .treet-legend li:nth-child(4) i { stroke: var(--c4); background: var(--c4); }
+.treet-window.has-focus .donut-seg:not(.is-focus) { opacity: .28; }
+.donut-seg.is-focus { stroke-width: 6.4; }
+.donut-center { position: absolute; inset: 0; display: grid; place-content: center; padding: 22px; text-align: center; }
+.donut-center strong { font-size: 17px; font-weight: 600; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.donut-center span { color: #7c8a9b; font-size: 9.5px; line-height: 1.25; }
+.treet-legend { display: grid; min-width: 0; flex: 1; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.treet-legend li { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto 44px; align-items: center; gap: 8px; min-height: 28px; padding: 0 6px; border-radius: 6px; color: #33465a; font-size: 11.5px; transition: background-color 150ms ease; }
+.treet-legend li:hover, .treet-legend li.is-focus { background: #f2f6fd; }
+.treet-legend li > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.treet-legend i { width: 8px; height: 8px; border-radius: 2px; background: var(--c1); }
+.treet-legend b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.treet-legend small { color: #8a97a7; font-size: 10px; font-weight: 600; text-align: end; white-space: nowrap; transition: opacity 300ms ease; }
+.treet-legend small.is-up { color: #17784c; }
+.treet-legend small.is-down { color: #a34f12; }
+.treet-window:not(.is-target) .treet-legend small { opacity: 0; }
+@container (max-width: 340px) {
+  .treet-body { flex-direction: column; align-items: stretch; }
+  .donut-wrap { width: 136px; align-self: center; }
+}
+
+/* WealthOne: integrations through a programming interface */
+.tile-stage--one { flex-direction: column; justify-content: space-between; min-height: 260px; }
+.tile-stage--one::before { display: none; }
+.one-field { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; }
+.one-net { position: relative; width: min(100% - 32px, 340px); aspect-ratio: 16 / 10; margin: 6px auto 0; }
+.one-net > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.one-edge { fill: none; stroke: #b6cbeb; stroke-dasharray: 3 4; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.one-packet { fill: var(--blue); }
+.one-node { position: absolute; inset-block-start: var(--y); inset-inline-start: var(--x); display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px 5px 5px; border: 1px solid #dde5f0; border-radius: 9px; background: #fff; color: #33465a; font-size: 11px; white-space: nowrap; transform: translate(-50%, -50%); }
+.one-node .hi { width: 22px; height: 22px; padding: 4px; border-radius: 6px; background: #f1f5fc; color: #3a6fd0; }
+.one-hub { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; display: grid; width: 52px; height: 52px; place-items: center; border-radius: 15px; background: var(--blue); box-shadow: 0 0 0 5px rgb(23 97 243 / 10%); color: #fff; transform: translate(-50%, -50%); }
+.one-hub::after { position: absolute; inset: -1px; border-radius: inherit; content: ""; animation: hub 2.6s ease-out infinite; }
+@keyframes hub { 0% { box-shadow: 0 0 0 0 rgb(23 97 243 / 30%); } 70%, 100% { box-shadow: 0 0 0 14px rgb(23 97 243 / 0%); } }
+.one-hub .hi { width: 22px; height: 22px; }
+.one-log { display: flex; align-items: center; gap: 8px; margin: 10px var(--pad) 20px; padding: 8px 12px; overflow: hidden; border: 1px solid #e1e8f2; border-radius: 9px; background: rgb(255 255 255 / 88%); color: #5d6d80; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10.5px; backdrop-filter: blur(6px); }
+.one-log-dot { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #1f9d60; }
+.one-log-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: opacity 220ms ease, transform 320ms var(--ease); }
+.one-log-text.is-swapping { opacity: 0; transform: translateY(6px); }
+@container (max-width: 400px) {
+  .wp-total { flex-wrap: wrap; align-items: flex-start; gap: 8px; }
+}
+@container (max-width: 520px) {
+  .wp-chart { display: none; }
+  .wp-sync { min-width: 0; }
+  .wp-sync-label { display: none; }
+}
+
 .detail-link, .primary-button, .secondary-button, .back-button, .next-button, .close-button { text-underline-offset: 4px; }
 .detail-link {
   display: inline-flex;
@@ -650,29 +789,93 @@ svg { display: block; }
   font-weight: 600;
 }
 .detail-link:hover { text-decoration: underline; }
+
+/* Binom section: from notes to client file */
 .binom-panel { background: #f8fafc; }
 .binom-layout {
   display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(280px, 1.1fr);
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
   align-items: center;
-  gap: clamp(35px, 8vw, 110px);
+  gap: clamp(32px, 6vw, 80px);
 }
-.binom-copy h2 { margin-block-end: 14px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1.08; letter-spacing: -.05em; }
-.binom-copy p { max-width: 56ch; color: #637180; font-size: 15px; }
-.binom-card {
-  display: flex;
-  min-height: 270px;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 25px;
-  border: 1px solid #e1e6ed;
-  border-radius: 16px;
-  background: white;
+.binom-copy h2 { margin-block-end: 14px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1.08; letter-spacing: -.05em; text-wrap: balance; }
+.binom-copy > p { max-width: 52ch; color: #637180; font-size: 15px; }
+.binom-steps { display: grid; gap: 4px; margin: 30px 0 18px; padding: 0; border-inline-start: 1px solid #e1e7ef; list-style: none; }
+.binom-step { position: relative; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; width: 100%; padding: 13px 16px 13px 18px; border: 0; border-radius: 0 12px 12px 0; background: none; text-align: start; transition: background-color 250ms ease, box-shadow 250ms ease; }
+.binom-step:hover { background: #f0f4fa; }
+.binom-step-num { padding-block-start: 3px; color: #9aa7b6; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; transition: color 250ms ease; }
+.binom-step strong { display: block; color: #5d6d80; font-size: 15px; font-weight: 600; letter-spacing: -.01em; transition: color 250ms ease; }
+.binom-step-text > span { display: block; max-height: 0; overflow: hidden; color: #667381; font-size: 13.5px; line-height: 1.5; opacity: 0; transition: max-height 450ms var(--ease), opacity 300ms ease, margin 450ms var(--ease); }
+.binom-step[aria-current="step"] { background: #fff; box-shadow: 0 0 0 1px #e8edf3; }
+.binom-step[aria-current="step"] strong { color: var(--ink); }
+.binom-step[aria-current="step"] .binom-step-num { color: var(--blue); }
+.binom-step[aria-current="step"] .binom-step-text > span { max-height: 80px; margin-block-start: 4px; opacity: 1; }
+.binom-step-progress { position: absolute; inset: 0 auto 0 -1px; width: 2px; overflow: hidden; background: transparent; }
+.binom-step-progress::after { position: absolute; inset: 0; background: var(--blue); content: ""; transform: scaleY(0); transform-origin: top; }
+.binom-step[aria-current="step"] .binom-step-progress::after { transform: none; }
+.binom-panel.is-playing .binom-step[aria-current="step"] .binom-step-progress { background: #d3e2fb; }
+.binom-panel.is-playing .binom-step[aria-current="step"] .binom-step-progress::after { animation: binom-progress var(--dur) linear forwards; }
+@keyframes binom-progress { from { transform: scaleY(0); } to { transform: none; } }
+.binom-demo { position: relative; padding: clamp(14px, 2.6vw, 28px); border-radius: 22px; background: #edf2f9; isolation: isolate; }
+.binom-window { border-radius: 14px; }
+.binom-body { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); min-height: 380px; }
+.binom-notes { padding: 18px 20px 22px; border-inline-end: 1px solid #edf1f6; background: #fbfcfe; }
+.binom-file { display: flex; flex-direction: column; padding: 18px 18px 16px; }
+.binom-pane-head { display: flex; align-items: center; gap: 8px; margin-block-end: 14px; color: #5d6d80; font-size: 12px; font-weight: 600; }
+.binom-pane-head .hi { width: 16px; height: 16px; color: var(--blue); }
+.binom-note-lines { display: grid; gap: 12px; margin: 0; padding: 0; color: #33465a; font-size: 13.5px; line-height: 1.65; list-style: none; }
+.binom-note-lines li { position: relative; padding-inline-start: 14px; }
+.binom-note-lines li::before { position: absolute; inset-block-start: .7em; inset-inline-start: 0; width: 5px; height: 5px; border-radius: 50%; background: #c4d3e8; content: ""; }
+.binom-panel.is-playing .binom-demo[data-step="1"] .binom-note-lines li { animation: write-in 900ms var(--ease) both; animation-delay: calc(var(--n) * 750ms + 150ms); }
+@keyframes write-in { from { clip-path: inset(0 100% 0 0); opacity: .3; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+.binom-note-lines mark {
+  position: relative;
+  margin-inline: -2px;
+  padding: 1px 2px;
+  border-radius: 4px;
+  background-color: transparent;
+  background-image: linear-gradient(#d9e6fd, #d9e6fd);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  color: inherit;
+  cursor: default;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 650ms var(--ease), color 200ms ease;
 }
-.binom-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.binom-name { font-size: 18px; font-weight: 650; letter-spacing: -.03em; }
-.binom-card p { max-width: 35ch; color: #667381; font-size: 15px; }
-.binom-pill { padding: 6px 9px; border-radius: 5px; background: #eef4ff; color: #355e99; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; }
+.binom-note-lines mark::after { position: relative; inset-block-start: -.55em; margin-inline-start: 2px; color: var(--blue); content: attr(data-field); font-size: 9px; font-weight: 700; opacity: 0; transition: opacity 300ms ease, color 200ms ease; }
+.binom-demo:not([data-step="1"]) mark { background-size: 100% 100%; transition-delay: calc(var(--n) * 280ms), 0s; }
+.binom-demo:not([data-step="1"]) mark::after { opacity: 1; transition-delay: calc(var(--n) * 280ms + 300ms), 0s; }
+.binom-demo.is-linking mark, .binom-demo.is-linking mark::after { transition-delay: 0s; }
+.binom-demo:not([data-step="1"]) mark.is-linked { background-image: linear-gradient(var(--blue), var(--blue)); color: #fff; }
+.binom-demo:not([data-step="1"]) mark.is-linked::after { color: #fff; }
+.binom-demo.is-linking:not([data-step="1"]) mark:not(.is-linked) { background-image: linear-gradient(#edf2f9, #edf2f9); }
+.binom-fields { display: grid; flex: 1; align-content: start; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.binom-field { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "label check" "value check"; align-items: center; column-gap: 10px; width: 100%; min-height: 52px; padding: 7px 12px; border: 1px solid #e6ecf3; border-radius: 10px; background: #fff; color: inherit; text-align: start; transition: border-color 200ms ease, background-color 200ms ease; }
+.binom-field-label { grid-area: label; color: #7c8a9b; font-size: 10.5px; }
+.binom-field-value { position: relative; grid-area: value; min-height: 1.45em; color: #21344b; font-size: 13px; font-weight: 600; }
+.binom-field-value::before { position: absolute; inset: .3em auto .3em 0; width: 62%; border-radius: 4px; background: #edf2f8; content: ""; opacity: 0; transition: opacity 250ms ease; }
+.binom-field > .hi { grid-area: check; width: 20px; height: 20px; padding: 4px; border-radius: 50%; background: var(--blue); color: #fff; transition: transform 350ms var(--ease); }
+.binom-demo:not([data-step="3"]) .binom-field-value { color: transparent; }
+.binom-demo:not([data-step="3"]) .binom-field-value::before { opacity: 1; }
+.binom-demo:not([data-step="3"]) .binom-field > .hi { transform: scale(0); }
+.binom-demo[data-step="2"] .binom-field-value::before { background: linear-gradient(90deg, #edf2f8 30%, #dce7f8 50%, #edf2f8 70%) 0 0 / 220% 100%; animation: shimmer 1.3s linear infinite; }
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -120% 0; } }
+.binom-demo[data-step="3"] .binom-field-value { animation: rise-in 500ms var(--ease) both; animation-delay: calc(var(--n) * 110ms); }
+.binom-demo[data-step="3"] .binom-field > .hi { transition-delay: calc(var(--n) * 110ms + 180ms); }
+.binom-demo[data-step="3"] .binom-field:hover, .binom-demo[data-step="3"] .binom-field:focus-visible, .binom-demo[data-step="3"] .binom-field.is-linked { border-color: #9fbff3; background: #f5f9ff; }
+.binom-field:focus-visible { outline-offset: 2px; }
+.binom-file-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-block-start: 14px; padding-block-start: 12px; border-block-start: 1px solid #edf1f6; }
+.binom-status { display: inline-flex; align-items: center; gap: 7px; color: #7c8a9b; font-size: 11.5px; font-weight: 600; }
+.binom-status::before { width: 7px; height: 7px; border-radius: 50%; background: #c4d3e8; content: ""; transition: background-color 300ms ease; }
+.binom-demo[data-step="3"] .binom-status { color: var(--blue); }
+.binom-demo[data-step="3"] .binom-status::before { background: var(--blue); }
+.binom-demo[data-step="3"] .binom-status .is-pending, .binom-demo:not([data-step="3"]) .binom-status .is-ready { display: none; }
+.binom-replay { display: inline-flex; min-height: 36px; align-items: center; gap: 6px; padding: 0 12px; border: 1px solid #e1e7ef; border-radius: 9px; background: #fff; color: #33465a; font-size: 11.5px; transition: border-color 200ms ease, color 200ms ease; }
+.binom-replay .hi { width: 13px; height: 13px; transition: transform 450ms var(--ease); }
+.binom-replay:hover { border-color: #9fbff3; color: var(--blue); }
+.binom-replay:hover .hi { transform: rotate(-180deg); }
+.binom-hint { margin-block-start: 12px; color: #6f7d8d; font-size: 12px; text-align: center; }
 .connect-panel { color: white; background: #183c67; }
 .connect-panel h2 { max-width: 750px; }
 .connect-panel .section-heading p { color: #d8e4f2; }
@@ -1055,7 +1258,6 @@ svg { display: block; }
   .nav-links { gap: 15px; font-size: 12px; }
   .hero-content { grid-template-columns: 1.05fr .95fr; gap: 38px; padding-inline: 36px; }
   .section-inner { padding-inline: 36px; }
-  .product-grid { grid-auto-rows: minmax(205px, auto); gap: 12px; }
 }
 @media (max-width: 900px) {
   .nav-links {
@@ -1076,22 +1278,14 @@ svg { display: block; }
   .nav .demo-button { margin-inline-start: 0; }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet { grid-column: span 1; }
-  .product-tile--wealthpro, .product-tile--one {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-row: auto;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas: "meta visual" "title visual" "copy visual" "bottom visual";
-    column-gap: clamp(24px, 4vw, 44px);
-  }
-  .product-tile--wealthpro > .tile-meta, .product-tile--one > .tile-meta { grid-area: meta; }
-  .product-tile--wealthpro > h3, .product-tile--one > h3 { grid-area: title; }
-  .product-tile--wealthpro > .tile-copy, .product-tile--one > .tile-copy { grid-area: copy; }
-  .product-tile--wealthpro > .tile-visual, .product-tile--one > .tile-visual { grid-area: visual; margin-block-start: 0; }
-  .product-tile--wealthpro > .tile-bottom, .product-tile--one > .tile-bottom { grid-area: bottom; align-self: end; }
+  .product-tile--wealthpro, .product-tile--one { grid-column: 1 / -1; grid-row: auto; }
+  .tile-stage--wealthpro { min-height: 400px; }
+}
+@media (max-width: 999px) {
+  .binom-layout { grid-template-columns: minmax(0, 1fr); }
+  .binom-copy { max-width: 640px; }
 }
 @media (max-width: 767px) {
   html { scroll-padding-top: 76px; }
@@ -1146,27 +1340,21 @@ svg { display: block; }
   .section-heading { margin-block-end: 25px; }
   .section-heading h2 { font-size: clamp(34px, 9vw, 43px); }
   .section-heading p { font-size: 14px; }
-  .product-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; gap: 10px; }
-  .product-tile, .product-tile--wealthpro, .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet, .product-tile--one {
-    grid-column: 1;
-    grid-row: auto;
-    min-height: 205px;
-    padding: 22px;
-    border-radius: 15px;
-  }
-  .product-tile--wealthpro { min-height: 300px; }
-  .product-tile h3 { margin-block: 20px 7px; font-size: 28px; }
-  .product-tile--wealthpro h3 { font-size: 37px; }
-  .tile-copy { font-size: 14px; }
-  .tile-visual { min-height: 120px; margin-block-start: 18px; padding: 15px; }
-  .tile-visual--wealthpro { min-height: 200px; }
-  .tile-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .tile-stats div:first-child { grid-column: 1 / -1; }
-  .tile-visual--connect { padding-block-end: 0; }
-  .tile-bottom { margin-block-start: 15px; padding-block-start: 13px; }
-  .binom-layout { grid-template-columns: 1fr; gap: 25px; }
+  .product-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .product-tile, .product-tile--wealthpro, .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet, .product-tile--one { --pad: 20px; grid-column: 1; grid-row: auto; border-radius: 16px; }
+  .tile-title { font-size: 18px; }
+  .product-tile--wealthpro .tile-title { font-size: 25px; }
+  .tile-stage { margin-block-start: 20px; }
+  .tile-stage--wealthpro { min-height: 0; }
+  .wp-panels { padding: 16px 16px 20px; }
+  .wp-tabs { padding-inline: 6px; }
+  .binom-layout { gap: 25px; }
   .binom-copy h2 { font-size: 37px; }
-  .binom-card { min-height: 220px; padding: 21px; }
+  .binom-steps { margin-block: 22px 10px; }
+  .binom-demo { padding: 10px; border-radius: 18px; }
+  .binom-body { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .binom-notes { border-inline-end: 0; border-block-end: 1px solid #edf1f6; }
+  .binom-note-lines { font-size: 13px; }
   .connect-list { grid-template-columns: 1fr; gap: 18px; margin-block: 25px; }
   .connect-item { padding-block-start: 14px; }
   .faq-layout { grid-template-columns: 1fr; gap: 24px; }
@@ -1203,15 +1391,11 @@ svg { display: block; }
   .menu-button { width: 42px; }
   .dashboard-heading { flex-direction: column; }
   .fiction-tag { align-self: start; }
-  .product-tile, .product-tile--wealthpro, .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet, .product-tile--one { padding: 18px; }
-  .tile-visual { padding: 13px; }
-  .tile-visual--treet { gap: 14px; }
-  .tile-donut { width: 72px; height: 72px; }
-  .tile-bubble { inset-inline-start: calc(50% + 30px); width: 62px; }
-  .tile-stats { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .tile-stats div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 9px 11px; }
-  .tile-stats span { margin-block-end: 0; }
-  .tile-stats strong { font-size: 16px; }
+  .product-tile, .product-tile--wealthpro, .product-tile--binom, .product-tile--connect, .product-tile--lab, .product-tile--treet, .product-tile--one { --pad: 16px; }
+  .wp-row { gap: 9px; }
+  .wp-panels { padding-inline: 13px; }
+  .ui-bar .ui-tag { display: none; }
+  .binom-file, .binom-notes { padding-inline: 14px; }
   .slot-grid { gap: 6px; }
   .slot-button { padding-inline: 4px; font-size: 11px; }
 }
@@ -1231,14 +1415,14 @@ svg { display: block; }
   .testimonial-progress { inset: auto 10px 3px; }
   .testimonial-toggle { width: 44px; height: 44px; }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .product-tile:hover { transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
-}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
   .product-tile::before { display: none; }
-  .product-tile:hover { transform: none !important; }
+  .product-grid.will-reveal .product-tile { opacity: 1; transform: none; }
+  .phone-island, .phone-island > *, .phone-new { animation: none; }
+  .phone-view { transition: none; }
+  .wave i, .rec-dot, .rel-item.is-next .rel-icon, .one-hub::after { animation: none; }
   .logo-marquee { overflow-x: auto; scrollbar-width: thin; }
   .logo-marquee-track { animation: none; }
 }
@@ -1257,7 +1441,7 @@ svg { display: block; }
       <a href="#produits" data-i18n="navProducts"></a>
       <a href="#binom" data-i18n="navBinom"></a>
       <a href="#questions" data-i18n="navFaq"></a>
-      <a href="https://pro.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="navLogin"></a>
+      <a href="https://pro.wealthcome.fr" target="_blank" rel="noopener noreferrer"><span data-i18n="navLogin"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
     </nav>
     <div class="language-switch" role="group" data-i18n-aria="languageGroup">
       <button type="button" data-language="fr" lang="fr" aria-pressed="true" data-i18n="languageFr"></button>
@@ -1359,85 +1543,260 @@ svg { display: block; }
         <h2 id="products-title" data-i18n="productsTitle"></h2>
       </div>
       <div class="product-grid" id="product-grid" data-i18n-aria="productsGridAria">
-        <article class="product-tile product-tile--wealthpro" data-product="wealthpro">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></span></div>
-          <h3 data-i18n="wealthpro"></h3>
-          <p class="tile-copy" data-i18n="wealthproCopy"></p>
-          <div class="tile-visual tile-visual--wealthpro" aria-hidden="true">
-            <div class="tile-pills"><span data-i18n="needAggregation"></span><span data-i18n="compliance"></span><span data-i18n="needRelationship"></span></div>
-            <div class="tile-stats">
-              <div><span data-i18n="grossWealth"></span><strong data-i18n="grossWealthValue"></strong></div>
-              <div><span data-i18n="contracts"></span><strong data-i18n="contractsValue"></strong></div>
-              <div><span data-i18n="institutions"></span><strong data-i18n="institutionsValue"></strong></div>
+        <article class="product-tile product-tile--wealthpro" data-product="wealthpro" data-live>
+          <div class="tile-head">
+            <div class="tile-title"><h3 data-i18n="wealthpro"></h3><p data-i18n="wealthproCopy"></p></div>
+            <button class="tile-expand" type="button" aria-haspopup="dialog" data-open-product><i class="hi" data-icon="expand"></i></button>
+          </div>
+          <div class="tile-stage tile-stage--wealthpro">
+            <div class="ui-window wp-window">
+              <div class="ui-bar"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ui-title" data-i18n="wpWindowTitle"></span><span class="ui-tag" data-i18n="fictionTag"></span></div>
+              <div class="wp-tabs" role="tablist" data-i18n-aria="wpTabsAria">
+                <button class="wp-tab" type="button" role="tab" id="wp-tab-0" aria-controls="wp-panel-0" aria-selected="true"><span data-i18n="wpTabAggregation"></span><i class="wp-tab-progress" aria-hidden="true"></i></button>
+                <button class="wp-tab" type="button" role="tab" id="wp-tab-1" aria-controls="wp-panel-1" aria-selected="false" tabindex="-1"><span data-i18n="compliance"></span><i class="wp-tab-progress" aria-hidden="true"></i></button>
+                <button class="wp-tab" type="button" role="tab" id="wp-tab-2" aria-controls="wp-panel-2" aria-selected="false" tabindex="-1"><span data-i18n="needRelationship"></span><i class="wp-tab-progress" aria-hidden="true"></i></button>
+              </div>
+              <div class="wp-panels">
+                <div class="wp-panel is-active" role="tabpanel" id="wp-panel-0" aria-labelledby="wp-tab-0">
+                  <div class="wp-total">
+                    <div><span class="ui-label" data-i18n="wpTotalLabel"></span><strong class="wp-total-value" data-money="2450000" data-countup></strong></div>
+                    <span class="wp-delta" data-i18n="wpDelta"></span>
+                  </div>
+                  <div class="alloc-bar" aria-hidden="true"><i style="--w:46;--n:0"></i><i style="--w:28;--n:1"></i><i style="--w:16;--n:2"></i><i style="--w:10;--n:3"></i></div>
+                  <ul class="alloc-legend">
+                    <li><i aria-hidden="true"></i><span data-i18n="allocProperty"></span><b data-percent="46"></b></li>
+                    <li><i aria-hidden="true"></i><span data-i18n="allocLife"></span><b data-percent="28"></b></li>
+                    <li><i aria-hidden="true"></i><span data-i18n="allocSecurities"></span><b data-percent="16"></b></li>
+                    <li><i aria-hidden="true"></i><span data-i18n="allocCash"></span><b data-percent="10"></b></li>
+                  </ul>
+                  <ul class="wp-rows">
+                    <li class="wp-row" data-state="synced"><i class="hi" data-icon="bank"></i><span class="wp-row-name" data-i18n="instBank"></span><span class="wp-row-amount" data-money="245000"></span><span class="wp-sync"><i class="hi" data-icon="sync"></i><i class="hi" data-icon="check"></i><span class="wp-sync-label is-syncing" data-i18n="syncing"></span><span class="wp-sync-label is-synced" data-i18n="synced"></span></span></li>
+                    <li class="wp-row" data-state="synced"><i class="hi" data-icon="shield"></i><span class="wp-row-name" data-i18n="instInsurer"></span><span class="wp-row-amount" data-money="686000"></span><span class="wp-sync"><i class="hi" data-icon="sync"></i><i class="hi" data-icon="check"></i><span class="wp-sync-label is-syncing" data-i18n="syncing"></span><span class="wp-sync-label is-synced" data-i18n="synced"></span></span></li>
+                    <li class="wp-row" data-state="synced"><i class="hi" data-icon="chart"></i><span class="wp-row-name" data-i18n="instBroker"></span><span class="wp-row-amount" data-money="392000"></span><span class="wp-sync"><i class="hi" data-icon="sync"></i><i class="hi" data-icon="check"></i><span class="wp-sync-label is-syncing" data-i18n="syncing"></span><span class="wp-sync-label is-synced" data-i18n="synced"></span></span></li>
+                    <li class="wp-row" data-state="synced"><i class="hi" data-icon="home"></i><span class="wp-row-name" data-i18n="instProperty"></span><span class="wp-row-amount" data-money="1127000"></span><span class="wp-sync"><i class="hi" data-icon="sync"></i><i class="hi" data-icon="check"></i><span class="wp-sync-label is-syncing" data-i18n="syncing"></span><span class="wp-sync-label is-synced" data-i18n="synced"></span></span></li>
+                  </ul>
+                  <div class="wp-chart" aria-hidden="true">
+                    <span class="ui-label" data-i18n="chartTitle"></span>
+                    <div class="wp-bars"><i style="--h:34;--n:0"></i><i style="--h:40;--n:1"></i><i style="--h:37;--n:2"></i><i style="--h:48;--n:3"></i><i style="--h:52;--n:4"></i><i style="--h:47;--n:5"></i><i style="--h:60;--n:6"></i><i style="--h:66;--n:7"></i><i style="--h:62;--n:8"></i><i style="--h:74;--n:9"></i><i style="--h:81;--n:10"></i><i style="--h:92;--n:11"></i></div>
+                    <div class="wp-axis"><span data-i18n="monthJan"></span><span data-i18n="monthMar"></span><span data-i18n="monthMay"></span><span data-i18n="monthJul"></span><span data-i18n="monthSep"></span><span data-i18n="monthDec"></span></div>
+                  </div>
+                </div>
+                <div class="wp-panel" role="tabpanel" id="wp-panel-1" aria-labelledby="wp-tab-1">
+                  <div class="comp-head"><span class="ui-label" data-i18n="compTitle"></span><span class="comp-count" id="comp-count"></span></div>
+                  <div class="comp-progress" aria-hidden="true"><i style="--w:80"></i></div>
+                  <ul class="comp-list">
+                    <li class="comp-row" style="--n:0"><i class="hi" data-icon="doc"></i><span data-i18n="docMission"></span><span class="comp-status"><i class="hi" data-icon="check"></i><span data-i18n="statusSigned"></span></span></li>
+                    <li class="comp-row" style="--n:1"><i class="hi" data-icon="doc"></i><span data-i18n="docInfo"></span><span class="comp-status"><i class="hi" data-icon="check"></i><span data-i18n="synced"></span></span></li>
+                    <li class="comp-row" style="--n:2"><i class="hi" data-icon="doc"></i><span data-i18n="docProfile"></span><span class="comp-status"><i class="hi" data-icon="check"></i><span data-i18n="synced"></span></span></li>
+                    <li class="comp-row" style="--n:3"><i class="hi" data-icon="doc"></i><span data-i18n="docSuitability"></span><span class="comp-status"><i class="hi" data-icon="check"></i><span data-i18n="statusSigned"></span></span></li>
+                    <li class="comp-row" style="--n:4"><i class="hi" data-icon="doc"></i><span data-i18n="docId"></span><span class="comp-status is-warn"><i class="hi" data-icon="warn"></i><span data-i18n="statusRenew"></span></span></li>
+                  </ul>
+                </div>
+                <div class="wp-panel" role="tabpanel" id="wp-panel-2" aria-labelledby="wp-tab-2">
+                  <span class="ui-label" data-i18n="relTitle"></span>
+                  <ol class="rel-list">
+                    <li class="rel-item" style="--n:0"><span class="rel-icon"><i class="hi" data-icon="calendar"></i></span><div><strong data-i18n="rel1"></strong><span data-i18n="rel1Meta"></span></div><span class="rel-date" data-i18n="rel1Date"></span></li>
+                    <li class="rel-item" style="--n:1"><span class="rel-icon"><i class="hi" data-icon="send"></i></span><div><strong data-i18n="rel2"></strong><span data-i18n="rel2Meta"></span></div><span class="rel-date" data-i18n="rel2Date"></span></li>
+                    <li class="rel-item" style="--n:2"><span class="rel-icon"><i class="hi" data-icon="switch"></i></span><div><strong data-i18n="rel3"></strong><span data-i18n="rel3Meta"></span></div><span class="rel-date" data-i18n="rel3Date"></span></li>
+                    <li class="rel-item is-next" style="--n:3"><span class="rel-icon"><i class="hi" data-icon="calendar"></i></span><div><strong data-i18n="rel4"></strong><span data-i18n="rel4Meta"></span></div><span class="rel-date" data-i18n="rel4Date"></span></li>
+                  </ol>
+                </div>
+              </div>
             </div>
-            <div class="tile-chart-head"><span data-i18n="chartTitle"></span><span data-i18n="fictionTag"></span></div>
-            <div class="tile-bars"><span style="--h:34%"></span><span style="--h:40%"></span><span style="--h:37%"></span><span style="--h:48%"></span><span style="--h:52%"></span><span style="--h:47%"></span><span style="--h:60%"></span><span style="--h:66%"></span><span style="--h:62%"></span><span style="--h:74%"></span><span style="--h:81%"></span><span style="--h:92%"></span></div>
-            <div class="tile-axis"><span data-i18n="monthJan"></span><span data-i18n="monthMar"></span><span data-i18n="monthMay"></span><span data-i18n="monthJul"></span><span data-i18n="monthSep"></span><span data-i18n="monthDec"></span></div>
           </div>
-          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthpro" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--binom" data-product="binom">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/></svg></span><span class="status-tag" data-i18n="binomStatus"></span></div>
-          <h3 data-i18n="binom"></h3>
-          <p class="tile-copy" data-i18n="binomCopy"></p>
-          <div class="tile-visual tile-visual--binom" aria-hidden="true">
-            <div class="tile-note"><span></span><span></span><span></span><span></span></div>
-            <span class="tile-flow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></span>
-            <div class="tile-file"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+
+        <article class="product-tile product-tile--binom" data-product="binom" data-live>
+          <div class="tile-head">
+            <div class="tile-title"><div class="tile-name"><h3 data-i18n="binom"></h3><span class="status-tag" data-i18n="binomStatus"></span></div><p data-i18n="binomCopy"></p></div>
+            <button class="tile-expand" type="button" aria-haspopup="dialog" data-open-product><i class="hi" data-icon="expand"></i></button>
           </div>
-          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="binom" href="https://www.wealthcome.fr/blog/binom-lia-wealthcome-integree-a-wealthpro-pour-les-cgp" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
-        </article>
-        <article class="product-tile product-tile--connect" data-product="wealthconnect">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg></span><span class="status-tag" data-i18n="connectStatus"></span></div>
-          <h3 data-i18n="wealthconnect"></h3>
-          <p class="tile-copy" data-i18n="wealthconnectCopy"></p>
-          <div class="tile-visual tile-visual--connect" aria-hidden="true">
-            <div class="tile-phone"><span class="tile-ring"></span><span></span><span></span></div>
-            <div class="tile-bubble"><span></span><span></span></div>
+          <div class="tile-stage tile-stage--binom" aria-hidden="true">
+            <div class="ui-window binom-mini">
+              <div class="binom-rec"><span class="rec-dot"></span><span data-i18n="binomRecording"></span><span class="rec-time" id="binom-rec-time">00:12:48</span></div>
+              <div class="wave" id="binom-wave"></div>
+              <div class="binom-mini-label" data-i18n="binomCaptured"></div>
+              <ul class="binom-chips">
+                <li><i class="hi" data-icon="check"></i><span data-i18n="fieldFamily"></span></li>
+                <li><i class="hi" data-icon="check"></i><span data-i18n="fieldGoal"></span></li>
+                <li><i class="hi" data-icon="check"></i><span data-i18n="fieldHorizon"></span></li>
+                <li><i class="hi" data-icon="check"></i><span data-i18n="fieldRisk"></span></li>
+              </ul>
+            </div>
           </div>
-          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthconnect" href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--lab" data-product="wealthlab">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/></svg></span></div>
-          <h3 data-i18n="wealthlab"></h3>
-          <p class="tile-copy" data-i18n="wealthlabCopy"></p>
-          <div class="tile-visual tile-visual--lab" aria-hidden="true"><span class="tile-slider" style="--v:68%"></span><span class="tile-slider" style="--v:40%"></span><span class="tile-slider" style="--v:84%"></span></div>
-          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthlab" href="https://www.wealthcome.fr/wealthlab" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
-        </article>
-        <article class="product-tile product-tile--treet" data-product="wealthtreet">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"/></svg></span></div>
-          <h3 data-i18n="wealthtreet"></h3>
-          <p class="tile-copy" data-i18n="wealthtreetCopy"></p>
-          <div class="tile-visual tile-visual--treet" aria-hidden="true"><span class="tile-donut"></span><div class="tile-legend"><span></span><span></span><span></span></div></div>
-          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthtreet" href="https://www.wealthcome.fr/wealth-treet" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
-        </article>
-        <article class="product-tile product-tile--one" data-product="wealthone">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></span></div>
-          <h3 data-i18n="wealthone"></h3>
-          <p class="tile-copy" data-i18n="wealthoneCopy"></p>
-          <div class="tile-visual tile-visual--one" aria-hidden="true">
-            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></span>
-            <span class="tile-link"></span>
-            <span class="tile-node tile-node--hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></span>
-            <span class="tile-link"></span>
-            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></span>
+
+        <article class="product-tile product-tile--connect" data-product="wealthconnect" data-live>
+          <div class="tile-head">
+            <div class="tile-title"><div class="tile-name"><h3 data-i18n="wealthconnect"></h3><span class="status-tag" data-i18n="connectStatus"></span></div><p data-i18n="wealthconnectCopy"></p></div>
+            <button class="tile-expand" type="button" aria-haspopup="dialog" data-open-product><i class="hi" data-icon="expand"></i></button>
           </div>
-          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthone" href="https://www.wealthcome.fr/wealth-one" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
+          <div class="tile-stage tile-stage--connect" data-interactive>
+            <div class="phone" id="connect-phone">
+              <span class="phone-button phone-button--action" aria-hidden="true"></span>
+              <span class="phone-button phone-button--volume" aria-hidden="true"></span>
+              <span class="phone-button phone-button--power" aria-hidden="true"></span>
+              <div class="phone-screen">
+                <div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-status-icons"><i class="phone-signal"><b></b><b></b><b></b><b></b></i><i class="hi" data-icon="wifi"></i><span class="phone-battery"></span></span></div>
+                <div class="phone-island" id="connect-island" aria-hidden="true"><i class="hi" data-icon="doc"></i><span class="phone-island-text"><strong data-i18n="connectNotifTitle"></strong><span data-i18n="connectNotifBody"></span></span></div>
+                <div class="phone-views">
+                  <div class="phone-view phone-view--home" id="connect-home">
+                    <div class="phone-head"><span data-i18n="connectGreeting"></span><span class="phone-avatar" aria-hidden="true">CM</span></div>
+                    <span class="phone-label" data-i18n="connectWealthLabel"></span>
+                    <strong class="phone-value" id="connect-value"></strong>
+                    <span class="phone-delta" id="connect-delta"></span>
+                    <div class="phone-chart" id="connect-chart" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="11" data-i18n-aria="connectChartAria">
+                      <svg viewBox="0 0 200 64" preserveAspectRatio="none" aria-hidden="true">
+                        <defs><linearGradient id="phone-chart-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1761f3" stop-opacity=".12"/><stop offset="1" stop-color="#1761f3" stop-opacity="0"/></linearGradient></defs>
+                        <path class="phone-chart-area" id="connect-area"/>
+                        <path class="phone-chart-line" id="connect-line" pathLength="1"/>
+                      </svg>
+                      <span class="phone-scrub" aria-hidden="true"><span class="phone-scrub-label" id="connect-scrub-label"></span></span>
+                      <span class="phone-scrub-dot" aria-hidden="true"></span>
+                    </div>
+                    <span class="phone-section" data-i18n="connectLatest"></span>
+                    <button class="phone-row phone-row--advice" type="button" id="connect-open"><span class="phone-row-icon"><i class="hi" data-icon="doc"></i></span><span class="phone-row-text"><strong data-i18n="connectAdviceItem"></strong><span data-i18n="connectAdviceMeta"></span></span><span class="phone-new" aria-hidden="true"></span><i class="hi phone-row-chevron" data-icon="chevronRight"></i></button>
+                    <div class="phone-row"><span class="phone-row-icon"><i class="hi" data-icon="folder"></i></span><span class="phone-row-text"><strong data-i18n="connectDocs"></strong><span data-i18n="connectDocsMeta"></span></span></div>
+                  </div>
+                  <div class="phone-view phone-view--doc" id="connect-doc" inert>
+                    <button class="phone-back" type="button" id="connect-back"><i class="hi" data-icon="chevronLeft"></i><span data-i18n="connectBack"></span></button>
+                    <strong class="phone-doc-title" data-i18n="connectAdviceItem"></strong>
+                    <span class="phone-doc-meta" data-i18n="connectDocDate"></span>
+                    <div class="phone-doc-from"><span class="phone-avatar phone-avatar--adviser" aria-hidden="true">AL</span><span><strong data-i18n="connectDocFrom"></strong><span data-i18n="connectDocShared"></span></span></div>
+                    <span class="phone-section" data-i18n="connectDocKey"></span>
+                    <ul class="phone-doc-points">
+                      <li style="--n:0"><i class="hi" data-icon="check"></i><span data-i18n="connectDocPoint1"></span></li>
+                      <li style="--n:1"><i class="hi" data-icon="check"></i><span data-i18n="connectDocPoint2"></span></li>
+                      <li style="--n:2"><i class="hi" data-icon="check"></i><span data-i18n="connectDocPoint3"></span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-tile product-tile--lab" data-product="wealthlab" data-live>
+          <div class="tile-head">
+            <div class="tile-title"><h3 data-i18n="wealthlab"></h3><p data-i18n="wealthlabCopy"></p></div>
+            <button class="tile-expand" type="button" aria-haspopup="dialog" data-open-product><i class="hi" data-icon="expand"></i></button>
+          </div>
+          <div class="tile-stage tile-stage--lab" data-interactive>
+            <div class="ui-window lab-window">
+              <div class="ui-bar"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ui-title" data-i18n="labSimTitle"></span><span class="ui-tag" data-i18n="fictionTag"></span></div>
+              <div class="lab-body">
+                <span class="ui-label" data-i18n="labResult"></span>
+                <strong class="lab-total" id="lab-total"></strong>
+                <div class="lab-split"><span><i class="lab-key lab-key--contrib" aria-hidden="true"></i><span data-i18n="labContrib"></span> <b id="lab-contrib"></b></span><span><i class="lab-key lab-key--growth" aria-hidden="true"></i><span data-i18n="labGrowth"></span> <b id="lab-growth"></b></span></div>
+                <svg class="lab-chart" viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true"><path class="lab-area-total" id="lab-area-total"/><path class="lab-area-contrib" id="lab-area-contrib"/><path class="lab-line" id="lab-line"/></svg>
+                <label class="lab-control"><span><span data-i18n="labMonthly"></span><b id="lab-monthly-out"></b></span><input type="range" id="lab-monthly" min="100" max="2000" step="50" value="500"></label>
+                <label class="lab-control"><span><span data-i18n="labYears"></span><b id="lab-years-out"></b></span><input type="range" id="lab-years" min="5" max="30" step="1" value="15"></label>
+                <p class="lab-note" data-i18n="labAssumption"></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-tile product-tile--treet" data-product="wealthtreet" data-live>
+          <div class="tile-head">
+            <div class="tile-title"><h3 data-i18n="wealthtreet"></h3><p data-i18n="wealthtreetCopy"></p></div>
+            <button class="tile-expand" type="button" aria-haspopup="dialog" data-open-product><i class="hi" data-icon="expand"></i></button>
+          </div>
+          <div class="tile-stage tile-stage--treet" data-interactive>
+            <div class="ui-window treet-window" id="treet-window">
+              <div class="treet-top">
+                <span class="ui-label" data-i18n="treetPortfolio"></span>
+                <div class="seg" role="group" data-value="current" data-i18n-aria="treetToggleAria"><i class="seg-thumb" aria-hidden="true"></i><button type="button" aria-pressed="true" data-alloc="current" data-i18n="treetCurrent"></button><button type="button" aria-pressed="false" data-alloc="target" data-i18n="treetTarget"></button></div>
+              </div>
+              <div class="treet-body">
+                <div class="donut-wrap">
+                  <svg class="donut" viewBox="0 0 42 42" aria-hidden="true"><circle class="donut-track" cx="21" cy="21" r="15.9155"/><circle class="donut-seg" cx="21" cy="21" r="15.9155"/><circle class="donut-seg" cx="21" cy="21" r="15.9155"/><circle class="donut-seg" cx="21" cy="21" r="15.9155"/><circle class="donut-seg" cx="21" cy="21" r="15.9155"/></svg>
+                  <div class="donut-center" aria-hidden="true"><strong id="treet-center-value"></strong><span id="treet-center-label"></span></div>
+                </div>
+                <ul class="treet-legend">
+                  <li><i aria-hidden="true"></i><span data-i18n="assetEquities"></span><b></b><small></small></li>
+                  <li><i aria-hidden="true"></i><span data-i18n="assetBonds"></span><b></b><small></small></li>
+                  <li><i aria-hidden="true"></i><span data-i18n="allocProperty"></span><b></b><small></small></li>
+                  <li><i aria-hidden="true"></i><span data-i18n="assetMoney"></span><b></b><small></small></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-tile product-tile--one" data-product="wealthone" data-live>
+          <div class="tile-head">
+            <div class="tile-title"><h3 data-i18n="wealthone"></h3><p data-i18n="wealthoneCopy"></p></div>
+            <button class="tile-expand" type="button" aria-haspopup="dialog" data-open-product><i class="hi" data-icon="expand"></i></button>
+          </div>
+          <div class="tile-stage tile-stage--one" aria-hidden="true">
+            <canvas class="one-field" id="one-field"></canvas>
+            <div class="one-net">
+              <svg viewBox="0 0 320 200" preserveAspectRatio="none" id="one-net-svg">
+                <path class="one-edge" id="one-edge-0" d="M160 100C112 100 104 44 54 44"/>
+                <path class="one-edge" id="one-edge-1" d="M160 100C208 100 216 44 266 44"/>
+                <path class="one-edge" id="one-edge-2" d="M160 100C112 100 104 156 54 156"/>
+                <path class="one-edge" id="one-edge-3" d="M160 100C208 100 216 156 266 156"/>
+                <circle class="one-packet" r="2.6"><animateMotion dur="2.6s" repeatCount="indefinite" begin="0s"><mpath href="#one-edge-0"/></animateMotion></circle>
+                <circle class="one-packet" r="2.6"><animateMotion dur="2.6s" repeatCount="indefinite" begin="-1.3s" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#one-edge-1"/></animateMotion></circle>
+                <circle class="one-packet" r="2.6"><animateMotion dur="3.2s" repeatCount="indefinite" begin="-.6s" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#one-edge-2"/></animateMotion></circle>
+                <circle class="one-packet" r="2.6"><animateMotion dur="2.9s" repeatCount="indefinite" begin="-2s"><mpath href="#one-edge-3"/></animateMotion></circle>
+              </svg>
+              <span class="one-node" style="--x:17%;--y:22%"><i class="hi" data-icon="user"></i><span data-i18n="oneCrm"></span></span>
+              <span class="one-node" style="--x:83%;--y:22%"><i class="hi" data-icon="folder"></i><span data-i18n="oneDocs"></span></span>
+              <span class="one-node" style="--x:17%;--y:78%"><i class="hi" data-icon="calc"></i><span data-i18n="oneAccounting"></span></span>
+              <span class="one-node" style="--x:83%;--y:78%"><i class="hi" data-icon="puzzle"></i><span data-i18n="oneTools"></span></span>
+              <span class="one-hub"><i class="hi" data-icon="code"></i></span>
+            </div>
+            <div class="one-log"><span class="one-log-dot"></span><span class="one-log-text" id="one-log-text"></span></div>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section-panel binom-panel" id="binom" aria-labelledby="binom-title">
+  <section class="section-panel binom-panel" id="binom" aria-labelledby="binom-title" data-live>
     <div class="section-inner binom-layout">
       <div class="binom-copy">
         <h2 id="binom-title" data-i18n="binomHeading"></h2>
         <p data-i18n="binomDescription"></p>
+        <ol class="binom-steps" data-i18n-aria="binomStepsAria">
+          <li><button class="binom-step" type="button" data-step="1" aria-controls="binom-demo" style="--dur:3.8s"><span class="binom-step-num">01</span><span class="binom-step-text"><strong data-i18n="binomStep1"></strong><span data-i18n="binomStep1Text"></span></span><i class="binom-step-progress" aria-hidden="true"></i></button></li>
+          <li><button class="binom-step" type="button" data-step="2" aria-controls="binom-demo" style="--dur:3.6s"><span class="binom-step-num">02</span><span class="binom-step-text"><strong data-i18n="binomStep2"></strong><span data-i18n="binomStep2Text"></span></span><i class="binom-step-progress" aria-hidden="true"></i></button></li>
+          <li><button class="binom-step" type="button" data-step="3" aria-controls="binom-demo" aria-current="step" style="--dur:2.4s"><span class="binom-step-num">03</span><span class="binom-step-text"><strong data-i18n="binomStep3"></strong><span data-i18n="binomStep3Text"></span></span><i class="binom-step-progress" aria-hidden="true"></i></button></li>
+        </ol>
+        <a class="detail-link" href="https://www.wealthcome.fr/blog/binom-lia-wealthcome-integree-a-wealthpro-pour-les-cgp" target="_blank" rel="noopener noreferrer"><span data-i18n="binomOfficialLink"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
       </div>
-      <div class="binom-card">
-        <div class="binom-card-top"><span class="binom-name" data-i18n="binom"></span><span class="binom-pill" data-i18n="binomStatus"></span></div>
-        <p data-i18n="binomSummary"></p>
-        <a class="detail-link" href="https://www.wealthcome.fr/blog/binom-lia-wealthcome-integree-a-wealthpro-pour-les-cgp" target="_blank" rel="noopener noreferrer" data-i18n="binomOfficialLink"></a>
+      <div class="binom-demo" id="binom-demo" data-step="3">
+        <div class="ui-window binom-window">
+          <div class="ui-bar"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ui-title" data-i18n="binomWindowTitle"></span><span class="ui-tag" data-i18n="binomExample"></span></div>
+          <div class="binom-body">
+            <div class="binom-notes" id="binom-notes">
+              <div class="binom-pane-head"><i class="hi" data-icon="mic"></i><span data-i18n="binomNotesTitle"></span></div>
+              <ol class="binom-note-lines">
+                <li data-note="binomNote1" style="--n:0"></li>
+                <li data-note="binomNote2" style="--n:1"></li>
+                <li data-note="binomNote3" style="--n:2"></li>
+                <li data-note="binomNote4" style="--n:3"></li>
+              </ol>
+            </div>
+            <div class="binom-file">
+              <div class="binom-pane-head"><i class="hi" data-icon="folder"></i><span data-i18n="binomFileTitle"></span></div>
+              <ul class="binom-fields">
+                <li><button class="binom-field" type="button" data-field="1" style="--n:0"><span class="binom-field-label" data-i18n="fieldFamily"></span><span class="binom-field-value" data-i18n="valFamily"></span><i class="hi" data-icon="check"></i></button></li>
+                <li><button class="binom-field" type="button" data-field="2" style="--n:1"><span class="binom-field-label" data-i18n="fieldGoal"></span><span class="binom-field-value" data-i18n="valGoal"></span><i class="hi" data-icon="check"></i></button></li>
+                <li><button class="binom-field" type="button" data-field="3" style="--n:2"><span class="binom-field-label" data-i18n="fieldHorizon"></span><span class="binom-field-value" data-i18n="valHorizon"></span><i class="hi" data-icon="check"></i></button></li>
+                <li><button class="binom-field" type="button" data-field="4" style="--n:3"><span class="binom-field-label" data-i18n="fieldProperty"></span><span class="binom-field-value" data-i18n="valProperty"></span><i class="hi" data-icon="check"></i></button></li>
+                <li><button class="binom-field" type="button" data-field="5" style="--n:4"><span class="binom-field-label" data-i18n="fieldRisk"></span><span class="binom-field-value" data-i18n="valRisk"></span><i class="hi" data-icon="check"></i></button></li>
+              </ul>
+              <div class="binom-file-foot">
+                <span class="binom-status"><span class="is-pending" data-i18n="binomPending"></span><span class="is-ready" data-i18n="binomReady"></span></span>
+                <button class="binom-replay" type="button" id="binom-replay"><i class="hi" data-icon="sync"></i><span data-i18n="binomReplay"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="binom-hint" data-i18n="binomSourceHint"></p>
       </div>
     </div>
   </section>
@@ -1576,9 +1935,9 @@ svg { display: block; }
       </div>
       <div class="footer-link-group">
         <p class="handwritten" data-i18n="footerMore"></p>
-        <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="footerOfficial"></a>
-        <a href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer" data-i18n="footerOffers"></a>
-        <a href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer" data-i18n="footerConnect"></a>
+        <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><span data-i18n="footerOfficial"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
+        <a href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><span data-i18n="footerOffers"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
+        <a href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer"><span data-i18n="footerConnect"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
       </div>
       <p class="footer-caption" data-i18n="footerCaption"></p>
     </div>
@@ -1587,11 +1946,11 @@ svg { display: block; }
   <div class="footer-legal">
     <span data-i18n="footerCopyright"></span>
     <nav class="footer-legal-links" data-i18n-aria="legalAria">
-      <a href="https://www.wealthcome.fr/mentions-legales" target="_blank" rel="noopener noreferrer" data-i18n="legalNotice"></a>
-      <a href="https://www.wealthcome.fr/politique-de-confidentialite" target="_blank" rel="noopener noreferrer" data-i18n="privacy"></a>
-      <a href="https://www.wealthcome.fr/conditions-generales-dutilisation" target="_blank" rel="noopener noreferrer" data-i18n="terms"></a>
+      <a href="https://www.wealthcome.fr/mentions-legales" target="_blank" rel="noopener noreferrer"><span data-i18n="legalNotice"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
+      <a href="https://www.wealthcome.fr/politique-de-confidentialite" target="_blank" rel="noopener noreferrer"><span data-i18n="privacy"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
+      <a href="https://www.wealthcome.fr/conditions-generales-dutilisation" target="_blank" rel="noopener noreferrer"><span data-i18n="terms"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
     </nav>
-    <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="footerSource"></a>
+    <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><span data-i18n="footerSource"></span><svg class="external-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
   </div>
 </footer>
 
@@ -1657,7 +2016,7 @@ const translations = {
     navProducts: "Les produits",
     navBinom: "Binom",
     navFaq: "Questions fréquentes",
-    navLogin: "Connexion ↗",
+    navLogin: "Connexion",
     languageGroup: "Langue",
     languageFr: "FR",
     languageEn: "EN",
@@ -1719,13 +2078,123 @@ const translations = {
     wealthtreetCopy: "Construire et suivre des portefeuilles depuis WealthPro.",
     wealthone: "WealthOne",
     wealthoneCopy: "Adapter la solution aux processus et connecter les outils par interface de programmation.",
-    openDetailsHint: "Ouvrir les détails",
     openDetails: "Ouvrir les détails de {name}",
     openOfficial: "Voir la page officielle de {name}",
     binomHeading: "De la prise de notes à la préparation du dossier.",
     binomDescription: "Présenté en bêta, Binom accompagne la collecte et la retranscription des informations dans WealthPro.",
-    binomSummary: "Collecter et retranscrire les informations du dossier dans WealthPro.",
-    binomOfficialLink: "Lire la présentation de Binom sur le site officiel ↗",
+    binomOfficialLink: "Lire la présentation de Binom sur le site officiel",
+    wpWindowTitle: "WealthPro · Famille Martin",
+    wpTabsAria: "Vues du dossier client",
+    wpTabAggregation: "Agrégation",
+    wpTotalLabel: "Patrimoine brut consolidé",
+    wpDelta: "+4,2 % sur 12 mois",
+    allocProperty: "Immobilier",
+    allocLife: "Assurance-vie",
+    allocSecurities: "Valeurs mobilières",
+    allocCash: "Liquidités",
+    instBank: "Banque · Comptes et livrets",
+    instInsurer: "Assureur · 3 contrats",
+    instBroker: "Courtier · PEA et compte-titres",
+    instProperty: "Immobilier · Résidence et SCPI",
+    syncing: "Synchronisation…",
+    synced: "À jour",
+    compTitle: "Dossier réglementaire",
+    compProgress: "{done} documents à jour sur {total}",
+    docMission: "Lettre de mission",
+    docInfo: "Recueil d’informations",
+    docProfile: "Profil investisseur",
+    docSuitability: "Déclaration d’adéquation",
+    docId: "Pièce d’identité",
+    statusSigned: "Signée",
+    statusRenew: "À renouveler sous 30 j",
+    relTitle: "Historique de la relation",
+    rel1: "Rendez-vous annuel",
+    rel1Meta: "Bilan patrimonial · 1 h 15",
+    rel1Date: "14 mars",
+    rel2: "Compte rendu partagé",
+    rel2Meta: "Disponible dans WealthConnect",
+    rel2Date: "15 mars",
+    rel3: "Arbitrage proposé",
+    rel3Meta: "Assurance-vie · en attente de signature",
+    rel3Date: "2 avr.",
+    rel4: "Prochain rendez-vous",
+    rel4Meta: "Suivi semestriel",
+    rel4Date: "12 sept.",
+    binomRecording: "Rendez-vous en cours",
+    binomCaptured: "Informations repérées",
+    fieldFamily: "Situation familiale",
+    fieldGoal: "Objectif",
+    fieldHorizon: "Horizon",
+    fieldProperty: "Patrimoine immobilier",
+    fieldRisk: "Profil de risque",
+    connectGreeting: "Bonjour Claire",
+    connectWealthLabel: "Mon patrimoine",
+    connectNotifTitle: "Nouveau document",
+    connectNotifBody: "Compte rendu du 14 mars",
+    connectLatest: "Partagé par votre conseiller",
+    connectAdviceItem: "Compte rendu",
+    connectAdviceMeta: "14 mars · Nouveau",
+    connectDocsMeta: "3 documents",
+    connectChartAria: "Évolution du patrimoine sur 12 mois",
+    connectSince: "{pct} depuis {month}",
+    connectBack: "Accueil",
+    connectDocDate: "Rendez-vous du 14 mars 2026",
+    connectDocFrom: "Votre conseiller",
+    connectDocShared: "Partagé le 15 mars",
+    connectDocKey: "Points clés",
+    connectDocPoint1: "Objectif retraite confirmé, horizon 10 ans",
+    connectDocPoint2: "Arbitrage proposé sur l’assurance-vie",
+    connectDocPoint3: "Prochain rendez-vous le 12 septembre",
+    connectDocs: "Mes documents",
+    labSimTitle: "Simulation retraite",
+    labResult: "Capital estimé",
+    labContrib: "Versements",
+    labGrowth: "Intérêts",
+    labMonthly: "Versement mensuel",
+    labYears: "Durée",
+    labYearsValue: "{n} ans",
+    labAssumption: "Hypothèse fictive : rendement de 3 % par an.",
+    treetPortfolio: "Portefeuille modèle",
+    treetProfile: "Profil équilibré",
+    treetToggleAria: "Allocation affichée",
+    treetCurrent: "Actuelle",
+    treetTarget: "Cible",
+    treetPoints: "{n} pts",
+    assetEquities: "Actions",
+    assetBonds: "Obligations",
+    assetMoney: "Monétaire",
+    oneCrm: "CRM",
+    oneDocs: "Documents",
+    oneAccounting: "Comptabilité",
+    oneTools: "Vos outils",
+    oneLog1: "CRM · 12 fiches synchronisées",
+    oneLog2: "Documents · 4 fichiers classés",
+    oneLog3: "Vos outils · événement reçu",
+    oneLog4: "Comptabilité · export prêt",
+    binomStepsAria: "Étapes de l’exemple",
+    binomStep1: "Collecte",
+    binomStep1Text: "Les informations partagées pendant le rendez-vous sont notées.",
+    binomStep2: "Retranscription",
+    binomStep2Text: "Les éléments utiles au dossier sont repérés.",
+    binomStep3: "Dossier",
+    binomStep3Text: "Les champs du dossier client sont préparés dans WealthPro.",
+    binomWindowTitle: "Binom · Rendez-vous Famille Martin",
+    binomExample: "Exemple illustratif",
+    binomNotesTitle: "Notes du rendez-vous",
+    binomFileTitle: "Dossier client",
+    binomNote1: "Claire, 52 ans, [1:mariée, deux enfants] étudiants.",
+    binomNote2: "Souhaite [2:préparer sa retraite], [3:départ envisagé dans dix ans].",
+    binomNote3: "A hérité d’un [4:appartement à Lyon] qu’elle souhaite conserver.",
+    binomNote4: "[5:Approche prudente] : pas de produits complexes.",
+    valFamily: "Mariée · 2 enfants",
+    valGoal: "Préparer la retraite",
+    valHorizon: "10 ans",
+    valProperty: "Appartement · Lyon",
+    valRisk: "Prudent",
+    binomPending: "En cours de préparation",
+    binomReady: "Prêt pour relecture",
+    binomReplay: "Rejouer",
+    binomSourceHint: "Survolez ou sélectionnez un champ pour retrouver sa source dans les notes.",
     connectHeading: "Évaluez la solution sur vos usages réels.",
     connectIntro: "Préparez vos questions sur les données, l’équipe et l’offre.",
     questionDataTitle: "Vos données",
@@ -1770,17 +2239,17 @@ const translations = {
     footerBinom: "Binom IA",
     footerSolutions: "Nos solutions",
     footerFaq: "Questions fréquentes",
-    footerOfficial: "Site officiel ↗",
-    footerOffers: "Offres WealthPro ↗",
-    footerConnect: "WealthConnect ↗",
+    footerOfficial: "Site officiel",
+    footerOffers: "Offres WealthPro",
+    footerConnect: "WealthConnect",
     footerCaption: "Concept indépendant par Praise Akinde. Non affilié à Wealthcome. Les interfaces et les données sont fictives. Aucun renseignement n’est collecté.",
     footerCopyright: "© 2026 · Concept de refonte par Praise Akinde",
-    footerSource: "Descriptions : site officiel, consulté le 13 octobre 2026 ↗",
+    footerSource: "Descriptions : site officiel, consulté le 13 octobre 2026",
     footerLinksAria: "Liens officiels",
     legalAria: "Informations légales",
-    legalNotice: "Mentions légales ↗",
-    privacy: "Confidentialité ↗",
-    terms: "Conditions générales d’utilisation ↗",
+    legalNotice: "Mentions légales",
+    privacy: "Confidentialité",
+    terms: "Conditions générales d’utilisation",
     closeAria: "Fermer la fenêtre",
     demoTitle: "Préparons votre demande",
     step: "Étape {current} sur {total}",
@@ -1822,7 +2291,7 @@ const translations = {
     navProducts: "Products",
     navBinom: "Binom",
     navFaq: "Frequently asked questions",
-    navLogin: "Sign in ↗",
+    navLogin: "Sign in",
     languageGroup: "Language",
     languageFr: "FR",
     languageEn: "EN",
@@ -1884,13 +2353,123 @@ const translations = {
     wealthtreetCopy: "Build and monitor portfolios from WealthPro.",
     wealthone: "WealthOne",
     wealthoneCopy: "Adapt the solution to workflows and connect tools by API.",
-    openDetailsHint: "Open details",
     openDetails: "Open details for {name}",
     openOfficial: "View the official {name} page",
     binomHeading: "From note-taking to preparing the client file.",
     binomDescription: "Presented in beta, Binom supports the collection and transcription of information in WealthPro.",
-    binomSummary: "Collect and transcribe information from the client file in WealthPro.",
-    binomOfficialLink: "Read the Binom announcement on the official website ↗",
+    binomOfficialLink: "Read the Binom announcement on the official website",
+    wpWindowTitle: "WealthPro · Martin family",
+    wpTabsAria: "Client file views",
+    wpTabAggregation: "Aggregation",
+    wpTotalLabel: "Consolidated gross wealth",
+    wpDelta: "+4.2% over 12 months",
+    allocProperty: "Property",
+    allocLife: "Life insurance",
+    allocSecurities: "Securities",
+    allocCash: "Cash",
+    instBank: "Bank · Current and savings accounts",
+    instInsurer: "Insurer · 3 policies",
+    instBroker: "Broker · PEA and securities account",
+    instProperty: "Property · Home and real estate funds",
+    syncing: "Syncing…",
+    synced: "Up to date",
+    compTitle: "Regulatory file",
+    compProgress: "{done} of {total} documents up to date",
+    docMission: "Engagement letter",
+    docInfo: "Client fact-find",
+    docProfile: "Investor profile",
+    docSuitability: "Suitability report",
+    docId: "Proof of identity",
+    statusSigned: "Signed",
+    statusRenew: "Renew within 30 days",
+    relTitle: "Relationship history",
+    rel1: "Annual review",
+    rel1Meta: "Wealth review · 75 min",
+    rel1Date: "14 Mar",
+    rel2: "Summary shared",
+    rel2Meta: "Available in WealthConnect",
+    rel2Date: "15 Mar",
+    rel3: "Switch proposed",
+    rel3Meta: "Life insurance · awaiting signature",
+    rel3Date: "2 Apr",
+    rel4: "Next meeting",
+    rel4Meta: "Six-monthly follow-up",
+    rel4Date: "12 Sept",
+    binomRecording: "Meeting in progress",
+    binomCaptured: "Details picked up",
+    fieldFamily: "Family situation",
+    fieldGoal: "Goal",
+    fieldHorizon: "Horizon",
+    fieldProperty: "Property",
+    fieldRisk: "Risk profile",
+    connectGreeting: "Hello Claire",
+    connectWealthLabel: "My wealth",
+    connectNotifTitle: "New document",
+    connectNotifBody: "14 March meeting summary",
+    connectLatest: "Shared by your adviser",
+    connectAdviceItem: "Meeting summary",
+    connectAdviceMeta: "14 March · New",
+    connectDocsMeta: "3 documents",
+    connectChartAria: "Wealth over 12 months",
+    connectSince: "{pct} since {month}",
+    connectBack: "Home",
+    connectDocDate: "Meeting on 14 March 2026",
+    connectDocFrom: "Your adviser",
+    connectDocShared: "Shared on 15 March",
+    connectDocKey: "Key points",
+    connectDocPoint1: "Retirement goal confirmed, 10-year horizon",
+    connectDocPoint2: "Switch proposed on life insurance",
+    connectDocPoint3: "Next meeting on 12 September",
+    connectDocs: "My documents",
+    labSimTitle: "Retirement simulation",
+    labResult: "Estimated capital",
+    labContrib: "Contributions",
+    labGrowth: "Interest",
+    labMonthly: "Monthly contribution",
+    labYears: "Duration",
+    labYearsValue: "{n} years",
+    labAssumption: "Fictional assumption: 3% return a year.",
+    treetPortfolio: "Model portfolio",
+    treetProfile: "Balanced profile",
+    treetToggleAria: "Allocation shown",
+    treetCurrent: "Current",
+    treetTarget: "Target",
+    treetPoints: "{n} pts",
+    assetEquities: "Equities",
+    assetBonds: "Bonds",
+    assetMoney: "Money market",
+    oneCrm: "CRM",
+    oneDocs: "Documents",
+    oneAccounting: "Accounting",
+    oneTools: "Your tools",
+    oneLog1: "CRM · 12 records synced",
+    oneLog2: "Documents · 4 files filed",
+    oneLog3: "Your tools · event received",
+    oneLog4: "Accounting · export ready",
+    binomStepsAria: "Example steps",
+    binomStep1: "Collection",
+    binomStep1Text: "Information shared during the meeting is noted.",
+    binomStep2: "Transcription",
+    binomStep2Text: "Details relevant to the file are picked out.",
+    binomStep3: "Client file",
+    binomStep3Text: "The client file fields are prepared in WealthPro.",
+    binomWindowTitle: "Binom · Martin family meeting",
+    binomExample: "Illustrative example",
+    binomNotesTitle: "Meeting notes",
+    binomFileTitle: "Client file",
+    binomNote1: "Claire, 52, [1:married with two children] at university.",
+    binomNote2: "Wants to [2:prepare for retirement], [3:planned in about ten years].",
+    binomNote3: "Inherited a [4:flat in Lyon] she would like to keep.",
+    binomNote4: "[5:Cautious approach]: no complex products.",
+    valFamily: "Married · 2 children",
+    valGoal: "Retirement planning",
+    valHorizon: "10 years",
+    valProperty: "Flat · Lyon",
+    valRisk: "Cautious",
+    binomPending: "Being prepared",
+    binomReady: "Ready for review",
+    binomReplay: "Replay",
+    binomSourceHint: "Hover over or select a field to find its source in the notes.",
     connectHeading: "Assess the solution against your needs.",
     connectIntro: "Prepare questions about data, your team and the offering.",
     questionDataTitle: "Your data",
@@ -1935,17 +2514,17 @@ const translations = {
     footerBinom: "Binom AI",
     footerSolutions: "Solutions",
     footerFaq: "FAQs",
-    footerOfficial: "Official website ↗",
-    footerOffers: "WealthPro offers ↗",
-    footerConnect: "WealthConnect ↗",
+    footerOfficial: "Official website",
+    footerOffers: "WealthPro offers",
+    footerConnect: "WealthConnect",
     footerCaption: "Independent concept by Praise Akinde. Not affiliated with Wealthcome. Interfaces and data are fictional. No information is collected.",
     footerCopyright: "© 2026 · Redesign concept by Praise Akinde",
-    footerSource: "Descriptions: official website, accessed 13 October 2026 ↗",
+    footerSource: "Descriptions: official website, accessed 13 October 2026",
     footerLinksAria: "Official links",
     legalAria: "Legal information",
-    legalNotice: "Legal notice ↗",
-    privacy: "Privacy ↗",
-    terms: "Terms of use ↗",
+    legalNotice: "Legal notice",
+    privacy: "Privacy",
+    terms: "Terms of use",
     closeAria: "Close dialog",
     demoTitle: "Plan your demo",
     step: "Step {current} of {total}",
@@ -2145,6 +2724,7 @@ function translatePage() {
   document.querySelectorAll(".product-tile").forEach((tile) => {
     tile.querySelector("[data-open-product]").setAttribute("aria-label", t("openDetails", { name: t(products[tile.dataset.product].title) }));
   });
+  renderProductPreviews();
   if (selectedSlot) renderSelectedSlot();
   if (!document.getElementById("profile-error").hidden) document.getElementById("profile-error").textContent = t("requiredProfile");
   if (!document.getElementById("need-error").hidden) document.getElementById("need-error").textContent = t("requiredNeed");
@@ -2315,9 +2895,9 @@ function openProductDialog(article) {
 
 const productTiles = [...document.querySelectorAll(".product-tile")];
 productTiles.forEach((tile) => {
-  // The whole card is a mouse target; keyboard and assistive tech use the details button and the official link.
+  // The whole card is a mouse target, except its own controls; keyboard and assistive tech use the expand button.
   tile.addEventListener("click", (event) => {
-    if (event.target.closest("a")) return;
+    if (!event.target.closest("[data-open-product]") && event.target.closest("a, button, input, label, [data-interactive]")) return;
     openProductDialog(tile);
   });
   tile.querySelector("[data-open-product]").addEventListener("keydown", (event) => {
@@ -2329,16 +2909,8 @@ productTiles.forEach((tile) => {
   tile.addEventListener("pointermove", (event) => {
     if (reducedMotion.matches || event.pointerType !== "mouse") return;
     const rect = tile.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    tile.style.setProperty("--spot-x", `${x * 100}%`);
-    tile.style.setProperty("--spot-y", `${y * 100}%`);
-    tile.style.setProperty("--tilt-x", `${(0.5 - y) * 5}deg`);
-    tile.style.setProperty("--tilt-y", `${(x - 0.5) * 5}deg`);
-  });
-  tile.addEventListener("pointerleave", () => {
-    tile.style.setProperty("--tilt-x", "0deg");
-    tile.style.setProperty("--tilt-y", "0deg");
+    tile.style.setProperty("--spot-x", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    tile.style.setProperty("--spot-y", `${((event.clientY - rect.top) / rect.height) * 100}%`);
   });
 });
 
@@ -2359,6 +2931,583 @@ function moveTileFocus(current, direction) {
   const fallback = (sign > 0 ? candidates : [...candidates].reverse())[0];
   (directional || fallback)?.tile.querySelector("[data-open-product]").focus();
 }
+
+// Heroicons v2 outline paths for the product previews, rendered into <i class="hi" data-icon="…">.
+const icons = {
+  expand: "M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15",
+  bank: "M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z",
+  shield: "M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z",
+  chart: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z",
+  home: "M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819",
+  check: "m4.5 12.75 6 6 9-13.5",
+  sync: "M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99",
+  doc: "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z",
+  warn: "M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z",
+  calendar: "M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5",
+  send: "M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5",
+  switch: "M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H4.5",
+  mic: "M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z",
+  bell: "M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0",
+  chat: "M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155",
+  folder: "M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z",
+  calc: "M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z",
+  puzzle: "M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z",
+  user: "M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
+  code: "M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5",
+  wifi: "M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z",
+  chevronLeft: "M15.75 19.5 8.25 12l7.5-7.5",
+  chevronRight: "m8.25 4.5 7.5 7.5-7.5 7.5"
+};
+
+function renderIcons() {
+  document.querySelectorAll(".hi[data-icon]").forEach((holder) => {
+    if (holder.firstChild) return;
+    const path = icons[holder.dataset.icon];
+    if (!path) throw new Error(`Unknown icon: ${holder.dataset.icon}`);
+    const strokeWidth = holder.dataset.icon === "check" ? 2.2 : 1.5;
+    holder.setAttribute("aria-hidden", "true");
+    holder.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${strokeWidth}"><path stroke-linecap="round" stroke-linejoin="round" d="${path}"/></svg>`;
+  });
+}
+
+const locale = () => (language === "fr" ? "fr-FR" : "en-GB");
+const formatMoney = (value) => new Intl.NumberFormat(locale(), { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);
+const formatPercent = (value) => new Intl.NumberFormat(locale(), { style: "percent", maximumFractionDigits: 0 }).format(value / 100);
+
+// Previews only move while on screen, in a visible tab, and when reduced motion is off.
+const liveSyncers = [];
+const canAnimate = (element) => element.classList.contains("is-live") && !document.hidden && !reducedMotion.matches;
+const syncLive = () => liveSyncers.forEach((sync) => sync());
+const liveObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    entry.target.classList.toggle("is-live", entry.isIntersecting);
+    if (entry.isIntersecting) entry.target.classList.add("is-revealed");
+  });
+  syncLive();
+}, { threshold: 0.2 });
+document.addEventListener("visibilitychange", syncLive);
+reducedMotion.addEventListener("change", syncLive);
+
+function createLoop(element, step, firstDelay = 600) {
+  let timer = 0;
+  const run = () => {
+    timer = 0;
+    if (!canAnimate(element)) return;
+    const delay = step();
+    if (delay) timer = setTimeout(run, delay);
+  };
+  liveSyncers.push(() => {
+    if (canAnimate(element)) {
+      if (!timer) timer = setTimeout(run, firstDelay);
+    } else if (timer) {
+      clearTimeout(timer);
+      timer = 0;
+    }
+  });
+}
+
+function countUp(element, target, duration) {
+  const start = performance.now();
+  const frame = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - (1 - progress) ** 3;
+    element.textContent = formatMoney(progress === 1 ? target : Math.round((target * eased) / 1000) * 1000);
+    if (progress < 1) requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+
+// WealthPro: tabs cycle on a progress bar; the CSS animation's end advances the tab, so hover and off-screen pause it for free.
+const wpWindow = document.querySelector(".wp-window");
+const wpTile = wpWindow.closest(".product-tile");
+const wpTabs = [...wpWindow.querySelectorAll('[role="tab"]')];
+const wpPanels = [...wpWindow.querySelectorAll('[role="tabpanel"]')];
+let wpIndex = 0;
+let aggregationTimers = [];
+
+function playAggregation() {
+  aggregationTimers.forEach(clearTimeout);
+  aggregationTimers = [];
+  const rows = [...wpWindow.querySelectorAll(".wp-row")];
+  const total = wpWindow.querySelector("[data-countup]");
+  if (!canAnimate(wpTile)) {
+    rows.forEach((row) => { row.dataset.state = "synced"; });
+    total.textContent = formatMoney(Number(total.dataset.money));
+    return;
+  }
+  rows.forEach((row) => { row.dataset.state = "syncing"; });
+  rows.forEach((row, index) => aggregationTimers.push(setTimeout(() => { row.dataset.state = "synced"; }, 650 + index * 420)));
+  countUp(total, Number(total.dataset.money), 1500);
+}
+
+// Choosing a tab hands control to the visitor for good.
+function stopWpCycle() {
+  wpWindow.dataset.stopped = "true";
+  wpWindow.classList.remove("is-cycling");
+}
+
+function showWpPanel(index, { focus = false } = {}) {
+  wpIndex = (index + wpTabs.length) % wpTabs.length;
+  wpTabs.forEach((tab, tabIndex) => {
+    const selected = tabIndex === wpIndex;
+    tab.setAttribute("aria-selected", String(selected));
+    tab.tabIndex = selected ? 0 : -1;
+  });
+  wpPanels.forEach((panel, panelIndex) => panel.classList.toggle("is-active", panelIndex === wpIndex));
+  if (focus) wpTabs[wpIndex].focus();
+  if (wpIndex === 0) playAggregation();
+}
+
+wpTabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => {
+    stopWpCycle();
+    showWpPanel(index);
+  });
+  tab.addEventListener("keydown", (event) => {
+    const moves = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: wpTabs.length - 1 };
+    if (!(event.key in moves)) return;
+    event.preventDefault();
+    stopWpCycle();
+    showWpPanel(moves[event.key], { focus: true });
+  });
+});
+wpWindow.addEventListener("animationend", (event) => {
+  if (event.animationName === "wp-progress") showWpPanel(wpIndex + 1);
+});
+liveSyncers.push(() => {
+  wpWindow.classList.toggle("is-cycling", !reducedMotion.matches && !wpWindow.dataset.stopped);
+  if (canAnimate(wpTile) && !wpTile.dataset.played) {
+    wpTile.dataset.played = "true";
+    if (wpIndex === 0) playAggregation();
+  }
+});
+
+// Binom tile: a running meeting clock, a voice waveform, and fields picked up one by one.
+const binomTile = document.querySelector(".product-tile--binom");
+const binomChips = [...binomTile.querySelectorAll(".binom-chips li")];
+const binomClock = document.getElementById("binom-rec-time");
+let binomSeconds = 12 * 60 + 48;
+let binomChipStep = binomChips.length;
+document.getElementById("binom-wave").append(...Array.from({ length: 64 }, (_, index) => {
+  const bar = document.createElement("i");
+  const envelope = 0.45 + 0.55 * Math.sin((Math.PI * index) / 63);
+  const level = 0.12 + 0.88 * envelope * Math.abs(Math.sin(index * 1.7) * Math.cos(index * 0.45));
+  bar.style.setProperty("--s", level.toFixed(2));
+  bar.style.setProperty("--d", `${(-((index * 0.37) % 1.1)).toFixed(2)}s`);
+  return bar;
+}));
+createLoop(binomTile, () => {
+  binomSeconds += 1;
+  const minutes = Math.floor(binomSeconds / 60);
+  binomClock.textContent = `00:${String(minutes).padStart(2, "0")}:${String(binomSeconds % 60).padStart(2, "0")}`;
+  return 1000;
+}, 1000);
+createLoop(binomTile, () => {
+  if (binomChipStep >= binomChips.length) {
+    binomChips.forEach((chip) => chip.classList.add("is-pending"));
+    binomChipStep = 0;
+    return 900;
+  }
+  binomChips[binomChipStep].classList.remove("is-pending");
+  binomChipStep += 1;
+  return binomChipStep === binomChips.length ? 3800 : 1100;
+}, 2400);
+
+// WealthLab: a real, if deliberately simple, compound-growth simulation.
+const labMonthly = document.getElementById("lab-monthly");
+const labYears = document.getElementById("lab-years");
+const labTile = labMonthly.closest(".product-tile");
+const labRate = 0.03 / 12;
+const supportsPathTransitions = CSS.supports("d", 'path("M0 0")');
+const futureValue = (monthly, months) => (monthly * ((1 + labRate) ** months - 1)) / labRate;
+// A log scale keeps small and large simulations readable on the same short chart.
+const labScale = (value) => Math.log1p(value / 20000) / Math.log1p(futureValue(2000, 360) / 20000);
+
+function setPath(id, d) {
+  const path = document.getElementById(id);
+  if (supportsPathTransitions) path.style.d = `path("${d}")`;
+  else path.setAttribute("d", d);
+}
+
+function renderLab() {
+  const monthly = Number(labMonthly.value);
+  const years = Number(labYears.value);
+  const total = futureValue(monthly, years * 12);
+  const contributions = monthly * 12 * years;
+  document.getElementById("lab-total").textContent = formatMoney(Math.round(total));
+  document.getElementById("lab-contrib").textContent = formatMoney(contributions);
+  document.getElementById("lab-growth").textContent = formatMoney(Math.round(total - contributions));
+  document.getElementById("lab-monthly-out").textContent = formatMoney(monthly);
+  document.getElementById("lab-years-out").textContent = t("labYearsValue", { n: years });
+  [labMonthly, labYears].forEach((input) => {
+    input.style.setProperty("--fill", `${((input.value - input.min) / (input.max - input.min)) * 100}%`);
+  });
+  const result = `${t("labResult")} ${formatMoney(Math.round(total))}`;
+  labMonthly.setAttribute("aria-valuetext", `${formatMoney(monthly)}, ${result}`);
+  labYears.setAttribute("aria-valuetext", `${t("labYearsValue", { n: years })}, ${result}`);
+  // Thirty samples at any duration keep the path's command count fixed, so CSS can interpolate it.
+  const y = (value) => (86 - labScale(value) * 80).toFixed(1);
+  const samples = Array.from({ length: 30 }, (_, index) => {
+    const months = (index / 29) * years * 12;
+    return { x: ((index / 29) * 300).toFixed(1), total: y(futureValue(monthly, months)), paid: y(monthly * months) };
+  });
+  const line = samples.map((point, index) => `${index ? "L" : "M"}${point.x} ${point.total}`).join(" ");
+  setPath("lab-line", line);
+  setPath("lab-area-total", `${line} L300 90 L0 90 Z`);
+  setPath("lab-area-contrib", `${samples.map((point, index) => `${index ? "L" : "M"}${point.x} ${point.paid}`).join(" ")} L300 90 L0 90 Z`);
+}
+
+[labMonthly, labYears].forEach((input) => {
+  input.addEventListener("input", () => {
+    labTile.dataset.touched = "true";
+    renderLab();
+  });
+});
+// Once, on first view, ease the contribution slider to hint that it can be moved.
+liveSyncers.push(() => {
+  if (!canAnimate(labTile) || labTile.dataset.touched || labTile.dataset.hinted) return;
+  labTile.dataset.hinted = "true";
+  const start = performance.now();
+  const frame = (now) => {
+    if (labTile.dataset.touched) return;
+    const progress = Math.min((now - start) / 1100, 1);
+    const eased = 1 - (1 - progress) ** 3;
+    labMonthly.value = String(Math.round((250 + 250 * eased) / 50) * 50);
+    renderLab();
+    if (progress < 1) requestAnimationFrame(frame);
+  };
+  labMonthly.value = "250";
+  renderLab();
+  setTimeout(() => requestAnimationFrame(frame), 500);
+});
+
+// WealthTreet: the portfolio moves between its current and target allocation.
+const treetWindow = document.getElementById("treet-window");
+const treetTile = treetWindow.closest(".product-tile");
+const treetSegments = [...treetWindow.querySelectorAll(".donut-seg")];
+const treetRows = [...treetWindow.querySelectorAll(".treet-legend li")];
+const treetToggle = treetWindow.querySelector(".seg");
+const allocations = { current: [52, 23, 15, 10], target: [45, 30, 15, 10] };
+const assetKeys = ["assetEquities", "assetBonds", "allocProperty", "assetMoney"];
+let treetMode = "current";
+let treetFocus = -1;
+
+function renderTreet() {
+  const values = allocations[treetMode];
+  let offset = 0;
+  treetSegments.forEach((segment, index) => {
+    const length = Math.max(values[index] - 1.4, 0);
+    segment.style.strokeDasharray = `${length} ${100 - length}`;
+    segment.style.strokeDashoffset = String(-(offset + 0.7));
+    segment.classList.toggle("is-focus", index === treetFocus);
+    offset += values[index];
+  });
+  treetRows.forEach((row, index) => {
+    row.querySelector("b").textContent = formatPercent(values[index]);
+    const difference = allocations.target[index] - allocations.current[index];
+    const delta = row.querySelector("small");
+    delta.textContent = difference ? t("treetPoints", { n: `${difference > 0 ? "+" : "−"}${Math.abs(difference)}` }) : "=";
+    delta.className = difference > 0 ? "is-up" : difference < 0 ? "is-down" : "";
+    row.classList.toggle("is-focus", index === treetFocus);
+  });
+  treetWindow.classList.toggle("is-target", treetMode === "target");
+  treetWindow.classList.toggle("has-focus", treetFocus >= 0);
+  treetToggle.dataset.value = treetMode;
+  treetToggle.querySelectorAll("button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.alloc === treetMode)));
+  document.getElementById("treet-center-value").textContent = treetFocus >= 0 ? formatPercent(values[treetFocus]) : t(treetMode === "current" ? "treetCurrent" : "treetTarget");
+  document.getElementById("treet-center-label").textContent = treetFocus >= 0 ? t(assetKeys[treetFocus]) : t("treetProfile");
+}
+
+treetToggle.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", () => {
+    treetTile.dataset.touched = "true";
+    treetMode = button.dataset.alloc;
+    renderTreet();
+  });
+});
+const focusAsset = (index) => {
+  treetFocus = index;
+  renderTreet();
+};
+treetRows.forEach((row, index) => row.addEventListener("pointerenter", () => focusAsset(index)));
+treetSegments.forEach((segment, index) => segment.addEventListener("pointerenter", () => focusAsset(index)));
+treetWindow.querySelector(".treet-body").addEventListener("pointerleave", () => focusAsset(-1));
+createLoop(treetTile, () => {
+  if (treetTile.dataset.touched) return 0;
+  if (!treetTile.matches(":hover")) {
+    treetMode = treetMode === "current" ? "target" : "current";
+    renderTreet();
+  }
+  return 3400;
+}, 1600);
+
+// WealthOne: data packets between tools, a rotating event log and a dot field that ripples out from the hub.
+const oneStage = document.querySelector(".tile-stage--one");
+const oneTile = oneStage.closest(".product-tile");
+const oneSvg = document.getElementById("one-net-svg");
+const oneLog = document.getElementById("one-log-text");
+const oneLogKeys = ["oneLog1", "oneLog2", "oneLog3", "oneLog4"];
+let oneLogIndex = 0;
+oneSvg.pauseAnimations();
+liveSyncers.push(() => {
+  if (canAnimate(oneTile)) oneSvg.unpauseAnimations();
+  else oneSvg.pauseAnimations();
+});
+createLoop(oneTile, () => {
+  oneLog.classList.add("is-swapping");
+  setTimeout(() => {
+    oneLogIndex = (oneLogIndex + 1) % oneLogKeys.length;
+    oneLog.textContent = t(oneLogKeys[oneLogIndex]);
+    oneLog.classList.remove("is-swapping");
+  }, 240);
+  return 2600;
+}, 2000);
+
+const oneField = { canvas: document.getElementById("one-field"), dots: [], width: 0, height: 0, pointer: null, frame: 0 };
+function sizeOneField() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  const rect = oneStage.getBoundingClientRect();
+  oneField.width = rect.width;
+  oneField.height = rect.height;
+  oneField.canvas.width = Math.round(rect.width * ratio);
+  oneField.canvas.height = Math.round(rect.height * ratio);
+  oneField.canvas.getContext("2d").setTransform(ratio, 0, 0, ratio, 0, 0);
+  oneField.dots = [];
+  const gap = 14;
+  for (let y = gap / 2; y < rect.height; y += gap) {
+    for (let x = gap / 2; x < rect.width; x += gap) oneField.dots.push({ x, y });
+  }
+}
+function drawOneField(time = 0) {
+  const context = oneField.canvas.getContext("2d");
+  const hub = oneStage.querySelector(".one-hub").getBoundingClientRect();
+  const stage = oneStage.getBoundingClientRect();
+  const hubX = hub.left + hub.width / 2 - stage.left;
+  const hubY = hub.top + hub.height / 2 - stage.top;
+  context.clearRect(0, 0, oneField.width, oneField.height);
+  context.fillStyle = "#1761f3";
+  oneField.dots.forEach((dot) => {
+    let { x, y } = dot;
+    let lift = 0;
+    if (oneField.pointer) {
+      const dx = x - oneField.pointer.x;
+      const dy = y - oneField.pointer.y;
+      const distance = Math.hypot(dx, dy) || 1;
+      if (distance < 80) {
+        lift = 1 - distance / 80;
+        x += (dx / distance) * lift * 9;
+        y += (dy / distance) * lift * 9;
+      }
+    }
+    const fromHub = Math.hypot(dot.x - hubX, dot.y - hubY);
+    const wave = (Math.sin(fromHub / 24 - time / 520) + 1) / 2;
+    context.globalAlpha = Math.min(0.08 + wave ** 4 * 0.2 + lift * 0.45, 0.7);
+    context.beginPath();
+    context.arc(x, y, 1 + lift * 0.7, 0, Math.PI * 2);
+    context.fill();
+  });
+}
+function runOneField(time) {
+  oneField.frame = 0;
+  drawOneField(time);
+  if (canAnimate(oneTile)) oneField.frame = requestAnimationFrame(runOneField);
+}
+liveSyncers.push(() => {
+  if (canAnimate(oneTile)) {
+    if (!oneField.frame) oneField.frame = requestAnimationFrame(runOneField);
+  } else if (oneField.frame) {
+    cancelAnimationFrame(oneField.frame);
+    oneField.frame = 0;
+  }
+});
+new ResizeObserver(() => {
+  sizeOneField();
+  drawOneField(performance.now());
+}).observe(oneStage);
+oneStage.addEventListener("pointermove", (event) => {
+  const rect = oneStage.getBoundingClientRect();
+  oneField.pointer = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  if (!canAnimate(oneTile)) drawOneField(performance.now());
+});
+oneStage.addEventListener("pointerleave", () => {
+  oneField.pointer = null;
+  if (!canAnimate(oneTile)) drawOneField(performance.now());
+});
+
+// Binom section: three steps from meeting notes to a prepared client file; fields link back to their source.
+const binomSection = document.getElementById("binom");
+const binomDemo = document.getElementById("binom-demo");
+const binomSteps = [...binomSection.querySelectorAll(".binom-step")];
+
+function setBinomStep(step) {
+  binomDemo.dataset.step = String(step);
+  binomSteps.forEach((button) => {
+    if (Number(button.dataset.step) === step) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+  });
+}
+
+function playBinom() {
+  if (reducedMotion.matches) {
+    setBinomStep(3);
+    return;
+  }
+  binomSection.classList.remove("is-playing");
+  setBinomStep(1);
+  void binomSection.offsetWidth;
+  binomSection.classList.add("is-playing");
+}
+
+binomSteps.forEach((button) => {
+  button.addEventListener("click", () => {
+    binomSection.classList.remove("is-playing");
+    setBinomStep(Number(button.dataset.step));
+  });
+});
+binomSection.addEventListener("animationend", (event) => {
+  if (event.animationName !== "binom-progress") return;
+  const step = Number(binomDemo.dataset.step);
+  if (step < 3) setBinomStep(step + 1);
+  else binomSection.classList.remove("is-playing");
+});
+document.getElementById("binom-replay").addEventListener("click", playBinom);
+liveSyncers.push(() => {
+  if (canAnimate(binomSection) && !binomSection.dataset.played) {
+    binomSection.dataset.played = "true";
+    playBinom();
+  }
+});
+
+function linkBinomField(field) {
+  binomDemo.classList.toggle("is-linking", Boolean(field));
+  binomDemo.querySelectorAll("mark, .binom-field").forEach((element) => element.classList.toggle("is-linked", element.dataset.field === field));
+}
+binomDemo.querySelectorAll(".binom-field").forEach((button) => {
+  button.addEventListener("pointerenter", () => linkBinomField(button.dataset.field));
+  button.addEventListener("pointerleave", () => linkBinomField(null));
+  button.addEventListener("focus", () => linkBinomField(button.dataset.field));
+  button.addEventListener("blur", () => linkBinomField(null));
+  button.addEventListener("click", () => {
+    if (binomDemo.dataset.step !== "3") {
+      binomSection.classList.remove("is-playing");
+      setBinomStep(3);
+    }
+    linkBinomField(button.dataset.field);
+  });
+});
+const binomNotes = document.getElementById("binom-notes");
+binomNotes.addEventListener("pointerover", (event) => linkBinomField(event.target.closest("mark")?.dataset.field ?? null));
+binomNotes.addEventListener("pointerleave", () => linkBinomField(null));
+
+function renderBinomNotes() {
+  binomDemo.querySelectorAll("[data-note]").forEach((line) => {
+    const source = t(line.dataset.note);
+    const parts = [];
+    let last = 0;
+    for (const match of source.matchAll(/\[(\d):([^\]]+)\]/g)) {
+      parts.push(source.slice(last, match.index));
+      const mark = document.createElement("mark");
+      mark.dataset.field = match[1];
+      mark.style.setProperty("--n", String(Number(match[1]) - 1));
+      mark.textContent = match[2];
+      parts.push(mark);
+      last = match.index + match[0].length;
+    }
+    parts.push(source.slice(last));
+    line.replaceChildren(...parts);
+  });
+}
+
+// WealthConnect: the client's side of the same file. Scrub the year, open what the adviser shared.
+const connectPhone = document.getElementById("connect-phone");
+const connectChart = document.getElementById("connect-chart");
+const connectHome = document.getElementById("connect-home");
+const connectDoc = document.getElementById("connect-doc");
+const connectHistory = [2351000, 2362000, 2358000, 2374000, 2381000, 2376000, 2398000, 2405000, 2401000, 2422000, 2436000, 2450000];
+const connectLow = Math.min(...connectHistory);
+const connectHigh = Math.max(...connectHistory);
+let connectScrub = null;
+const connectPoint = (index) => ({ x: (index / 11) * 200, y: 54 - ((connectHistory[index] - connectLow) / (connectHigh - connectLow)) * 44 });
+const monthName = (index) => new Date(2026, index, 1).toLocaleDateString(locale(), { month: "short" });
+
+// Catmull-Rom through the monthly values, written as cubic Béziers.
+const connectPoints = connectHistory.map((_, index) => connectPoint(index));
+const connectCurve = connectPoints.reduce((path, point, index) => {
+  if (!index) return `M${point.x} ${point.y.toFixed(1)}`;
+  const before = connectPoints[index - 2] || connectPoints[index - 1];
+  const start = connectPoints[index - 1];
+  const after = connectPoints[index + 1] || point;
+  const c1 = [start.x + (point.x - before.x) / 6, start.y + (point.y - before.y) / 6];
+  const c2 = [point.x - (after.x - start.x) / 6, point.y - (after.y - start.y) / 6];
+  return `${path} C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`;
+}, "");
+document.getElementById("connect-line").setAttribute("d", connectCurve);
+document.getElementById("connect-area").setAttribute("d", `${connectCurve} V64 H0 Z`);
+
+function renderConnect() {
+  const index = connectScrub ?? connectHistory.length - 1;
+  const value = connectHistory[index];
+  const change = new Intl.NumberFormat(locale(), { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: "exceptZero" }).format(value / connectHistory[0] - 1);
+  document.getElementById("connect-value").textContent = formatMoney(value);
+  document.getElementById("connect-delta").textContent = connectScrub === null ? t("wpDelta") : index === 0 ? monthName(0) : t("connectSince", { pct: change, month: monthName(0) });
+  const point = connectPoint(index);
+  connectChart.style.setProperty("--scrub-x", `${point.x / 2}%`);
+  connectChart.style.setProperty("--scrub-y", `${(point.y / 64) * 100}%`);
+  connectChart.classList.toggle("is-scrubbing", connectScrub !== null);
+  document.getElementById("connect-scrub-label").textContent = monthName(index);
+  connectChart.setAttribute("aria-valuenow", String(index));
+  connectChart.setAttribute("aria-valuetext", `${monthName(index)}, ${formatMoney(value)}`);
+}
+const scrubConnect = (index) => {
+  connectScrub = index;
+  renderConnect();
+};
+connectChart.addEventListener("pointermove", (event) => {
+  const rect = connectChart.getBoundingClientRect();
+  scrubConnect(Math.round(Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1) * 11));
+});
+connectChart.addEventListener("pointerleave", () => scrubConnect(null));
+connectChart.addEventListener("focus", () => scrubConnect(connectScrub ?? 11));
+connectChart.addEventListener("blur", () => scrubConnect(null));
+connectChart.addEventListener("keydown", (event) => {
+  const current = connectScrub ?? 11;
+  const moves = { ArrowLeft: current - 1, ArrowDown: current - 1, ArrowRight: current + 1, ArrowUp: current + 1, Home: 0, End: 11 };
+  if (!(event.key in moves)) return;
+  event.preventDefault();
+  scrubConnect(Math.min(Math.max(moves[event.key], 0), 11));
+});
+
+function setConnectReading(reading) {
+  connectPhone.classList.toggle("is-reading", reading);
+  if (reading) connectPhone.classList.add("has-read");
+  connectHome.inert = reading;
+  connectDoc.inert = !reading;
+  document.getElementById(reading ? "connect-back" : "connect-open").focus({ preventScroll: true });
+}
+document.getElementById("connect-open").addEventListener("click", () => setConnectReading(true));
+document.getElementById("connect-back").addEventListener("click", () => setConnectReading(false));
+document.getElementById("connect-island").addEventListener("click", () => {
+  if (!connectPhone.classList.contains("has-read")) setConnectReading(true);
+});
+
+function renderProductPreviews() {
+  document.querySelectorAll("[data-money]").forEach((element) => { element.textContent = formatMoney(Number(element.dataset.money)); });
+  document.querySelectorAll("[data-percent]").forEach((element) => { element.textContent = formatPercent(Number(element.dataset.percent)); });
+  document.getElementById("comp-count").textContent = t("compProgress", { done: 4, total: 5 });
+  oneLog.textContent = t(oneLogKeys[oneLogIndex]);
+  renderBinomNotes();
+  renderConnect();
+  renderLab();
+  renderTreet();
+}
+
+const productGrid = document.getElementById("product-grid");
+if (!reducedMotion.matches) productGrid.classList.add("will-reveal");
+document.querySelectorAll("[data-live]").forEach((element, index) => {
+  element.style.setProperty("--reveal-delay", `${(index % 3) * 90}ms`);
+  liveObserver.observe(element);
+});
+renderIcons();
 
 translatePage();
 </script>
