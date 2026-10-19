@@ -4,33 +4,57 @@ Independent redesign concept by Praise Akinde. Not approved by or affiliated wit
 
 ## Run
 
-Open `index.html` in a modern browser. No installation or build step is required. CSS, JavaScript and all 34 SVG illustrations/icons are embedded. The social preview is a local PNG. There are no external font, image or package dependencies.
+Open `index.html` in a modern browser. No installation or build step is required, and there are no external font, script or package dependencies. CSS, JavaScript and the interface icons ([Heroicons](https://heroicons.com) v2, 24px outline) are inlined in `index.html`. The page also loads these local files, which must be deployed alongside it:
+
+- `Dark background version.svg` — header logo
+- `Wealthcome logo.svg` — footer logo
+- `Logos/Container*.svg` — the 18 logos in the marquee under the hero
+- `favicon.svg`, `favicon.png` — browser and touch icons
+- `wealthcome-social-preview.png` — Open Graph / Twitter share image
+
+The share metadata points at `https://wealthcome-phase-two.vercel.app/`.
+
+## Structure
+
+`index.html` contains everything: styles, markup, the French/English translation dictionaries (`translations`), the product map used by the product dialog (`products`), and the page behaviour. All visible text is set from the dictionaries through `data-i18n` and `data-i18n-aria` attributes; a missing key throws. `?lang=en` opens the English version.
+
+Sections: concept banner, header, hero with a fictional WealthPro dashboard, logo marquee, products (#produits), Binom (#binom), evaluation questions, FAQ (#questions), testimonials, closing call to action, footer.
 
 ## Changes
 
-- Added French/English switching for page content, product examples, form options, dialog results, accessible labels and document metadata.
-- Refined responsive navigation, narrow-screen dashboard layout, text wrapping, touch targets and footer spacing.
-- Improved text colours, visible keyboard focus, native dialog focus management and reduced-motion support.
-- Added labeled placeholders for proof, security, pricing and the 2025 awards; no unverified customer, usage, certification or commercial claim is presented as confirmed.
-- Grouped the offer into Platform, Modules and Enterprise; the hero now highlights a compliance alert, a KYC document to review and an upcoming client meeting.
-- Added a compact mobile demo action, demo follow-up details, a two-question qualification recap, a downloadable two-minute CGP compliance checklist in French and English, French legal links, social share metadata and a PNG share image.
+- French/English switching for page content, product examples, form options, dialog results, accessible labels and document metadata.
+- Responsive navigation, narrow-screen dashboard layout, text wrapping, touch targets and footer spacing.
+- Visible keyboard focus, native dialog focus management and reduced-motion support.
+- Section headings stand alone, with no eyebrow or kicker labels above them. Each product tile has an "Open details" button that opens a product dialog, plus a separate link to the product's official page (WealthPro, WealthConnect, WealthLab, WealthTreet, WealthOne, and the Binom announcement article).
+- Logo marquee and testimonial carousel (tabs, arrows, swipe, auto-advance with pause; auto-advance is disabled with reduced motion).
+- Footer links to Wealthcome's legal notice, privacy policy and terms of use.
+- Interface icons replaced with Heroicons.
 - Preserved the original visual direction, single-file architecture and independent-concept disclosures.
 
 ## Demo behaviour
 
-The demo dialog provides an illustrative orientation, confirms the selected profile and priority, then links to Wealthcome’s contact page as the next step. It does not send a request, reserve a meeting or collect contact information. The profile selection is contextual and the priority determines the suggested route. Demo duration, response time and expert-led format are explicitly marked for Wealthcome to confirm. Binom’s example is static illustrative content, not connected AI. External links open a new tab, indicated by an arrow.
+The demo dialog has three steps: profile, priority, then a choice of time slot (the next three working days at 09:00, 11:00 and 14:00, generated in the browser). Choosing a slot shows a confirmation that says an expert will be in touch within 24 hours.
+
+Nothing is sent or booked: there is no form submission, booking integration or data collection, as the footer states. The 24-hour statement is listed in the comment at the top of `index.html` as needing confirmation from Wealthcome before the page is shared. Binom's example is static illustrative content, not connected AI. External links open in a new tab, indicated by an arrow.
+
+## To confirm with Wealthcome
+
+See the comment at the top of `index.html`:
+
+- authorization to display each marquee logo, and whether the brands are current clients;
+- the "expert within 24 hours" statement in the demo confirmation;
+- that the testimonials and attributions are authentic, approved and accurate in both languages.
 
 ## Checks completed
 
-- Embedded JavaScript syntax passed Node's syntax checker.
-- No duplicate HTML IDs, missing section anchor destinations or unresolved SVG symbols.
-- All buttons have explicit types.
-- French and English page states, Open Graph metadata, mobile headline wrapping, dashboard signals, proof placeholders, product groups, security/pricing content, legal links and the demo qualification flow were checked in the browser.
-- The mobile viewport had no horizontal overflow and the header measured 65 px high. The English demo form confirmed its summary and contact-page next step.
-- The social preview PNG is local; no external stylesheet, font or script request is needed.
+- Embedded JavaScript passes Node's syntax checker.
+- Every `data-i18n` / `data-i18n-aria` key exists in both languages; both dictionaries have the same keys.
+- No duplicate HTML IDs; all buttons have explicit types.
+- In headless Chrome: no console errors; product details open from the keyboard and focus returns to the button on close; arrow keys move between product tiles; the testimonial pause/play icon switches; the English version updates the title, labels and legal links; no horizontal overflow at 390 and 320 CSS pixels.
+- All official product and legal URLs returned HTTP 200 on 19 October 2026.
 
 ## Verification still required
 
-Full browser checks at every supported width, 200% zoom, automated accessibility auditing, screen-reader testing and reduced-motion verification remain outstanding. Source and spot-browser checks do not establish complete visual or accessibility conformance.
+Full browser checks at every supported width, 200% zoom, automated accessibility auditing, screen-reader testing and reduced-motion verification remain outstanding.
 
-Before release, test both languages at 320, 390, 768, 1024 and 1440 CSS pixels, including 200% zoom. Check overflow, navigation opening/closing, all demo routes, uncertain/default selections, Binom toggling, product dialogs, FAQs, keyboard order, native dialog Tab containment, Escape dismissal and focus restoration. Check contrast in the rendered page, reduced-motion behaviour and screen-reader announcements. Capture full-page desktop and mobile screenshots after these checks. Reconfirm outbound destinations and current product availability directly with Wealthcome. No real booking integration is included.
+Before release, test both languages at 320, 390, 768, 1024 and 1440 CSS pixels, including 200% zoom. Check navigation opening/closing, all demo routes, product dialogs, the testimonial carousel, keyboard order, native dialog Tab containment, Escape dismissal and focus restoration. Check contrast in the rendered page and screen-reader announcements. Reconfirm outbound destinations and current product availability directly with Wealthcome.

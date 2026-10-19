@@ -27,7 +27,7 @@ TO CONFIRM BEFORE SENDING
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="icon" href="./favicon.png" type="image/png" sizes="64x64">
 <link rel="apple-touch-icon" href="./favicon.png">
-<title></title>
+<title>Wealthcome — Une vue claire pour mieux accompagner vos clients.</title>
 <style>
 :root {
   color-scheme: light;
@@ -197,22 +197,6 @@ svg { display: block; }
   width: min(100%, 1232px);
   margin: 0 auto;
   padding: 67px 48px 40px;
-}
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-block-end: 18px;
-  font-size: 11px;
-  letter-spacing: .04em;
-}
-.eyebrow::before {
-  width: 6px;
-  height: 6px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: currentColor;
-  content: "";
 }
 .hero h1 {
   max-width: 720px;
@@ -397,13 +381,6 @@ svg { display: block; }
 }
 .section-inner { width: min(100%, 1232px); margin: 0 auto; padding: 0 48px; }
 .section-heading { max-width: 760px; margin-block-end: 34px; }
-.section-kicker {
-  margin-block-end: 14px;
-  color: #586778;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 11px;
-  letter-spacing: .05em;
-}
 .section-heading h2 {
   font-size: clamp(35px, 4.6vw, 56px);
   line-height: 1.08;
@@ -444,11 +421,11 @@ svg { display: block; }
   transition: opacity 150ms ease;
   pointer-events: none;
 }
-.product-tile:hover, .product-tile:focus-visible {
+.product-tile:hover, .product-tile:has(:focus-visible) {
   border-color: #b8cbe5;
   box-shadow: 0 12px 28px rgb(18 43 74 / 7%);
 }
-.product-tile:hover::before, .product-tile:focus-visible::before { opacity: 1; }
+.product-tile:hover::before, .product-tile:has(:focus-visible)::before { opacity: 1; }
 .product-tile > * { position: relative; z-index: 1; }
 .product-tile--wealthpro { grid-column: span 7; grid-row: span 2; background: linear-gradient(180deg, #f8fbff, #fff 72%); }
 .product-tile--binom { grid-column: span 5; }
@@ -469,13 +446,7 @@ svg { display: block; }
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 .tile-icon svg { width: 17px; height: 17px; }
-.product-tile:hover .tile-icon, .product-tile:focus-visible .tile-icon { border-color: var(--blue); background: var(--blue); color: #fff; }
-.group-label {
-  color: #667381;
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 11px;
-  letter-spacing: .02em;
-}
+.product-tile:hover .tile-icon, .product-tile:has(:focus-visible) .tile-icon { border-color: var(--blue); background: var(--blue); color: #fff; }
 .status-tag {
   margin-inline-start: auto;
   padding: 5px 8px;
@@ -498,7 +469,16 @@ svg { display: block; }
   padding-block-start: 16px;
   border-block-start: 1px solid #edf1f5;
 }
-.tile-hint { color: #727f8d; font-size: 12px; }
+.tile-hint {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #727f8d;
+  font-size: 12px;
+  text-align: start;
+}
+.tile-hint:hover, .product-tile:hover .tile-hint { color: #174fad; }
 .tile-destination {
   display: grid;
   width: 44px;
@@ -679,7 +659,6 @@ svg { display: block; }
 }
 .binom-copy h2 { margin-block-end: 14px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1.08; letter-spacing: -.05em; }
 .binom-copy p { max-width: 56ch; color: #637180; font-size: 15px; }
-.binom-copy .section-kicker { color: #586778; }
 .binom-card {
   display: flex;
   min-height: 270px;
@@ -695,7 +674,6 @@ svg { display: block; }
 .binom-card p { max-width: 35ch; color: #667381; font-size: 15px; }
 .binom-pill { padding: 6px 9px; border-radius: 5px; background: #eef4ff; color: #355e99; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; }
 .connect-panel { color: white; background: #183c67; }
-.connect-panel .section-kicker { color: #cadcf3; }
 .connect-panel h2 { max-width: 750px; }
 .connect-panel .section-heading p { color: #d8e4f2; }
 .connect-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-block: 32px; }
@@ -734,7 +712,6 @@ svg { display: block; }
 }
 .testimonials .section-inner { max-width: 1232px; }
 .testimonials-heading { max-width: 760px; margin: 0 auto clamp(40px, 5vw, 58px); text-align: center; }
-.testimonials .section-kicker { color: #d4e7ff; }
 .testimonials-heading h2 { font-size: clamp(32px, 4.4vw, 54px); line-height: 1.06; letter-spacing: -.05em; text-wrap: balance; }
 .testimonials-intro { margin-block-start: 14px; color: #e6f0ff; font-size: 15px; }
 .testimonial-deck {
@@ -943,7 +920,6 @@ svg { display: block; }
   background: white;
   text-align: center;
 }
-.footer-cta .section-kicker { margin-block-end: 13px; font-family: Georgia, serif; font-size: 13px; font-style: italic; }
 .footer-cta h2 { margin: 0 auto 20px; font-size: clamp(33px, 4.1vw, 50px); line-height: 1.08; letter-spacing: -.05em; text-wrap: balance; }
 .footer-cta p { margin-block-end: 19px; color: #667381; font-size: 14px; }
 .footer-cta-button { background: #4b4cff; border-color: #4b4cff; }
@@ -1005,6 +981,7 @@ svg { display: block; }
   font-size: 9px;
 }
 .footer-legal a { text-decoration: underline; text-underline-offset: 3px; }
+.footer-legal-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .dialog {
   width: min(600px, calc(100% - 28px));
   max-width: 600px;
@@ -1133,7 +1110,6 @@ svg { display: block; }
   .logo-marquee-group { gap: 38px; padding-inline: 22px; }
   .logo-marquee-group img { height: 26px; }
   .hero-content { display: block; padding: 39px 23px 25px; }
-  .eyebrow { margin-block-end: 16px; font-size: 10px; }
   .hero h1 { max-width: 580px; font-size: clamp(43px, 11.4vw, 62px); letter-spacing: -.055em; }
   .hero-copy { max-width: 420px; padding-block-start: 20px; }
   .hero-copy p { margin-block-end: 16px; font-size: 14px; }
@@ -1267,7 +1243,7 @@ svg { display: block; }
   .logo-marquee-track { animation: none; }
 }
 @media (forced-colors: active) {
-  .product-tile:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid Highlight; }
+  button:focus-visible, a:focus-visible { outline: 2px solid Highlight; }
 }
 </style>
 </head>
@@ -1288,12 +1264,12 @@ svg { display: block; }
       <button type="button" data-language="en" lang="en" aria-pressed="false" data-i18n="languageEn"></button>
     </div>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="navigation" data-i18n-aria="menuOpenAria">
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
     </button>
     <button class="demo-button" type="button" data-demo>
       <span class="desktop-demo-label" data-i18n="requestDemo"></span>
       <span class="mobile-demo-label" data-i18n="demoShort"></span>
-      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
     </button>
   </div>
 </header>
@@ -1301,14 +1277,13 @@ svg { display: block; }
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-content">
       <div>
-        <p class="eyebrow" data-i18n="heroEyebrow"></p>
         <h1 id="hero-title"><span data-i18n="heroTitleFirst"></span><br><span data-i18n="heroTitleSecond"></span></h1>
       </div>
       <div class="hero-copy">
         <p data-i18n="heroCopy"></p>
         <div class="hero-actions">
-          <button class="primary-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <a class="text-link" href="#produits"><span data-i18n="explorePlatform"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M12 4v15m-6-6 6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <button class="primary-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></button>
+          <a class="text-link" href="#produits"><span data-i18n="explorePlatform"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"/></svg></a>
         </div>
       </div>
     </div>
@@ -1381,12 +1356,11 @@ svg { display: block; }
   <section class="section-panel" id="produits" aria-labelledby="products-title">
     <div class="section-inner">
       <div class="section-heading">
-        <p class="section-kicker" data-i18n="productsKicker"></p>
         <h2 id="products-title" data-i18n="productsTitle"></h2>
       </div>
       <div class="product-grid" id="product-grid" data-i18n-aria="productsGridAria">
-        <article class="product-tile product-tile--wealthpro" data-product="wealthpro" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2.5"/><path d="M9 4v16M9 10h11.5"/></svg></span><span class="group-label" data-i18n="groupPlatform"></span></div>
+        <article class="product-tile product-tile--wealthpro" data-product="wealthpro">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></span></div>
           <h3 data-i18n="wealthpro"></h3>
           <p class="tile-copy" data-i18n="wealthproCopy"></p>
           <div class="tile-visual tile-visual--wealthpro" aria-hidden="true">
@@ -1400,55 +1374,55 @@ svg { display: block; }
             <div class="tile-bars"><span style="--h:34%"></span><span style="--h:40%"></span><span style="--h:37%"></span><span style="--h:48%"></span><span style="--h:52%"></span><span style="--h:47%"></span><span style="--h:60%"></span><span style="--h:66%"></span><span style="--h:62%"></span><span style="--h:74%"></span><span style="--h:81%"></span><span style="--h:92%"></span></div>
             <div class="tile-axis"><span data-i18n="monthJan"></span><span data-i18n="monthMar"></span><span data-i18n="monthMay"></span><span data-i18n="monthJul"></span><span data-i18n="monthSep"></span><span data-i18n="monthDec"></span></div>
           </div>
-          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthpro" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthpro" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--binom" data-product="binom" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5l1.9 5.1 5.1 1.9-5.1 1.9L11 17.5l-1.9-5.1L4 10.5l5.1-1.9z"/><path d="M18.5 15.5v5M16 18h5"/></svg></span><span class="group-label" data-i18n="groupPlatform"></span><span class="status-tag" data-i18n="binomStatus"></span></div>
+        <article class="product-tile product-tile--binom" data-product="binom">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/></svg></span><span class="status-tag" data-i18n="binomStatus"></span></div>
           <h3 data-i18n="binom"></h3>
           <p class="tile-copy" data-i18n="binomCopy"></p>
           <div class="tile-visual tile-visual--binom" aria-hidden="true">
             <div class="tile-note"><span></span><span></span><span></span><span></span></div>
-            <span class="tile-flow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="tile-flow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></span>
             <div class="tile-file"><span><i></i></span><span><i></i></span><span><i></i></span></div>
           </div>
-          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="binom" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="binom" href="https://www.wealthcome.fr/blog/binom-lia-wealthcome-integree-a-wealthpro-pour-les-cgp" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--connect" data-product="wealthconnect" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="group-label" data-i18n="groupModules"></span><span class="status-tag" data-i18n="connectStatus"></span></div>
+        <article class="product-tile product-tile--connect" data-product="wealthconnect">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg></span><span class="status-tag" data-i18n="connectStatus"></span></div>
           <h3 data-i18n="wealthconnect"></h3>
           <p class="tile-copy" data-i18n="wealthconnectCopy"></p>
           <div class="tile-visual tile-visual--connect" aria-hidden="true">
             <div class="tile-phone"><span class="tile-ring"></span><span></span><span></span></div>
             <div class="tile-bubble"><span></span><span></span></div>
           </div>
-          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthconnect" href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthconnect" href="https://www.wealthcome.fr/wealth-connect" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--lab" data-product="wealthlab" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><span class="group-label" data-i18n="groupModules"></span></div>
+        <article class="product-tile product-tile--lab" data-product="wealthlab">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/></svg></span></div>
           <h3 data-i18n="wealthlab"></h3>
           <p class="tile-copy" data-i18n="wealthlabCopy"></p>
           <div class="tile-visual tile-visual--lab" aria-hidden="true"><span class="tile-slider" style="--v:68%"></span><span class="tile-slider" style="--v:40%"></span><span class="tile-slider" style="--v:84%"></span></div>
-          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthlab" href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthlab" href="https://www.wealthcome.fr/wealthlab" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--treet" data-product="wealthtreet" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.5a8 8 0 1 0 8.5 8.5H11z"/><path d="M14.5 3.6A8 8 0 0 1 20.4 9.5h-5.9z"/></svg></span><span class="group-label" data-i18n="groupModules"></span></div>
+        <article class="product-tile product-tile--treet" data-product="wealthtreet">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z"/></svg></span></div>
           <h3 data-i18n="wealthtreet"></h3>
           <p class="tile-copy" data-i18n="wealthtreetCopy"></p>
           <div class="tile-visual tile-visual--treet" aria-hidden="true"><span class="tile-donut"></span><div class="tile-legend"><span></span><span></span><span></span></div></div>
-          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthtreet" href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthtreet" href="https://www.wealthcome.fr/wealth-treet" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
-        <article class="product-tile product-tile--one" data-product="wealthone" tabindex="0" role="button" aria-haspopup="dialog">
-          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><span class="group-label" data-i18n="groupEnterprise"></span></div>
+        <article class="product-tile product-tile--one" data-product="wealthone">
+          <div class="tile-meta"><span class="tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></span></div>
           <h3 data-i18n="wealthone"></h3>
           <p class="tile-copy" data-i18n="wealthoneCopy"></p>
           <div class="tile-visual tile-visual--one" aria-hidden="true">
-            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h6.5L18 8v12.5H7z"/><path d="M13 3.5V8h5"/></svg></span>
+            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></span>
             <span class="tile-link"></span>
-            <span class="tile-node tile-node--hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span>
+            <span class="tile-node tile-node--hub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></span>
             <span class="tile-link"></span>
-            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M16 6.5a3 3 0 0 1 0 5.5M17.5 14.5a5 5 0 0 1 3 4.5"/></svg></span>
+            <span class="tile-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></span>
           </div>
-          <div class="tile-bottom"><span class="tile-hint" data-i18n="openDetailsHint"></span><a class="tile-destination" data-product-link="wealthone" href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="tile-bottom"><button class="tile-hint" type="button" aria-haspopup="dialog" data-open-product data-i18n="openDetailsHint"></button><a class="tile-destination" data-product-link="wealthone" href="https://www.wealthcome.fr/wealth-one" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a></div>
         </article>
       </div>
     </div>
@@ -1457,14 +1431,13 @@ svg { display: block; }
   <section class="section-panel binom-panel" id="binom" aria-labelledby="binom-title">
     <div class="section-inner binom-layout">
       <div class="binom-copy">
-        <p class="section-kicker" data-i18n="binomKicker"></p>
         <h2 id="binom-title" data-i18n="binomHeading"></h2>
         <p data-i18n="binomDescription"></p>
       </div>
       <div class="binom-card">
         <div class="binom-card-top"><span class="binom-name" data-i18n="binom"></span><span class="binom-pill" data-i18n="binomStatus"></span></div>
         <p data-i18n="binomSummary"></p>
-        <a class="detail-link" href="https://www.wealthcome.fr/wealth-pro" target="_blank" rel="noopener noreferrer" data-i18n="binomOfficialLink"></a>
+        <a class="detail-link" href="https://www.wealthcome.fr/blog/binom-lia-wealthcome-integree-a-wealthpro-pour-les-cgp" target="_blank" rel="noopener noreferrer" data-i18n="binomOfficialLink"></a>
       </div>
     </div>
   </section>
@@ -1472,7 +1445,6 @@ svg { display: block; }
   <section class="section-panel connect-panel" aria-labelledby="connect-title">
     <div class="section-inner">
       <div class="section-heading">
-        <p class="section-kicker" data-i18n="connectKicker"></p>
         <h2 id="connect-title" data-i18n="connectHeading"></h2>
         <p data-i18n="connectIntro"></p>
       </div>
@@ -1481,13 +1453,13 @@ svg { display: block; }
         <article class="connect-item"><h3 data-i18n="questionTeamTitle"></h3><p data-i18n="questionTeam"></p></article>
         <article class="connect-item"><h3 data-i18n="questionOfferTitle"></h3><p data-i18n="questionOffer"></p></article>
       </div>
-      <button class="primary-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="primary-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></button>
     </div>
   </section>
 
   <section class="section-panel" id="questions" aria-labelledby="faq-title">
     <div class="section-inner faq-layout">
-      <div><p class="section-kicker" data-i18n="faqKicker"></p><h2 id="faq-title" data-i18n="faqTitle"></h2></div>
+      <div><h2 id="faq-title" data-i18n="faqTitle"></h2></div>
       <div class="faq-list">
         <article class="faq-item"><h3 data-i18n="faqAudienceQuestion"></h3><p data-i18n="faqAudienceAnswer"></p></article>
         <article class="faq-item"><h3 data-i18n="faqChoiceQuestion"></h3><p data-i18n="faqChoiceAnswer"></p></article>
@@ -1498,7 +1470,6 @@ svg { display: block; }
   <section class="testimonials" aria-labelledby="testimonials-title">
     <div class="section-inner testimonial-carousel" id="testimonial-carousel">
       <div class="testimonials-heading">
-        <p class="section-kicker" data-i18n="testimonialsKicker"></p>
         <h2 id="testimonials-title" data-i18n="testimonialsTitle"></h2>
         <p class="testimonials-intro" data-i18n="testimonialsIntro"></p>
       </div>
@@ -1534,8 +1505,8 @@ svg { display: block; }
         <div class="testimonial-nav">
           <p class="testimonial-counter" aria-hidden="true"><strong id="testimonial-current">01</strong> / 04</p>
           <div class="testimonial-arrows">
-            <button class="testimonial-arrow" type="button" data-testimonial-step="-1" aria-controls="testimonial-panels" data-i18n-aria="testimonialPrevious"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H6m5 5-5-5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <button class="testimonial-arrow" type="button" data-testimonial-step="1" aria-controls="testimonial-panels" data-i18n-aria="testimonialNext"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="testimonial-arrow" type="button" data-testimonial-step="-1" aria-controls="testimonial-panels" data-i18n-aria="testimonialPrevious"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg></button>
+            <button class="testimonial-arrow" type="button" data-testimonial-step="1" aria-controls="testimonial-panels" data-i18n-aria="testimonialNext"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></button>
           </div>
         </div>
       </div>
@@ -1563,16 +1534,15 @@ svg { display: block; }
           </button>
         </div>
         <button class="testimonial-toggle" type="button" id="testimonial-toggle" aria-controls="testimonial-panels">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path id="testimonial-toggle-icon" d="M9 5v14m6-14v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path id="testimonial-toggle-icon" stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/></svg>
         </button>
       </div>
     </div>
   </section>
   <section class="footer-cta" aria-labelledby="footer-cta-title">
-    <p class="section-kicker" data-i18n="nextStep"></p>
     <h2 id="footer-cta-title"><span data-i18n="footerCtaTitleFirst"></span><br><span data-i18n="footerCtaTitleSecond"></span></h2>
     <p data-i18n="footerCtaCopy"></p>
-    <button class="primary-button footer-cta-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="primary-button footer-cta-button" type="button" data-demo><span data-i18n="requestDemo"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></button>
   </section>
 </main>
 <footer class="footer-wrap">
@@ -1616,13 +1586,18 @@ svg { display: block; }
   <div class="footer-word" aria-hidden="true">wealthcome.</div>
   <div class="footer-legal">
     <span data-i18n="footerCopyright"></span>
+    <nav class="footer-legal-links" data-i18n-aria="legalAria">
+      <a href="https://www.wealthcome.fr/mentions-legales" target="_blank" rel="noopener noreferrer" data-i18n="legalNotice"></a>
+      <a href="https://www.wealthcome.fr/politique-de-confidentialite" target="_blank" rel="noopener noreferrer" data-i18n="privacy"></a>
+      <a href="https://www.wealthcome.fr/conditions-generales-dutilisation" target="_blank" rel="noopener noreferrer" data-i18n="terms"></a>
+    </nav>
     <a href="https://www.wealthcome.fr" target="_blank" rel="noopener noreferrer" data-i18n="footerSource"></a>
   </div>
 </footer>
 
 <dialog class="dialog" id="demo-dialog" aria-labelledby="demo-title">
   <div class="dialog-inner">
-    <div class="dialog-header"><div><p class="step-indicator" id="demo-step-indicator" aria-live="polite"></p><h2 id="demo-title" tabindex="-1" data-i18n="demoTitle"></h2></div><button class="dialog-close" type="button" data-close-dialog data-i18n-aria="closeAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="dialog-header"><div><p class="step-indicator" id="demo-step-indicator" aria-live="polite"></p><h2 id="demo-title" tabindex="-1" data-i18n="demoTitle"></h2></div><button class="dialog-close" type="button" data-close-dialog data-i18n-aria="closeAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div>
     <div id="demo-step-one">
       <p class="dialog-question" data-i18n="profileQuestion"></p>
       <div class="choice-list" role="radiogroup" data-i18n-aria="profileQuestion">
@@ -1631,7 +1606,7 @@ svg { display: block; }
         <label class="choice-label"><input type="radio" name="profile" value="familyOffice"><span class="choice-text" data-i18n="profileFamilyOffice"></span></label>
       </div>
       <p class="dialog-error" id="profile-error" role="alert" hidden></p>
-      <div class="dialog-actions"><span></span><button class="next-button" type="button" data-next="2"><span data-i18n="continue"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="dialog-actions"><span></span><button class="next-button" type="button" data-next="2"><span data-i18n="continue"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></button></div>
     </div>
     <div id="demo-step-two" hidden>
       <p class="dialog-question" data-i18n="needQuestion"></p>
@@ -1642,12 +1617,12 @@ svg { display: block; }
         <label class="choice-label"><input type="radio" name="need" value="unsure"><span class="choice-text" data-i18n="needUnsure"></span></label>
       </div>
       <p class="dialog-error" id="need-error" role="alert" hidden></p>
-      <div class="dialog-actions"><button class="back-button" type="button" data-previous="1"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H6m5 5-5-5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="back"></span></button><button class="next-button" type="button" data-next="3"><span data-i18n="continue"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="dialog-actions"><button class="back-button" type="button" data-previous="1"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg><span data-i18n="back"></span></button><button class="next-button" type="button" data-next="3"><span data-i18n="continue"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></button></div>
     </div>
     <div id="demo-step-three" hidden>
       <p class="dialog-question" data-i18n="slotQuestion"></p>
       <div class="slot-grid" id="slot-grid"></div>
-      <div class="dialog-actions"><button class="back-button" type="button" data-previous="2"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M19 12H6m5 5-5-5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="back"></span></button></div>
+      <div class="dialog-actions"><button class="back-button" type="button" data-previous="2"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg><span data-i18n="back"></span></button></div>
     </div>
     <div class="confirmation" id="demo-confirmation" hidden aria-live="polite">
       <h3 data-i18n="confirmationTitle"></h3>
@@ -1660,10 +1635,10 @@ svg { display: block; }
 
 <dialog class="dialog" id="product-dialog" aria-labelledby="product-dialog-title">
   <div class="dialog-inner">
-    <div class="dialog-header"><div><p class="step-indicator" id="product-dialog-group"></p><h2 id="product-dialog-title" tabindex="-1"></h2></div><button class="dialog-close" type="button" data-close-dialog data-i18n-aria="closeAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="dialog-header"><div><h2 id="product-dialog-title" tabindex="-1"></h2></div><button class="dialog-close" type="button" data-close-dialog data-i18n-aria="closeAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button></div>
     <p class="product-dialog-copy" id="product-dialog-copy"></p>
     <p class="product-dialog-status" id="product-dialog-status"></p>
-    <a class="detail-link" id="product-dialog-link" href="" target="_blank" rel="noopener noreferrer"><span id="product-dialog-link-label"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="detail-link" id="product-dialog-link" href="" target="_blank" rel="noopener noreferrer"><span id="product-dialog-link-label"></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg></a>
   </div>
 </dialog>
 
@@ -1676,7 +1651,6 @@ const translations = {
     imageAlt: "Aperçu du concept de présentation Wealthcome.",
     skipLink: "Aller au contenu",
     conceptBanner: "Concept indépendant, sans affiliation ni approbation de Wealthcome.",
-    brand: "wealthcome",
     brandAria: "Wealthcome, accueil",
     logoMarqueeAria: "Bandeau des logos fournis",
     navAria: "Navigation principale",
@@ -1691,7 +1665,6 @@ const translations = {
     menuCloseAria: "Fermer le menu",
     requestDemo: "Demander une démo",
     demoShort: "Démo",
-    heroEyebrow: "Une nouvelle perspective sur le conseil patrimonial",
     heroTitleFirst: "Une vue claire.",
     heroTitleSecond: "Pour mieux accompagner vos clients.",
     heroCopy: "Avec WealthPro, rassemblez les données patrimoniales, suivez les documents réglementaires et retrouvez le contexte de chaque client. Préparez vos échanges avec une vision d’ensemble.",
@@ -1732,12 +1705,8 @@ const translations = {
     heroNoteOne: "Rassembler les données patrimoniales.",
     heroNoteTwo: "Comprendre la répartition des actifs.",
     heroNoteThree: "Préparer l’échange avec le client.",
-    productsKicker: "L’écosystème Wealthcome",
     productsTitle: "Une plateforme. Des modules selon vos besoins.",
     productsGridAria: "Produits Wealthcome",
-    groupPlatform: "La plateforme",
-    groupModules: "Modules",
-    groupEnterprise: "Entreprise",
     wealthproCopy: "Agrégation du patrimoine, suivi réglementaire et gestion de la relation client.",
     binomStatus: "Bêta",
     binomCopy: "Collecter et retranscrire les informations du dossier.",
@@ -1751,16 +1720,12 @@ const translations = {
     wealthone: "WealthOne",
     wealthoneCopy: "Adapter la solution aux processus et connecter les outils par interface de programmation.",
     openDetailsHint: "Ouvrir les détails",
+    openDetails: "Ouvrir les détails de {name}",
     openOfficial: "Voir la page officielle de {name}",
-    detailGroupPlatform: "La plateforme",
-    detailGroupModules: "Modules",
-    detailGroupEnterprise: "Entreprise",
-    binomKicker: "Assistant intégré à WealthPro",
     binomHeading: "De la prise de notes à la préparation du dossier.",
     binomDescription: "Présenté en bêta, Binom accompagne la collecte et la retranscription des informations dans WealthPro.",
     binomSummary: "Collecter et retranscrire les informations du dossier dans WealthPro.",
-    binomOfficialLink: "Voir WealthPro sur le site officiel ↗",
-    connectKicker: "Avant de choisir",
+    binomOfficialLink: "Lire la présentation de Binom sur le site officiel ↗",
     connectHeading: "Évaluez la solution sur vos usages réels.",
     connectIntro: "Préparez vos questions sur les données, l’équipe et l’offre.",
     questionDataTitle: "Vos données",
@@ -1769,7 +1734,6 @@ const translations = {
     questionTeam: "Quels accès, quel accompagnement et quelles conditions d’hébergement ?",
     questionOfferTitle: "Votre offre",
     questionOffer: "Quels utilisateurs, options et engagements sont inclus dans le tarif ?",
-    faqKicker: "Pour préparer votre choix",
     faqTitle: "Vos questions, avant la démo.",
     faqAudienceQuestion: "À qui s’adresse Wealthcome ?",
     faqAudienceAnswer: "Aux professionnels du conseil patrimonial, notamment les conseillers en gestion de patrimoine, les courtiers et les bureaux familiaux.",
@@ -1777,7 +1741,6 @@ const translations = {
     faqChoiceAnswer: "Vous n’avez pas besoin de connaître les produits pour commencer. Choisissez une priorité dans le parcours de démonstration, ou sélectionnez « Je ne sais pas encore ».",
     faqConceptQuestion: "Est-ce une page officielle de Wealthcome ?",
     faqConceptAnswer: "Non. Il s’agit d’un concept indépendant de Praise Akinde, sans affiliation ni approbation de Wealthcome.",
-    testimonialsKicker: "Témoignages",
     testimonialsTitle: "Ils ont choisi Wealthcome. Et ils en parlent mieux que nous.",
     testimonialsIntro: "Retours d’entreprises qui utilisent Wealthcome au quotidien.",
     testimonialTrackAria: "Témoignages clients",
@@ -1795,7 +1758,6 @@ const translations = {
     testimonialNicolas: "Après quatre mois d’utilisation de l’outil, comme prévu, il est intuitif. Les tutoriels sont disponibles et répondent bien à certaines questions. L’accompagnement de Lilou puis de Nawel est réactif et les réponses sont satisfaisantes.",
     testimonialNicolasName: "Nicolas",
     testimonialAnonymous: "Anonyme",
-    nextStep: "Votre prochaine étape",
     footerCtaTitleFirst: "Identifiez les outils",
     footerCtaTitleSecond: "adaptés à votre cabinet.",
     footerCtaCopy: "Commencez par votre activité et votre priorité.",
@@ -1815,9 +1777,10 @@ const translations = {
     footerCopyright: "© 2026 · Concept de refonte par Praise Akinde",
     footerSource: "Descriptions : site officiel, consulté le 13 octobre 2026 ↗",
     footerLinksAria: "Liens officiels",
-    legalNotice: "Mentions légales",
-    privacy: "Confidentialité",
-    terms: "Conditions générales d’utilisation",
+    legalAria: "Informations légales",
+    legalNotice: "Mentions légales ↗",
+    privacy: "Confidentialité ↗",
+    terms: "Conditions générales d’utilisation ↗",
     closeAria: "Fermer la fenêtre",
     demoTitle: "Préparons votre demande",
     step: "Étape {current} sur {total}",
@@ -1853,7 +1816,6 @@ const translations = {
     imageAlt: "Preview of the Wealthcome presentation concept.",
     skipLink: "Skip to content",
     conceptBanner: "Independent concept, not affiliated with or approved by Wealthcome.",
-    brand: "wealthcome",
     brandAria: "Wealthcome, home",
     logoMarqueeAria: "Banner of supplied logos",
     navAria: "Main navigation",
@@ -1868,7 +1830,6 @@ const translations = {
     menuCloseAria: "Close menu",
     requestDemo: "Request a demo",
     demoShort: "Demo",
-    heroEyebrow: "A new perspective on wealth advice",
     heroTitleFirst: "A clear view.",
     heroTitleSecond: "To better support your clients.",
     heroCopy: "With WealthPro, bring wealth data together, track regulatory documents and find each client’s context. Prepare for conversations with an overview.",
@@ -1909,12 +1870,8 @@ const translations = {
     heroNoteOne: "Bring wealth data together.",
     heroNoteTwo: "Understand the asset allocation.",
     heroNoteThree: "Prepare for the client conversation.",
-    productsKicker: "The Wealthcome ecosystem",
     productsTitle: "One platform. Modules that fit your needs.",
     productsGridAria: "Wealthcome products",
-    groupPlatform: "The platform",
-    groupModules: "Modules",
-    groupEnterprise: "Enterprise",
     wealthproCopy: "Wealth aggregation, regulatory tracking and client relationship management.",
     binomStatus: "Beta",
     binomCopy: "Collect and transcribe information from the client file.",
@@ -1928,16 +1885,12 @@ const translations = {
     wealthone: "WealthOne",
     wealthoneCopy: "Adapt the solution to workflows and connect tools by API.",
     openDetailsHint: "Open details",
+    openDetails: "Open details for {name}",
     openOfficial: "View the official {name} page",
-    detailGroupPlatform: "The platform",
-    detailGroupModules: "Modules",
-    detailGroupEnterprise: "Enterprise",
-    binomKicker: "Assistant built into WealthPro",
     binomHeading: "From note-taking to preparing the client file.",
     binomDescription: "Presented in beta, Binom supports the collection and transcription of information in WealthPro.",
     binomSummary: "Collect and transcribe information from the client file in WealthPro.",
-    binomOfficialLink: "View WealthPro on the official website ↗",
-    connectKicker: "Before you choose",
+    binomOfficialLink: "Read the Binom announcement on the official website ↗",
     connectHeading: "Assess the solution against your needs.",
     connectIntro: "Prepare questions about data, your team and the offering.",
     questionDataTitle: "Your data",
@@ -1946,7 +1899,6 @@ const translations = {
     questionTeam: "What access, support and hosting terms are available?",
     questionOfferTitle: "Your offering",
     questionOffer: "Which users, options and commitments are included in the price?",
-    faqKicker: "Before you choose",
     faqTitle: "Questions to consider before a demo.",
     faqAudienceQuestion: "Who is Wealthcome for?",
     faqAudienceAnswer: "Wealth management professionals, including wealth advisers, brokers and family offices.",
@@ -1954,7 +1906,6 @@ const translations = {
     faqChoiceAnswer: "You do not need to know the products to get started. Choose a priority in the demo flow, or select “I’m not sure yet”.",
     faqConceptQuestion: "Is this an official Wealthcome page?",
     faqConceptAnswer: "No. This is an independent concept by Praise Akinde, not affiliated with or approved by Wealthcome.",
-    testimonialsKicker: "Testimonials",
     testimonialsTitle: "They chose Wealthcome. And they can talk about it better than we can.",
     testimonialsIntro: "Feedback from firms that use Wealthcome on a daily basis.",
     testimonialTrackAria: "Customer testimonials",
@@ -1972,7 +1923,6 @@ const translations = {
     testimonialNicolas: "After four months of using the tool, as expected, it's intuitive to use; the tutorials are available and answer some questions well. Lilou's and then Nawel's support is responsive and the answers are satisfactory.",
     testimonialNicolasName: "Nicolas",
     testimonialAnonymous: "Anonymous",
-    nextStep: "Your next step",
     footerCtaTitleFirst: "Find the tools",
     footerCtaTitleSecond: "that fit your practice.",
     footerCtaCopy: "Start with your role and priorities.",
@@ -1992,9 +1942,10 @@ const translations = {
     footerCopyright: "© 2026 · Redesign concept by Praise Akinde",
     footerSource: "Descriptions: official website, accessed 13 October 2026 ↗",
     footerLinksAria: "Official links",
-    legalNotice: "Legal notice",
-    privacy: "Privacy",
-    terms: "Terms of use",
+    legalAria: "Legal information",
+    legalNotice: "Legal notice ↗",
+    privacy: "Privacy ↗",
+    terms: "Terms of use ↗",
     closeAria: "Close dialog",
     demoTitle: "Plan your demo",
     step: "Step {current} of {total}",
@@ -2026,12 +1977,12 @@ const translations = {
 };
 
 const products = {
-  wealthpro: { title: "wealthpro", copy: "wealthproCopy", group: "detailGroupPlatform", href: "https://www.wealthcome.fr/wealth-pro" },
-  binom: { title: "binom", copy: "binomCopy", group: "detailGroupPlatform", status: "binomStatus", href: "https://www.wealthcome.fr/wealth-pro" },
-  wealthconnect: { title: "wealthconnect", copy: "wealthconnectCopy", group: "detailGroupModules", status: "connectStatus", href: "https://www.wealthcome.fr/wealth-connect" },
-  wealthlab: { title: "wealthlab", copy: "wealthlabCopy", group: "detailGroupModules", href: "https://www.wealthcome.fr" },
-  wealthtreet: { title: "wealthtreet", copy: "wealthtreetCopy", group: "detailGroupModules", href: "https://www.wealthcome.fr" },
-  wealthone: { title: "wealthone", copy: "wealthoneCopy", group: "detailGroupEnterprise", href: "https://www.wealthcome.fr" }
+  wealthpro: { title: "wealthpro", copy: "wealthproCopy", href: "https://www.wealthcome.fr/wealth-pro" },
+  binom: { title: "binom", copy: "binomCopy", status: "binomStatus", href: "https://www.wealthcome.fr/blog/binom-lia-wealthcome-integree-a-wealthpro-pour-les-cgp" },
+  wealthconnect: { title: "wealthconnect", copy: "wealthconnectCopy", status: "connectStatus", href: "https://www.wealthcome.fr/wealth-connect" },
+  wealthlab: { title: "wealthlab", copy: "wealthlabCopy", href: "https://www.wealthcome.fr/wealthlab" },
+  wealthtreet: { title: "wealthtreet", copy: "wealthtreetCopy", href: "https://www.wealthcome.fr/wealth-treet" },
+  wealthone: { title: "wealthone", copy: "wealthoneCopy", href: "https://www.wealthcome.fr/wealth-one" }
 };
 let language = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "fr";
 let demoStep = 1;
@@ -2063,7 +2014,7 @@ function updateTestimonialToggle() {
   const label = t(paused ? "testimonialResume" : "testimonialPause");
   testimonialToggle.setAttribute("aria-label", label);
   testimonialToggle.title = label;
-  document.getElementById("testimonial-toggle-icon").setAttribute("d", paused ? "M8 5.5v13l10.5-6.5z" : "M9 5v14m6-14v14");
+  document.getElementById("testimonial-toggle-icon").setAttribute("d", paused ? "M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" : "M15.75 5.25v13.5m-7.5-13.5v13.5");
 }
 
 function showTestimonial(index, { focusTab = false, direction = 0, fling = true } = {}) {
@@ -2192,7 +2143,7 @@ function translatePage() {
     link.setAttribute("aria-label", t("openOfficial", { name: t(product.title) }));
   });
   document.querySelectorAll(".product-tile").forEach((tile) => {
-    tile.setAttribute("aria-label", t("openOfficial", { name: t(products[tile.dataset.product].title) }));
+    tile.querySelector("[data-open-product]").setAttribute("aria-label", t("openDetails", { name: t(products[tile.dataset.product].title) }));
   });
   if (selectedSlot) renderSelectedSlot();
   if (!document.getElementById("profile-error").hidden) document.getElementById("profile-error").textContent = t("requiredProfile");
@@ -2345,7 +2296,6 @@ function renderProductDialog(productId) {
   const product = products[productId];
   if (!product) throw new Error(`Unknown product: ${productId}`);
   productDialog.dataset.product = productId;
-  document.getElementById("product-dialog-group").textContent = t(product.group);
   document.getElementById("product-dialog-title").textContent = t(product.title);
   document.getElementById("product-dialog-copy").textContent = t(product.copy);
   const status = document.getElementById("product-dialog-status");
@@ -2365,16 +2315,12 @@ function openProductDialog(article) {
 
 const productTiles = [...document.querySelectorAll(".product-tile")];
 productTiles.forEach((tile) => {
-  tile.setAttribute("aria-label", t("openOfficial", { name: t(products[tile.dataset.product].title) }));
+  // The whole card is a mouse target; keyboard and assistive tech use the details button and the official link.
   tile.addEventListener("click", (event) => {
     if (event.target.closest("a")) return;
     openProductDialog(tile);
   });
-  tile.addEventListener("keydown", (event) => {
-    if (event.target === tile && (event.key === "Enter" || event.key === " ")) {
-      event.preventDefault();
-      openProductDialog(tile);
-    }
+  tile.querySelector("[data-open-product]").addEventListener("keydown", (event) => {
     if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
       event.preventDefault();
       moveTileFocus(tile, event.key);
@@ -2411,12 +2357,8 @@ function moveTileFocus(current, direction) {
   });
   const directional = candidates.filter((candidate) => candidate.forward).sort((a, b) => a.score - b.score)[0];
   const fallback = (sign > 0 ? candidates : [...candidates].reverse())[0];
-  (directional || fallback)?.tile.focus();
+  (directional || fallback)?.tile.querySelector("[data-open-product]").focus();
 }
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && navigation.classList.contains("is-open")) closeMenu();
-});
 
 translatePage();
 </script>
